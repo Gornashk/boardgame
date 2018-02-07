@@ -1,0 +1,7 @@
+{
+  "name": "exacta-base",
+  "directory" : "/",
+  "dependencies": {
+    "": ""
+  }
+}

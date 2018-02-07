@@ -1,0 +1,44 @@
+// Grays
+// -------------------------
+$black:                 #000;
+$grayDarker:            #222;
+$grayDark:              #333;
+$gray:                  #555;
+$grayLight:             #d4d4d4;
+$grayLighter:           #eee;
+$white:                 #fff;
+
+
+// Accent colors
+// -------------------------
+$blue:                  #17579e;
+$lightBlue:             lighten($blue,15%);
+$darkBlue:              darken($blue,15%);
+$red:                   #c33c54;
+$lightRed:							lighten($red,15%);
+$darkRed:               darken($red,15%);
+
+
+// Site Colors
+// -------------------------
+$primary-color:   $blue;
+$secondary-color:	$red;
+
+
+
+// Typography
+// -------------------------
+//$font-stack:      Helvetica, sans-serif;
+
+$sansFontFamily:        'Raleway', 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$serifFontFamily:       Georgia, "Times New Roman", Times, serif;
+$monoFontFamily:        Monaco, Menlo, Consolas, "Courier New", monospace;
+
+$baseFontSize:          16px;
+$baseFontFamily:        $sansFontFamily;
+$baseLineHeight:        20px;
+$altFontFamily:         $serifFontFamily;
+
+$headingsFontFamily:    inherit; // empty to use BS default, @baseFontFamily
+$headingsFontWeight:    bold;    // instead of browser default, bold
+$headingsColor:         inherit; // empty to use BS default, @textColor
