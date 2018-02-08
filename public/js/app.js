@@ -23074,12 +23074,7 @@ var _vueInstantsearch2 = _interopRequireDefault(_vueInstantsearch);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-Vue.use(_vueInstantsearch2.default);
-//import vueInstant from 'vue-instant';
-//import { createFromAlgoliaCredentials } from 'vue-instantsearch';
-
-//
-//
+Vue.use(_vueInstantsearch2.default); //
 //
 //
 //
@@ -23155,9 +23150,10 @@ module.exports = {
   data: function data() {
     return {
       posts: [],
+      filterdBGG: [],
       createThing: [],
-      query: ''
-      //searchStore: createFromAlgoliaCredentials('LXQBY5Z3HD', 'c9b85b2d6f1cc197402589cd615b3cd5'),
+      query: '',
+      searchStore: (0, _vueInstantsearch.createFromAlgoliaCredentials)('LXQBY5Z3HD', 'c9b85b2d6f1cc197402589cd615b3cd5')
     };
   },
   mounted: function mounted() {
@@ -23190,7 +23186,13 @@ module.exports = {
     bggFiltered: function bggFiltered() {}
   },
   methods: {
-    filterBGG: function filterBGG() {},
+    filterBGG: function filterBGG(bggPosts) {
+
+      // filterBGG = [];
+      // filterBGG = bggPosts.filter(bggPost => bggPost._attr.id._value != )
+      // for (var i = 0; i < bggPosts.length; i++) { 
+      //   if(bggPosts._attr.id._value ===
+    },
     sortBGG: function sortBGG() {},
     createPost: function createPost(name, id) {
       var _this2 = this;
@@ -37388,8 +37390,7 @@ var render = function() {
                       }
                     ],
                     attrs: {
-                      "app-id": "LXQBY5Z3HD",
-                      "api-key": "c9b85b2d6f1cc197402589cd615b3cd5",
+                      searchStore: _vm.searchStore,
                       "index-name": "boardgame_local_posts_post",
                       query: _vm.query
                     }

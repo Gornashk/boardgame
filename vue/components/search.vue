@@ -7,8 +7,7 @@
           <input type="text" v-model="query" placeholder="Search by game name..." />
           <div class="resultContainer">
             <ais-index
-            app-id="LXQBY5Z3HD"
-            api-key="c9b85b2d6f1cc197402589cd615b3cd5"
+            :searchStore="searchStore"
             index-name="boardgame_local_posts_post"
             :query="query"
             v-show="query.length > 1">
@@ -74,17 +73,17 @@ import axios from 'axios';
 import xmltojson from 'xmltojson';
 import InstantSearch from 'vue-instantsearch';
 Vue.use(InstantSearch);
-//import vueInstant from 'vue-instant';
-//import { createFromAlgoliaCredentials } from 'vue-instantsearch';
+import { createFromAlgoliaCredentials } from 'vue-instantsearch';
 
 module.exports = {
   props: ["options"],
   data () {
     return {
       posts: [],
+      filterdBGG: [],
       createThing: [],
       query: '',
-      //searchStore: createFromAlgoliaCredentials('LXQBY5Z3HD', 'c9b85b2d6f1cc197402589cd615b3cd5'),
+      searchStore: createFromAlgoliaCredentials('LXQBY5Z3HD', 'c9b85b2d6f1cc197402589cd615b3cd5'),
     }
   },
   mounted () {
@@ -119,8 +118,12 @@ module.exports = {
     }
   },
   methods: {
-    filterBGG () {
-      
+    filterBGG (bggPosts) {
+
+      // filterBGG = [];
+      // filterBGG = bggPosts.filter(bggPost => bggPost._attr.id._value != )
+      // for (var i = 0; i < bggPosts.length; i++) { 
+      //   if(bggPosts._attr.id._value ===
     },
     sortBGG () {
 
