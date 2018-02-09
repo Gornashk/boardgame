@@ -24,7 +24,7 @@
             </ais-index>
             <ul class="bggResults">
               <li 
-              v-for="post in posts"
+              v-for="post in filteredBGG"
               :key="post.id"
               v-html="post.name[0]._attr.value._value"
               @click="createPost(post.name[0]._attr.value._value, post._attr.id._value)"></li>
@@ -72,6 +72,7 @@
 import axios from 'axios';
 import xmltojson from 'xmltojson';
 import InstantSearch from 'vue-instantsearch';
+import _uniq from 'lodash/uniq';
 Vue.use(InstantSearch);
 import { createFromAlgoliaCredentials } from 'vue-instantsearch';
 
@@ -80,7 +81,7 @@ module.exports = {
   data () {
     return {
       posts: [],
-      filterdBGG: [],
+      filteredBGG: [],
       createThing: [],
       query: '',
       searchStore: createFromAlgoliaCredentials('LXQBY5Z3HD', 'c9b85b2d6f1cc197402589cd615b3cd5'),
@@ -103,27 +104,39 @@ module.exports = {
         var bggresponse = xmltojson.parseString(response.data)
         this.posts = bggresponse.items[0].item
       })
-      .then( () => {
-        this.filterBGG(this.posts);
-      })
       .catch(function (error) {
         this.posts = 'Error! Could not reach the API. ' + error
       })
+      .then( (response) => {
+        this.filterBGG(this.posts);
+      })
+      
     }, 500)
     
   },
   computed: {
-    bggFiltered () {
-
-    }
   },
   methods: {
     filterBGG (bggPosts) {
+      var that = this;
+      var bggMatch = []
+      // Filter to compare algolia and Board Game Geeks results
+      bggPosts.filter(function (el) {
+        // loop through Algolia results
+        for (var i = 0; i < that.searchStore._results.length; i++) {
+          // push to match array if algolia result matches BGG result
+          if( el._attr.id._value == that.searchStore._results[i].bgg_id ) {
+            bggMatch.push(el)
+          }
+        }
+      })
 
-      // filterBGG = [];
-      // filterBGG = bggPosts.filter(bggPost => bggPost._attr.id._value != )
-      // for (var i = 0; i < bggPosts.length; i++) { 
-      //   if(bggPosts._attr.id._value ===
+      // filter out matches from BGG results
+      var bggFiltered = bggPosts.filter(function(e){
+        return this.indexOf(e) < 0;
+      }, bggMatch)
+
+      this.filteredBGG = bggFiltered
     },
     sortBGG () {
 

@@ -64,8 +64,36 @@ function crafted_var_dump($var)
 
 // Enable Featured Image
 if ( function_exists( 'add_theme_support' ) ) { 
-    add_theme_support( 'post-thumbnails' ); 
-  }
+  add_theme_support( 'post-thumbnails' ); 
+}
+
+// Fields to Algolia
+add_filter( 'algolia_post_shared_attributes', 'my_post_attributes', 10, 2 );
+add_filter( 'algolia_searchable_post_shared_attributes', 'my_post_attributes', 10, 2 );
+
+/**
+ * @param array   $attributes
+ * @param WP_Post $post
+ *
+ * @return array
+ */
+function my_post_attributes( array $attributes, WP_Post $post ) {
+
+    if ( 'post' !== $post->post_type ) {
+        // We only want to add an attribute for the 'speaker' post type.
+        // Here the post isn't a 'speaker', so we return the attributes unaltered.
+        return $attributes;
+    }
+
+    // Get the field value with the 'get_field' method and assign it to the attributes array.
+    // @see https://www.advancedcustomfields.com/resources/get_field/
+    $attributes['bgg_id'] = intval( get_field( 'bgg_id', $post->ID ) );
+
+    // Always return the value we are filtering.
+    return $attributes;
+}
+
+
   
   function add_custom_taxonomies() {
       // Add new "Locations" taxonomy to Posts

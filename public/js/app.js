@@ -23072,9 +23072,12 @@ var _vueInstantsearch = __webpack_require__(200);
 
 var _vueInstantsearch2 = _interopRequireDefault(_vueInstantsearch);
 
+var _uniq2 = __webpack_require__(387);
+
+var _uniq3 = _interopRequireDefault(_uniq2);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-Vue.use(_vueInstantsearch2.default); //
 //
 //
 //
@@ -23144,13 +23147,17 @@ Vue.use(_vueInstantsearch2.default); //
 //
 //
 //
+//
+
+Vue.use(_vueInstantsearch2.default);
+
 
 module.exports = {
   props: ["options"],
   data: function data() {
     return {
       posts: [],
-      filterdBGG: [],
+      filteredBGG: [],
       createThing: [],
       query: '',
       searchStore: (0, _vueInstantsearch.createFromAlgoliaCredentials)('LXQBY5Z3HD', 'c9b85b2d6f1cc197402589cd615b3cd5')
@@ -23174,24 +23181,36 @@ module.exports = {
       }).then(function (response) {
         var bggresponse = _xmltojson2.default.parseString(response.data);
         _this.posts = bggresponse.items[0].item;
-      }).then(function () {
-        _this.filterBGG(_this.posts);
       }).catch(function (error) {
         this.posts = 'Error! Could not reach the API. ' + error;
+      }).then(function (response) {
+        _this.filterBGG(_this.posts);
       });
     }, 500)
 
   },
-  computed: {
-    bggFiltered: function bggFiltered() {}
-  },
+  computed: {},
   methods: {
     filterBGG: function filterBGG(bggPosts) {
+      var that = this;
+      var bggMatch = [];
+      // Filter to compare algolia and Board Game Geeks results
+      bggPosts.filter(function (el) {
+        // loop through Algolia results
+        for (var i = 0; i < that.searchStore._results.length; i++) {
+          // push to match array if algolia result matches BGG result
+          if (el._attr.id._value == that.searchStore._results[i].bgg_id) {
+            bggMatch.push(el);
+          }
+        }
+      });
 
-      // filterBGG = [];
-      // filterBGG = bggPosts.filter(bggPost => bggPost._attr.id._value != )
-      // for (var i = 0; i < bggPosts.length; i++) { 
-      //   if(bggPosts._attr.id._value ===
+      // filter out matches from BGG results
+      var bggFiltered = bggPosts.filter(function (e) {
+        return this.indexOf(e) < 0;
+      }, bggMatch);
+
+      this.filteredBGG = bggFiltered;
     },
     sortBGG: function sortBGG() {},
     createPost: function createPost(name, id) {
@@ -37429,7 +37448,7 @@ var render = function() {
                 _c(
                   "ul",
                   { staticClass: "bggResults" },
-                  _vm._l(_vm.posts, function(post) {
+                  _vm._l(_vm.filteredBGG, function(post) {
                     return _c("li", {
                       key: post.id,
                       domProps: {
@@ -37470,6 +37489,183 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+
+
+Array.prototype.flexFilter = function (info) {
+
+  // Set our variables
+  var matchesFilter,
+      matches = [],
+      count = 0;
+
+  /***********
+    Helper function to loop through the filter criteria to find 
+   ﻿matching values.
+   Each filter criteria is treated as "AND". So each item must 
+    match all the filter criteria to be considered a match.
+   Multiple filter values in a filter field are treated as "OR"
+  ﻿ i.e. ["Blue", "Green"] will yield items matching a value 
+   ﻿of Blue OR Green.
+  ***********﻿*/
+  matchesFilter = function matchesFilter(item) {
+    for (var n = 0; n < info.length; n++) {
+      if (info[n]["Values"].indexOf(item[info[n]["Field"]]) > -1) {
+        count++;
+      }
+    }
+    // If TRUE, then the current item in the array meets 
+    // ﻿all the filter criteria
+    return count == info.length;
+  };
+
+  // Loop through each item in the array
+  for (var i = 0; i < this.length; i++) {
+
+    // Determine if the current item matches the filter criteria
+    if (matchesFilter(this[i])) {
+      matches.push(this[i]);
+    }
+  }
+
+  // Give us a new array containing the objects matching the filter criteria
+  return matches;
+};
+
+/***/ }),
+/* 384 */,
+/* 385 */,
+/* 386 */,
+/* 387 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseUniq = __webpack_require__(388);
+
+/**
+ * Creates a duplicate-free version of an array, using
+ * [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
+ * for equality comparisons, in which only the first occurrence of each element
+ * is kept. The order of result values is determined by the order they occur
+ * in the array.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Array
+ * @param {Array} array The array to inspect.
+ * @returns {Array} Returns the new duplicate free array.
+ * @example
+ *
+ * _.uniq([2, 1, 2]);
+ * // => [2, 1]
+ */
+function uniq(array) {
+  return (array && array.length) ? baseUniq(array) : [];
+}
+
+module.exports = uniq;
+
+
+/***/ }),
+/* 388 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var SetCache = __webpack_require__(102),
+    arrayIncludes = __webpack_require__(104),
+    arrayIncludesWith = __webpack_require__(260),
+    cacheHas = __webpack_require__(106),
+    createSet = __webpack_require__(389),
+    setToArray = __webpack_require__(118);
+
+/** Used as the size to enable large array optimizations. */
+var LARGE_ARRAY_SIZE = 200;
+
+/**
+ * The base implementation of `_.uniqBy` without support for iteratee shorthands.
+ *
+ * @private
+ * @param {Array} array The array to inspect.
+ * @param {Function} [iteratee] The iteratee invoked per element.
+ * @param {Function} [comparator] The comparator invoked per element.
+ * @returns {Array} Returns the new duplicate free array.
+ */
+function baseUniq(array, iteratee, comparator) {
+  var index = -1,
+      includes = arrayIncludes,
+      length = array.length,
+      isCommon = true,
+      result = [],
+      seen = result;
+
+  if (comparator) {
+    isCommon = false;
+    includes = arrayIncludesWith;
+  }
+  else if (length >= LARGE_ARRAY_SIZE) {
+    var set = iteratee ? null : createSet(array);
+    if (set) {
+      return setToArray(set);
+    }
+    isCommon = false;
+    includes = cacheHas;
+    seen = new SetCache;
+  }
+  else {
+    seen = iteratee ? [] : result;
+  }
+  outer:
+  while (++index < length) {
+    var value = array[index],
+        computed = iteratee ? iteratee(value) : value;
+
+    value = (comparator || value !== 0) ? value : 0;
+    if (isCommon && computed === computed) {
+      var seenIndex = seen.length;
+      while (seenIndex--) {
+        if (seen[seenIndex] === computed) {
+          continue outer;
+        }
+      }
+      if (iteratee) {
+        seen.push(computed);
+      }
+      result.push(value);
+    }
+    else if (!includes(seen, computed, comparator)) {
+      if (seen !== result) {
+        seen.push(computed);
+      }
+      result.push(value);
+    }
+  }
+  return result;
+}
+
+module.exports = baseUniq;
+
+
+/***/ }),
+/* 389 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Set = __webpack_require__(280),
+    noop = __webpack_require__(349),
+    setToArray = __webpack_require__(118);
+
+/** Used as references for various `Number` constants. */
+var INFINITY = 1 / 0;
+
+/**
+ * Creates a set object of `values`.
+ *
+ * @private
+ * @param {Array} values The values to add to the set.
+ * @returns {Object} Returns the new set.
+ */
+var createSet = !(Set && (1 / setToArray(new Set([,-0]))[1]) == INFINITY) ? noop : function(values) {
+  return new Set(values);
+};
+
+module.exports = createSet;
 
 
 /***/ })
