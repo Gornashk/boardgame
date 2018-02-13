@@ -1,37 +1,37 @@
-<?php get_header(); ?>
+<?php get_header(); 
+$description = get_field('description');
+$minPlayers = get_field('min_players');
+$maxPlayers = get_field('max_players');
+$minPlaytime = get_field('min_playtime');
+$maxPlaytime = get_field('max_playtime');
+$minAge = get_field('min_age');
+$published = get_field('year_published');
+?>
 <div class="container">
 	<div class="row">
-		<div class="col-md-9 col-md-push-3 col-lg-push-3">
+		<div class="col-md-4">
+			Image goes here
+		</div>
+		<div class="col-md-8">
 			<div id="content">
-				<div class="blog_title"><h1 class="entry-title"><?php the_title();?></h1></div>
-				<div class="blog-date-single"><?php echo the_time( 'F j, Y' ); ?></div><br/>
+				<div class="gameTitle"><h1><?php the_title();?></h1></div>
 				<hr/>
 				<?php the_content(); ?>
-				<br/>
-				<hr/>
-				<br/>
-				
 				</div><!-- End Blog Content -->
 			</div>
-			<div class="col-md-3 col-md-pull-9 col-md-pull-9">
-				<div id="sidebar">
-					<br/>
-					<br/>
-					<img class="lazyload avatar-blog" width="50" height="50" src="<?php echo get_avatar_url(get_avatar( $post->post_author, 150 )); ?>"/>
-
-					<div class="blog-author">
-						<br/>
-						<a href=""><span class="blog-author"><?php the_author_posts_link(); ?></span></a>
-						<br/>
-						<span class="blog-author">author</span>
-						<br/>
-						<br/>
-						<hr align="center" class="blog-author"/>
-					</div>
-					
-				</div>
-			</div>
 	</div>
-	<game-pricing></game-pricing>
+	<div class="row">
+		<div class="col-md-8">
+			<game-pricing></game-pricing>
+		</div>
+		<div class="col-md-4">
+			<!-- Board Game Responsive -->
+			<ins class="adsbygoogle"
+					style="display:block"
+					data-ad-client="ca-pub-0438075078271065"
+					data-ad-slot="4591237891"
+					data-ad-format="auto"></ins>
+		</div>
+	</div>
 </div><!-- End First Container -->
 <?php get_footer(); ?>

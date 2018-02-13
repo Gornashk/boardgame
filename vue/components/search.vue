@@ -70,6 +70,7 @@
 
 <script>
 import axios from 'axios';
+import axiosCancel from 'axios-cancel';
 import xmltojson from 'xmltojson';
 import InstantSearch from 'vue-instantsearch';
 import _uniq from 'lodash/uniq';
@@ -85,6 +86,8 @@ module.exports = {
       createThing: [],
       query: '',
       searchStore: createFromAlgoliaCredentials('LXQBY5Z3HD', 'c9b85b2d6f1cc197402589cd615b3cd5'),
+      resultCount: '',
+      upcResponse: []
     }
   },
   mounted () {
@@ -93,50 +96,70 @@ module.exports = {
     //console.log(adminAjax)
   },
   watch: {
-    
-    query: _.debounce(function () {
-      axios({
-        method: 'get',
-        url: 'https://www.boardgamegeek.com/xmlapi2/search?type=boardgame&query=' + this.query,
-        responseType: 'text'
-      })
-      .then((response) => {
-        var bggresponse = xmltojson.parseString(response.data)
-        this.posts = bggresponse.items[0].item
-      })
-      .catch(function (error) {
-        this.posts = 'Error! Could not reach the API. ' + error
-      })
-      .then( (response) => {
-        this.filterBGG(this.posts);
-      })
-      
+    query: _.debounce(function() {
+      const requestId = 'my_sample_request';
+      this.bggQuery(requestId)
     }, 500)
     
   },
   computed: {
+    
   },
   methods: {
+    bggQuery (requestId) {
+      
+      // var CancelToken = axios.CancelToken;
+      // var source = CancelToken.source();
+      // console.log(source)
+      var bggUrl = 'https://www.boardgamegeek.com/xmlapi2/search?type=boardgame&query=' + this.query
+
+      axiosCancel(axios, {
+        debug: false // default 
+      });
+
+      axios.cancel(requestId)
+
+      const promise = axios.get(bggUrl, {
+        requestId: requestId,
+        responseType: 'text'
+      })
+        .then((res) => {
+          console.log('resolved promise');
+          var bggresponse = xmltojson.parseString(res.data)
+          this.posts = bggresponse.items[0].item
+        }).catch((thrown) => {
+          if (axios.isCancel(thrown)) {
+            console.log('request cancelled');
+          } else {
+            console.log('some other reason');
+          }
+        }).then( (res) => {
+          this.filterBGG(this.posts);
+        })
+    },
+
     filterBGG (bggPosts) {
       var that = this;
       var bggMatch = []
       // Filter to compare algolia and Board Game Geeks results
-      bggPosts.filter(function (el) {
-        // loop through Algolia results
-        for (var i = 0; i < that.searchStore._results.length; i++) {
-          // push to match array if algolia result matches BGG result
-          if( el._attr.id._value == that.searchStore._results[i].bgg_id ) {
-            bggMatch.push(el)
+      if(bggPosts) {
+        bggPosts.filter(function (el) {
+          // loop through Algolia results
+          for (var i = 0; i < that.searchStore._results.length; i++) {
+            // push to match array if algolia result matches BGG result
+            if( el._attr.id._value == that.searchStore._results[i].bgg_id ) {
+              bggMatch.push(el)
+            }
           }
-        }
-      })
+        })
 
-      // filter out matches from BGG results
-      var bggFiltered = bggPosts.filter(function(e){
-        return this.indexOf(e) < 0;
-      }, bggMatch)
+        // filter out matches from BGG results
+        var bggFiltered = bggPosts.filter(function(e){
+          return this.indexOf(e) < 0;
+        }, bggMatch)
 
-      this.filteredBGG = bggFiltered
+        this.filteredBGG = bggFiltered
+      }
     },
     sortBGG () {
 
@@ -149,6 +172,7 @@ module.exports = {
       })
       .then((response) => {
         // console.log(response)
+        var that = this;
         var thingResponse = xmltojson.parseString(response.data)
         var thing = thingResponse.items[0].item
 
@@ -226,7 +250,7 @@ module.exports = {
             //console.log('success')
               console.log(data);
               var postID = data.toString().substr(0, data.toString().length - 1);
-              window.location.replace( siteUrl + '/?p=' + postID );
+              that.getGameIDs(name, postID)
           },
           error: function(data) {
             console.log('error')
@@ -237,7 +261,75 @@ module.exports = {
 
       })
       
-    }
+    },
+    getGameIDs (name, postID) {
+      var that = this;
+      var title = encodeURIComponent(name);
+
+      axios.get(adminAjax, {
+        responseType: 'json',
+        params: {
+          action: "ks_getUpcIds",
+          gameTitle: title
+        }
+      })
+      .then((response) => {
+        console.log(response)
+        this.upcResponse = response.data
+      })
+      .catch(function (error) {
+        this.upcResponse = 'Error! Could not reach the API. ' + error
+      })
+      .then(() => {
+        this.saveGameIDs(postID)
+      })
+    },
+    saveGameIDs (postID) {
+      var responseItems = this.upcResponse.items
+      var upc = [];
+      var asin = [];
+      var ean = [];
+      var elid = [];
+      var mpn = [];
+      responseItems.forEach(function(item){
+        upc.push(item.upc)
+        asin.push(item.asin)
+        ean.push(item.ean)
+        elid.push(item.elid)
+        mpn.push(item.model)
+      })
+      upc = _.compact(upc)
+      asin = _.compact(asin)
+      ean = _.compact(ean)
+      elid = _.compact(elid)
+      mpn = _.compact(mpn)
+
+      jQuery.ajax({
+        type: "post",
+        url: adminAjax,
+        //contentType: 'application/json; charset=utf-8',
+        dataType: "json",
+        data: { 
+          action: "ks_saveGameIds",
+          nonce: nonce,
+          postID: postID,
+          upc: upc,
+          asin: asin,
+          ean: ean,
+          elid: elid,
+          mpn: mpn
+         },
+        success: function(data){
+          console.log(data);
+          // Send user to newly created game post
+          window.location.replace( siteUrl + '/?p=' + postID );
+        },
+        error: function(data) {
+          console.log('error')
+          console.log(data);
+        }
+      })
+    },
   }
 }
 

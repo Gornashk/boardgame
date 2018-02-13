@@ -289,16 +289,6 @@ function my_post_attributes( array $attributes, WP_Post $post ) {
     );  
     $game_post_ID = wp_insert_post($game_post);
   
-    //wp_set_object_terms( $shirt_post_ID, $site, $taxonomy );
-    // add_post_meta( $game_post_ID, 'bgg_id', $bggID );
-    // add_post_meta( $game_post_ID, 'description', $description );
-    // add_post_meta( $game_post_ID, 'max_players', $maxPlayers );
-    // add_post_meta( $game_post_ID, 'min_players', $minPlayers );
-    // add_post_meta( $game_post_ID, 'min_playtime', $minPlayTime );
-    // add_post_meta( $game_post_ID, 'max_playtime', $maxPlayTime );
-    // add_post_meta( $game_post_ID, 'min_age', $minAge );
-    // add_post_meta( $game_post_ID, 'year_published', $yearPublished );
-  
     update_field('field_5a2dbe2658a21', $bggID, $game_post_ID);
     update_field('field_5a3d654a4a6f4', $description, $game_post_ID);
     update_field('field_5a3d64d04a6f0', $maxPlayers, $game_post_ID);

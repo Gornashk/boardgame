@@ -1,9 +1,13 @@
 <template>
   <div>
-    <ul>
-      <li><a href="#">{{game.title}}</a></li>
-    </ul>
-    <span v-html="amazonResponse"></span>
+    <h4>Current Offers for {{game.title}}</h4>
+    <div class="priceTable">
+      <div v-if="amazonResponse">
+        <a :href="amazonLink">Amazon.com</a>
+        <span v-html="amazonPrice"></span>
+        <a :href="amazonLink" class="storeBtn">Visit Store</a>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -18,7 +22,11 @@ module.exports = {
       game: singleGame,
       upcResponse: [],
       amazonError: '',
-      amazonResponse: []
+      amazonResponse: [],
+      amazonPrice: '',
+      amazonLink: '',
+      amazonDate: '',
+      amazonASIN: ''
     }
   },
   mounted () {
@@ -72,6 +80,18 @@ module.exports = {
       .catch(function (error) {
         that.amazonError = 'Error! Could not get Amazon prices. ' + error
       })
+      .then( () => {
+        this.saveAmazon()  
+      })
+    },
+    saveAmazon () {
+      if(this.amazonResponse) {
+        // this.amazonPrice = this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].OfferSummary[0].LowestNewPrice[0].FormattedPrice[0]._text;
+        this.amazonPrice = this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].Offers[0].Offer[0].OfferListing[0].Price[0].FormattedPrice[0]._text;
+        // this.amazonAvailable = this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].Offers[0].Offer[0].OfferListing[0].Availability[0]
+        this.amazonASIN = this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].ASIN[0]._text;
+        this.amazonLink = this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].DetailPageURL[0]._text;
+      }
     },
     getGameIDs () {
       if( this.game.acf.upcs ) {

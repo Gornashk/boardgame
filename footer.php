@@ -9,5 +9,9 @@
 </div><!-- #page -->
 <?php wp_footer(); ?> 
 
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 </body>
 </html> <!-- end page. what a ride! -->

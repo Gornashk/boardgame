@@ -3896,7 +3896,6 @@ acronym {
 
 mark,
 ins {
-  background: #fff9c0;
   text-decoration: none;
 }
 
@@ -3956,7 +3955,6 @@ img {
 #app {
   max-width: 100%;
   width: 100%;
-  height: 100vh;
   overflow-x: hidden;
 }
 
@@ -4187,5 +4185,9 @@ img {
 .lines-button.x.close .lines:after {
   -webkit-transform: rotate3d(0, 0, 1, -45deg);
           transform: rotate3d(0, 0, 1, -45deg);
+}
+
+.gameTitle h1 {
+  font-size: 2em;
 }
 

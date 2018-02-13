@@ -14,6 +14,7 @@
 		var adminAjax = '<?php echo admin_url('admin-ajax.php'); ?>';
 		var siteUrl = 'http://boardgame.local';
 	</script>
+	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 </head>
 
 <body <?php body_class(); ?>>

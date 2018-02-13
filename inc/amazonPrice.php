@@ -6,12 +6,6 @@ function ks_getAmazonPrice() {
     $eanCode = $_GET['ean'];
     $upcCode = $_GET['upc'];
     $elidCode = $_GET['elid'];
-    
-    // var_dump($_GET);
-    // var_dump($asinCode);
-
-    // return;
-    // die();
 
 
     if( isset($asinCode) ) {
@@ -27,10 +21,6 @@ function ks_getAmazonPrice() {
         $itemID = $elidCode;
         $idType = 'ELID';
     }
-
-    // var_dump($itemID);
-    // return;
-    // die();
 
     if( !isset($itemID) ) {
         return;
