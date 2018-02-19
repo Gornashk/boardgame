@@ -31,10 +31,13 @@
 	<header class="site-header" itemscope="" itemtype="http://schema.org/WPHeader">
 	  <div class="container">
 	    <div class="row">
-	      <div class="col-md-4">
-	        <a href="/" class="site-logo"><img src="https://placehold.it/200x70"></a>
+	      <div class="col-sm-6 col-md-4">
+	        <a href="/" class="site-logo">
+						<img src="<?php echo get_stylesheet_directory_uri(); ?>/img/Board_Game_Deals_logo.svg" 
+						alt="<?php echo get_bloginfo('name') .' | '. get_bloginfo('description'); ?>">
+					</a>
 	      </div>
-	      <div class="col-md-8">
+	      <div class="col-sm-6 col-md-8">
 	        <?php wp_nav_menu( array( 'theme_location' => 'main-nav' ) ); ?>
 	        
 	        <div class="navicon-wrap">

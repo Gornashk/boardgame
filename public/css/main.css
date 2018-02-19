@@ -3757,13 +3757,13 @@ body {
 }
 
 a {
-  color: #17579e;
+  color: #3F5765;
 }
 
 a:hover,
 a:active,
 a:focus {
-  color: #0d325b;
+  color: #2B3A42;
   text-decoration: none;
 }
 
@@ -3945,7 +3945,12 @@ img {
 }
 
 .site-header {
-  background-color: #eee;
+  background-color: #fff;
+}
+
+.site-header .site-logo {
+  padding: 1em 0;
+  display: block;
 }
 
 .site-footer {
@@ -4009,7 +4014,7 @@ img {
 }
 
 .navigation-mobile a:hover {
-  color: #eee;
+  color: #EFEFEF;
 }
 
 .navigation-mobile .sub-menu,
@@ -4028,7 +4033,7 @@ img {
 .navigation-mobile .children a {
   padding: 0.25em 1.5em !important;
   background: #333;
-  color: #eee !important;
+  color: #EFEFEF !important;
 }
 
 .navigation-mobile .sub-menu a:hover,
@@ -4185,6 +4190,12 @@ img {
 .lines-button.x.close .lines:after {
   -webkit-transform: rotate3d(0, 0, 1, -45deg);
           transform: rotate3d(0, 0, 1, -45deg);
+}
+
+.gameStats {
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 .gameTitle h1 {

@@ -5,15 +5,18 @@ $grayDarker:            #222;
 $grayDark:              #333;
 $gray:                  #555;
 $grayLight:             #d4d4d4;
-$grayLighter:           #eee;
+$grayLighter:           #EFEFEF;
 $white:                 #fff;
 
 
 // Accent colors
 // -------------------------
-$blue:                  #17579e;
-$lightBlue:             lighten($blue,15%);
-$darkBlue:              darken($blue,15%);
+$blue:                  #3F5765;
+$lightBlue:             #BDD4DE;
+$darkBlue:              #2B3A42;
+$orange:                #FF530D;
+$darkOrange:            darken($orange,15%);
+$lightOrange:           lighten($orange,15%);
 $red:                   #c33c54;
 $lightRed:							lighten($red,15%);
 $darkRed:               darken($red,15%);
@@ -33,6 +36,7 @@ $secondary-color:	$red;
 $sansFontFamily:        'Raleway', 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 $serifFontFamily:       Georgia, "Times New Roman", Times, serif;
 $monoFontFamily:        Monaco, Menlo, Consolas, "Courier New", monospace;
+$iconFontFamily:				'FontAwesome';
 
 $baseFontSize:          16px;
 $baseFontFamily:        $sansFontFamily;

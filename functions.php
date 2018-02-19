@@ -272,6 +272,7 @@ function my_post_attributes( array $attributes, WP_Post $post ) {
     $minPlayTime = $_POST['minPlayTime'];
     $minAge = $_POST['minAge'];
     $yearPublished = $_POST['yearPublished'];
+    $rating = $_POST['rating'];
   
     //return;
     $date = current_time( 'Y-m-d H:i:s', $gmt = 0 );
@@ -297,6 +298,7 @@ function my_post_attributes( array $attributes, WP_Post $post ) {
     update_field('field_5a3d65134a6f2', $maxPlayTime, $game_post_ID);
     update_field('field_5a2ef263d448f', $minAge, $game_post_ID);
     update_field('field_5a3d65c34a6f5', $yearPublished, $game_post_ID);
+    update_field('field_5a88641b23010', $rating, $game_post_ID);
   
     // Set Board Game Categories
     foreach($categories as $cat) {

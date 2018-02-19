@@ -167,7 +167,7 @@ module.exports = {
     createPost (name, id) {
       axios({
         method: 'get',
-        url: 'https://www.boardgamegeek.com/xmlapi2/thing?id=' + id,
+        url: 'https://www.boardgamegeek.com/xmlapi2/thing?id=' + id + '&ratingcomments=1&stats=1',
         responseType: 'text'
       })
       .then((response) => {
@@ -186,6 +186,7 @@ module.exports = {
         var minPlayTime = '';
         var minAge = '';
         var yearPublished = '';
+        var rating = '';
         var categories = [];
 
         if(this.createThing.description) {
@@ -211,6 +212,9 @@ module.exports = {
         }
         if(this.createThing.yearpublished) {
           yearPublished = this.createThing.yearpublished[0]._attr.value._value;
+        }
+        if(this.createThing.statistics) {
+          rating = this.createThing.statistics[0].ratings[0].average[0]._attr.value._value;
         }
 
         if( this.createThing.link.length > 0 ) {
@@ -243,7 +247,8 @@ module.exports = {
             maxPlayTime: maxPlayTime,
             minPlayTime: minPlayTime,
             minAge: minAge,
-            yearPublished: yearPublished
+            yearPublished: yearPublished,
+            rating: rating
            },
           success: function(data){
             //alert('success');
@@ -322,7 +327,7 @@ module.exports = {
         success: function(data){
           console.log(data);
           // Send user to newly created game post
-          window.location.replace( siteUrl + '/?p=' + postID );
+          // window.location.replace( siteUrl + '/?p=' + postID );
         },
         error: function(data) {
           console.log('error')
