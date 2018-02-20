@@ -1,3 +1,5 @@
+FontAwesomeConfig = { searchPseudoElements: true };
+
 Array.prototype.flexFilter = function(info) {
   
   // Set our variables

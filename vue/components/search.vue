@@ -1,5 +1,5 @@
 <template>
-  <div id="heroSearchBar" :style="{ backgroundImage: 'url(' + options.search_background.sizes.large + ')' }">>
+  <div id="heroSearchBar" :style="{ backgroundImage: 'url(' + options.search_background.sizes.large + ')' }">
     <div class="container">
       <div class="row">
         <div class="col-md-12">

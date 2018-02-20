@@ -2,10 +2,75 @@
   <div>
     <h4>Current Offers for {{game.title}}</h4>
     <div class="priceTable">
-      <div v-if="amazonResponse">
-        <a :href="amazonLink">Amazon.com</a>
-        <span v-html="amazonPrice"></span>
-        <a :href="amazonLink" class="storeBtn">Visit Store</a>
+      <div class="priceRow" v-if="amazonResponse.ItemLookupResponse">
+        <div class="rowName">
+          <a :href="amazonData.amazonLink">Amazon.com</a>
+        </div>
+        <div class="rowPrice">
+          <span v-html="amazonData.amazonPrice"></span>
+        </div>
+        <div class="rowStock">
+          <span v-html="amazonData.amazonStock"></span>
+        </div>
+        <div class="rowLink">
+          <a :href="amazonData.amazonLink" class="storeBtn">Visit Store</a>
+        </div>
+      </div>
+      <div class="priceRow">
+        <div class="rowName">
+          <a href="">Walmart.com</a>
+        </div>
+        <div class="rowPrice">
+          <span>$55.66</span>
+        </div>
+        <div class="rowStock">
+          <span>In Stock</span>
+        </div>
+        <div class="rowLink">
+          <a href="" class="storeBtn">Visit Store</a>
+        </div>
+      </div>
+      <div class="priceRow">
+        <div class="rowName">
+          <a href="">Booksamillion.com</a>
+        </div>
+        <div class="rowPrice">
+          <span>$48.66</span>
+        </div>
+        <div class="rowStock">
+          <span>In Stock</span>
+        </div>
+        <div class="rowLink">
+          <a href="" class="storeBtn">Visit Store</a>
+        </div>
+      </div>
+      <div class="priceRow">
+        <div class="rowName">
+          <a href="">Walmart.com</a>
+        </div>
+        <div class="rowPrice">
+          <span>$55.66</span>
+        </div>
+        <div class="rowStock">
+          <span>In Stock</span>
+        </div>
+        <div class="rowLink">
+          <a href="" class="storeBtn">Visit Store</a>
+        </div>
+      </div>
+      <div class="priceRow">
+        <div class="rowName">
+          <a href="">Barnesandnoble.com</a>
+        </div>
+        <div class="rowPrice">
+          <span>$45.66</span>
+        </div>
+        <div class="rowStock">
+          <span>Out of Stock</span>
+        </div>
+        <div class="rowLink">
+          <a href="" class="storeBtn">Visit Store</a>
+        </div>
       </div>
     </div>
   </div>
@@ -21,12 +86,15 @@ module.exports = {
     return {
       game: singleGame,
       upcResponse: [],
-      amazonError: '',
       amazonResponse: [],
-      amazonPrice: '',
-      amazonLink: '',
-      amazonDate: '',
-      amazonASIN: ''
+      amazonData: {
+        amazonPrice: '',
+        amazonLink: '',
+        amazonDate: '',
+        amazonASIN: '',
+        amazonStock: '',
+        amazonError: ''
+      }
     }
   },
   mounted () {
@@ -86,11 +154,10 @@ module.exports = {
     },
     saveAmazon () {
       if(this.amazonResponse) {
-        // this.amazonPrice = this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].OfferSummary[0].LowestNewPrice[0].FormattedPrice[0]._text;
-        this.amazonPrice = this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].Offers[0].Offer[0].OfferListing[0].Price[0].FormattedPrice[0]._text;
-        // this.amazonAvailable = this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].Offers[0].Offer[0].OfferListing[0].Availability[0]
-        this.amazonASIN = this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].ASIN[0]._text;
-        this.amazonLink = this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].DetailPageURL[0]._text;
+        this.amazonData.amazonPrice = this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].Offers[0].Offer[0].OfferListing[0].Price[0].FormattedPrice[0]._text;
+        this.amazonData.amazonStock = this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].Offers[0].Offer[0].OfferListing[0].Availability[0]._text;
+        this.amazonData.amazonASIN = this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].ASIN[0]._text;
+        this.amazonData.amazonLink = this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].DetailPageURL[0]._text;
       }
     },
     getGameIDs () {

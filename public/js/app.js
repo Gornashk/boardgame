@@ -22604,6 +22604,71 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 // require('dotenv').config()
 module.exports = {
@@ -22611,12 +22676,15 @@ module.exports = {
     return {
       game: singleGame,
       upcResponse: [],
-      amazonError: '',
       amazonResponse: [],
-      amazonPrice: '',
-      amazonLink: '',
-      amazonDate: '',
-      amazonASIN: ''
+      amazonData: {
+        amazonPrice: '',
+        amazonLink: '',
+        amazonDate: '',
+        amazonASIN: '',
+        amazonStock: '',
+        amazonError: ''
+      }
     };
   },
   mounted: function mounted() {
@@ -22676,11 +22744,10 @@ module.exports = {
     },
     saveAmazon: function saveAmazon() {
       if (this.amazonResponse) {
-        // this.amazonPrice = this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].OfferSummary[0].LowestNewPrice[0].FormattedPrice[0]._text;
-        this.amazonPrice = this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].Offers[0].Offer[0].OfferListing[0].Price[0].FormattedPrice[0]._text;
-        // this.amazonAvailable = this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].Offers[0].Offer[0].OfferListing[0].Availability[0]
-        this.amazonASIN = this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].ASIN[0]._text;
-        this.amazonLink = this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].DetailPageURL[0]._text;
+        this.amazonData.amazonPrice = this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].Offers[0].Offer[0].OfferListing[0].Price[0].FormattedPrice[0]._text;
+        this.amazonData.amazonStock = this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].Offers[0].Offer[0].OfferListing[0].Availability[0]._text;
+        this.amazonData.amazonASIN = this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].ASIN[0]._text;
+        this.amazonData.amazonLink = this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].DetailPageURL[0]._text;
       }
     },
     getGameIDs: function getGameIDs() {
@@ -22773,25 +22840,139 @@ var render = function() {
     _c("h4", [_vm._v("Current Offers for " + _vm._s(_vm.game.title))]),
     _vm._v(" "),
     _c("div", { staticClass: "priceTable" }, [
-      _vm.amazonResponse
-        ? _c("div", [
-            _c("a", { attrs: { href: _vm.amazonLink } }, [
-              _vm._v("Amazon.com")
+      _vm.amazonResponse.ItemLookupResponse
+        ? _c("div", { staticClass: "priceRow" }, [
+            _c("div", { staticClass: "rowName" }, [
+              _c("a", { attrs: { href: _vm.amazonData.amazonLink } }, [
+                _vm._v("Amazon.com")
+              ])
             ]),
             _vm._v(" "),
-            _c("span", { domProps: { innerHTML: _vm._s(_vm.amazonPrice) } }),
+            _c("div", { staticClass: "rowPrice" }, [
+              _c("span", {
+                domProps: { innerHTML: _vm._s(_vm.amazonData.amazonPrice) }
+              })
+            ]),
             _vm._v(" "),
-            _c(
-              "a",
-              { staticClass: "storeBtn", attrs: { href: _vm.amazonLink } },
-              [_vm._v("Visit Store")]
-            )
+            _c("div", { staticClass: "rowStock" }, [
+              _c("span", {
+                domProps: { innerHTML: _vm._s(_vm.amazonData.amazonStock) }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "rowLink" }, [
+              _c(
+                "a",
+                {
+                  staticClass: "storeBtn",
+                  attrs: { href: _vm.amazonData.amazonLink }
+                },
+                [_vm._v("Visit Store")]
+              )
+            ])
           ])
-        : _vm._e()
+        : _vm._e(),
+      _vm._v(" "),
+      _vm._m(0),
+      _vm._v(" "),
+      _vm._m(1),
+      _vm._v(" "),
+      _vm._m(2),
+      _vm._v(" "),
+      _vm._m(3)
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "priceRow" }, [
+      _c("div", { staticClass: "rowName" }, [
+        _c("a", { attrs: { href: "" } }, [_vm._v("Walmart.com")])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "rowPrice" }, [_c("span", [_vm._v("$55.66")])]),
+      _vm._v(" "),
+      _c("div", { staticClass: "rowStock" }, [
+        _c("span", [_vm._v("In Stock")])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "rowLink" }, [
+        _c("a", { staticClass: "storeBtn", attrs: { href: "" } }, [
+          _vm._v("Visit Store")
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "priceRow" }, [
+      _c("div", { staticClass: "rowName" }, [
+        _c("a", { attrs: { href: "" } }, [_vm._v("Booksamillion.com")])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "rowPrice" }, [_c("span", [_vm._v("$48.66")])]),
+      _vm._v(" "),
+      _c("div", { staticClass: "rowStock" }, [
+        _c("span", [_vm._v("In Stock")])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "rowLink" }, [
+        _c("a", { staticClass: "storeBtn", attrs: { href: "" } }, [
+          _vm._v("Visit Store")
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "priceRow" }, [
+      _c("div", { staticClass: "rowName" }, [
+        _c("a", { attrs: { href: "" } }, [_vm._v("Walmart.com")])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "rowPrice" }, [_c("span", [_vm._v("$55.66")])]),
+      _vm._v(" "),
+      _c("div", { staticClass: "rowStock" }, [
+        _c("span", [_vm._v("In Stock")])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "rowLink" }, [
+        _c("a", { staticClass: "storeBtn", attrs: { href: "" } }, [
+          _vm._v("Visit Store")
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "priceRow" }, [
+      _c("div", { staticClass: "rowName" }, [
+        _c("a", { attrs: { href: "" } }, [_vm._v("Barnesandnoble.com")])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "rowPrice" }, [_c("span", [_vm._v("$45.66")])]),
+      _vm._v(" "),
+      _c("div", { staticClass: "rowStock" }, [
+        _c("span", [_vm._v("Out of Stock")])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "rowLink" }, [
+        _c("a", { staticClass: "storeBtn", attrs: { href: "" } }, [
+          _vm._v("Visit Store")
+        ])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -22907,9 +23088,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
-//
-//
-//
 
 // require('dotenv').config()
 module.exports = {
@@ -22936,22 +23114,27 @@ var render = function() {
       _c("img", { attrs: { src: _vm.game.thumb } })
     ]),
     _vm._v(" "),
-    _c("div", { staticClass: "col-md-8" }, [
+    _c("div", { staticClass: "col-md-8 gameInfoTop" }, [
+      _c("div", { staticClass: "gameTitle" }, [
+        _c("h1", { domProps: { textContent: _vm._s(_vm.game.title) } })
+      ]),
+      _vm._v(" "),
+      _c("hr"),
+      _vm._v(" "),
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col-md-3" }, [
           _c("ul", { staticClass: "gameStats" }, [
-            _c("li", [
-              _c("span", [_vm._v("Rating")]),
+            _c("li", { staticClass: "rating" }, [
+              _c("h6", [_vm._v("Rating")]),
               _vm._v(" "),
-              _c("p", {
-                domProps: { textContent: _vm._s(_vm.game.acf.rating) }
-              })
+              _c("p", [_c("span"), _vm._v(_vm._s(_vm.game.acf.rating))])
             ]),
             _vm._v(" "),
-            _c("li", [
-              _c("span", [_vm._v("# Players")]),
+            _c("li", { staticClass: "players" }, [
+              _c("h6", [_vm._v("# Players")]),
               _vm._v(" "),
               _c("p", [
+                _vm._m(0),
                 _vm._v(
                   _vm._s(_vm.game.acf.min_players) +
                     " - " +
@@ -22960,46 +23143,36 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
-            _c("li", [
-              _vm._m(0),
+            _c("li", { staticClass: "playtime" }, [
+              _c("h6", [_vm._v("Playtime")]),
               _vm._v(" "),
-              _c("p", {
-                domProps: { textContent: _vm._s(_vm.game.acf.min_playtime) }
-              })
+              _c("p", [
+                _vm._m(1),
+                _vm._v(_vm._s(_vm.game.acf.min_playtime) + " Minutes")
+              ])
             ]),
             _vm._v(" "),
-            _c("li", [
-              _c("span", [_vm._v("Age")]),
+            _c("li", { staticClass: "age" }, [
+              _c("h6", [_vm._v("Age")]),
               _vm._v(" "),
-              _c("p", {
-                domProps: { textContent: _vm._s(_vm.game.acf.min_age) }
-              })
+              _c("p", [_vm._m(2), _vm._v(_vm._s(_vm.game.acf.min_age))])
             ]),
             _vm._v(" "),
-            _c("li", [
-              _c("span", [_vm._v("Year Published")]),
+            _c("li", { staticClass: "published" }, [
+              _c("h6", [_vm._v("Year Published")]),
               _vm._v(" "),
-              _c("p", {
-                domProps: { textContent: _vm._s(_vm.game.acf.year_published) }
-              })
+              _c("p", [_c("span"), _vm._v(_vm._s(_vm.game.acf.year_published))])
             ])
           ])
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "col-md-9" }, [
-          _c("div", { attrs: { id: "content" } }, [
-            _c("div", { staticClass: "gameTitle" }, [
-              _c("h1", { domProps: { textContent: _vm._s(_vm.game.title) } })
-            ]),
-            _vm._v(" "),
-            _c("hr"),
-            _vm._v(" "),
-            _c("h3", [_vm._v("Game Description")]),
-            _vm._v(" "),
-            _c("span", {
-              domProps: { innerHTML: _vm._s(_vm.game.acf.description) }
-            })
-          ])
+          _c("h3", [_vm._v("Game Description")]),
+          _vm._v(" "),
+          _c("div", {
+            staticClass: "gameDescription",
+            domProps: { innerHTML: _vm._s(_vm.game.acf.description) }
+          })
         ])
       ])
     ])
@@ -23010,10 +23183,19 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("span", [
-      _c("i", { staticClass: "far fa-clock" }),
-      _vm._v("Playtime")
-    ])
+    return _c("span", [_c("i", { staticClass: "fas fa-users" })])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", [_c("i", { staticClass: "far fa-clock" })])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", [_c("i", { staticClass: "far fa-calendar-alt" })])
   }
 ]
 render._withStripped = true
@@ -37862,7 +38044,6 @@ var render = function() {
       attrs: { id: "heroSearchBar" }
     },
     [
-      _vm._v(">\n  "),
       _c("div", { staticClass: "container" }, [
         _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col-md-12" }, [
@@ -37986,6 +38167,8 @@ if (false) {
 
 "use strict";
 
+
+FontAwesomeConfig = { searchPseudoElements: true };
 
 Array.prototype.flexFilter = function (info) {
 

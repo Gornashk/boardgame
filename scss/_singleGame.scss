@@ -1,10 +1,105 @@
+.gameInfoContainer {
+  margin-bottom: 3em;
+
+  .gameInfoTop {
+    margin-bottom: 1.5em;
+  }
+}
 .gameStats {
   margin: 0;
   padding: 0;
   list-style: none;
+  border: 2px solid $lightBlue;
+  @include border-radius(6px);
+
+  li {
+    padding: .625em .75em;
+    border-bottom: 2px solid $lightBlue;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    h6 {
+      padding-left: 1.75em;
+    }
+
+    p {
+      margin: 0;
+      // position: relative;
+      // padding-left: 1.5em;
+
+      span {
+        width: 1.5em;
+        display: inline-block;
+        margin-right: .25em;
+      }
+
+      // &:before {
+      //   // display: none;
+      //   position: absolute;
+      //   padding-left: 1em;
+      //   width: 1em;
+      //   height: 1em;
+      //   font-family: $iconFontFamily;
+      // }
+    }
+    // &.age p:before {
+    //   content:'\f073';
+    // }
+  }
 }
 .gameTitle {
   h1 {
     font-size: 2em;
+    margin: 0 0 .75em 0;
+  }
+}
+.gameDescription {
+  font-size: .875em;
+  line-height: 1.625em;
+}
+.priceTable {
+  border: 2px solid $lightBlue;
+  @include border-radius(8px);
+
+  .priceRow {
+    display: flex;
+    align-items: center;
+    padding: .5em .875em;
+    border-bottom: 2px solid $lightBlue;
+
+    &:last-child {
+      border-bottom: none;
+    }
+    
+    div {
+      flex: 1 1 25%;
+      text-align: center;
+
+      &.rowName {
+        text-align: left;
+      }
+      &.rowPrice {
+        font-weight: 800;
+      }
+      &.rowLink {
+        text-align: right;
+      }
+    }
+    
+    a.storeBtn:link, a.storeBtn:visited {
+      display: inline-block;
+      padding: .75em 1em;
+      background: $orange;
+      color: $grayLighter;
+      @include border-radius(4px);
+      @include transition(all 0.3s ease-in-out);
+    }
+    a.storeBtn:hover, a.storeBtn:active {
+      background: $darkOrange;
+      color: $white;
+    }
+    
   }
 }

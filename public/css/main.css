@@ -1,4 +1,4 @@
-@import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css);@import url(https://fonts.googleapis.com/css?family=Raleway:400,800);/*!
+@import url(https://fonts.googleapis.com/css?family=Raleway:400,800);/*!
  * Bootstrap v3.3.7 (http://getbootstrap.com)
  * Copyright 2011-2016 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
@@ -3776,6 +3776,8 @@ h4,
 h5,
 h6 {
   clear: both;
+  margin-top: 0;
+  color: #2B3A42;
 }
 
 h1 {
@@ -3946,10 +3948,12 @@ img {
 
 .site-header {
   background-color: #fff;
+  border-bottom: 4px solid #3F5765;
+  margin-bottom: 3em;
 }
 
 .site-header .site-logo {
-  padding: 1em 0;
+  padding: 1.5em 0;
   display: block;
 }
 
@@ -4192,13 +4196,108 @@ img {
           transform: rotate3d(0, 0, 1, -45deg);
 }
 
+.gameInfoContainer {
+  margin-bottom: 3em;
+}
+
+.gameInfoContainer .gameInfoTop {
+  margin-bottom: 1.5em;
+}
+
 .gameStats {
   margin: 0;
   padding: 0;
   list-style: none;
+  border: 2px solid #BDD4DE;
+  border-radius: 6px;
+}
+
+.gameStats li {
+  padding: .625em .75em;
+  border-bottom: 2px solid #BDD4DE;
+}
+
+.gameStats li:last-child {
+  border-bottom: none;
+}
+
+.gameStats li h6 {
+  padding-left: 1.75em;
+}
+
+.gameStats li p {
+  margin: 0;
+}
+
+.gameStats li p span {
+  width: 1.5em;
+  display: inline-block;
+  margin-right: .25em;
 }
 
 .gameTitle h1 {
   font-size: 2em;
+  margin: 0 0 .75em 0;
+}
+
+.gameDescription {
+  font-size: .875em;
+  line-height: 1.625em;
+}
+
+.priceTable {
+  border: 2px solid #BDD4DE;
+  border-radius: 8px;
+}
+
+.priceTable .priceRow {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: .5em .875em;
+  border-bottom: 2px solid #BDD4DE;
+}
+
+.priceTable .priceRow:last-child {
+  border-bottom: none;
+}
+
+.priceTable .priceRow div {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 25%;
+          flex: 1 1 25%;
+  text-align: center;
+}
+
+.priceTable .priceRow div.rowName {
+  text-align: left;
+}
+
+.priceTable .priceRow div.rowPrice {
+  font-weight: 800;
+}
+
+.priceTable .priceRow div.rowLink {
+  text-align: right;
+}
+
+.priceTable .priceRow a.storeBtn:link,
+.priceTable .priceRow a.storeBtn:visited {
+  display: inline-block;
+  padding: .75em 1em;
+  background: #FF530D;
+  color: #EFEFEF;
+  border-radius: 4px;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+.priceTable .priceRow a.storeBtn:hover,
+.priceTable .priceRow a.storeBtn:active {
+  background: #c03700;
+  color: #fff;
 }
 

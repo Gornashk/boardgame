@@ -1,8 +1,10 @@
 .site-header {
   background-color: $white;
+  border-bottom: 4px solid $blue;
+  margin-bottom: 3em;
 
   .site-logo {
-    padding: 1em 0;
+    padding: 1.5em 0;
     display: block;
   }
 }
