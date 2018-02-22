@@ -16,62 +16,6 @@
           <a :href="amazonData.amazonLink" class="storeBtn">Visit Store</a>
         </div>
       </div>
-      <div class="priceRow">
-        <div class="rowName">
-          <a href="">Walmart.com</a>
-        </div>
-        <div class="rowPrice">
-          <span>$55.66</span>
-        </div>
-        <div class="rowStock">
-          <span>In Stock</span>
-        </div>
-        <div class="rowLink">
-          <a href="" class="storeBtn">Visit Store</a>
-        </div>
-      </div>
-      <div class="priceRow">
-        <div class="rowName">
-          <a href="">Booksamillion.com</a>
-        </div>
-        <div class="rowPrice">
-          <span>$48.66</span>
-        </div>
-        <div class="rowStock">
-          <span>In Stock</span>
-        </div>
-        <div class="rowLink">
-          <a href="" class="storeBtn">Visit Store</a>
-        </div>
-      </div>
-      <div class="priceRow">
-        <div class="rowName">
-          <a href="">Walmart.com</a>
-        </div>
-        <div class="rowPrice">
-          <span>$55.66</span>
-        </div>
-        <div class="rowStock">
-          <span>In Stock</span>
-        </div>
-        <div class="rowLink">
-          <a href="" class="storeBtn">Visit Store</a>
-        </div>
-      </div>
-      <div class="priceRow">
-        <div class="rowName">
-          <a href="">Barnesandnoble.com</a>
-        </div>
-        <div class="rowPrice">
-          <span>$45.66</span>
-        </div>
-        <div class="rowStock">
-          <span>Out of Stock</span>
-        </div>
-        <div class="rowLink">
-          <a href="" class="storeBtn">Visit Store</a>
-        </div>
-      </div>
     </div>
   </div>
 </template>

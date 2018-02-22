@@ -3,9 +3,9 @@
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <h2>Search CTA goes here</h2>
+          <h2>Find the lowest prices for your favorite games.</h2>
           <input type="text" v-model="query" placeholder="Search by game name..." />
-          <div class="resultContainer">
+          <div class="resultContainer" v-show="query">
             <ais-index
             :searchStore="searchStore"
             index-name="boardgame_local_posts_post"
@@ -14,7 +14,10 @@
               <ais-results inline-template>
                 <ul class="searchResults">
                   <li v-for="result in results" :key="result.id">
-                    <a :href="result.permalink" v-html="result.post_title"></a>
+                    <a :href="result.permalink">
+                      <img v-if="result.images.thumbnail" :src="result.images.thumbnail.url">
+                      <span v-html="result.post_title"></span>
+                    </a>
                   </li>
                 </ul>
               </ais-results>
@@ -47,6 +50,8 @@
   
   h2 {
     text-align: center;
+    font-weight:600;
+    color: $blue;
   }
   input {
     display: block;
@@ -55,15 +60,6 @@
     color: $gray;
     font-size: 1.5em;
     padding: .5em;
-  }
-
-  .resultContainer {
-    position: absolute;
-    background: $white;
-    padding: .5em;
-    border: 1px solid $gray;
-    width: calc(85% - 30px);
-    left: calc(7.5% + 15px);
   }
 }
 </style>
@@ -114,7 +110,7 @@ module.exports = {
       var bggUrl = 'https://www.boardgamegeek.com/xmlapi2/search?type=boardgame&query=' + this.query
 
       axiosCancel(axios, {
-        debug: false // default 
+        debug: false
       });
 
       axios.cancel(requestId)
@@ -124,14 +120,14 @@ module.exports = {
         responseType: 'text'
       })
         .then((res) => {
-          console.log('resolved promise');
+          // console.log('resolved promise');
           var bggresponse = xmltojson.parseString(res.data)
           this.posts = bggresponse.items[0].item
         }).catch((thrown) => {
           if (axios.isCancel(thrown)) {
-            console.log('request cancelled');
+            // console.log('request cancelled');
           } else {
-            console.log('some other reason');
+            // console.log('some other reason');
           }
         }).then( (res) => {
           this.filterBGG(this.posts);

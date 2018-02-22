@@ -3961,9 +3961,15 @@ img {
   text-align: center;
 }
 
+.site-footer .site-logo {
+  padding: 1.5em 0;
+  display: block;
+}
+
 #app {
   max-width: 100%;
   width: 100%;
+  min-height: 100vh;
   overflow-x: hidden;
 }
 
@@ -4299,5 +4305,73 @@ img {
 .priceTable .priceRow a.storeBtn:active {
   background: #c03700;
   color: #fff;
+}
+
+.resultContainer {
+  position: absolute;
+  z-index: 10;
+  background: #fff;
+  padding: 0;
+  border: 1px solid #555;
+  width: calc(85% - 30px);
+  left: calc(7.5% + 15px);
+}
+
+.resultContainer .searchResults {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.resultContainer .searchResults li img {
+  max-width: 50px;
+}
+
+.resultContainer .searchResults li span {
+  font-size: 1.25em;
+  padding-left: 1em;
+}
+
+.resultContainer .searchResults li a:link,
+.resultContainer .searchResults li a:visited {
+  text-decoration: none;
+  padding: .5em 1em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-transition: all 0.15s ease-in-out;
+  transition: all 0.15s ease-in-out;
+}
+
+.resultContainer .searchResults li a:hover,
+.resultContainer .searchResults li a:active {
+  background: #BDD4DE;
+}
+
+.resultContainer .searchResults li a:hover span,
+.resultContainer .searchResults li a:active span {
+  color: #2B3A42;
+}
+
+.resultContainer .bggResults {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.resultContainer .bggResults li {
+  font-size: 1.25em;
+  padding: .5em;
+  cursor: pointer;
+  -webkit-transition: all 0.15s ease-in-out;
+  transition: all 0.15s ease-in-out;
+}
+
+.resultContainer .bggResults li:hover {
+  background: #BDD4DE;
+  color: #2B3A42;
 }
 

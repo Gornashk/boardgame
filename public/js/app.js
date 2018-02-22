@@ -22613,62 +22613,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 // require('dotenv').config()
 module.exports = {
@@ -22871,108 +22815,11 @@ var render = function() {
               )
             ])
           ])
-        : _vm._e(),
-      _vm._v(" "),
-      _vm._m(0),
-      _vm._v(" "),
-      _vm._m(1),
-      _vm._v(" "),
-      _vm._m(2),
-      _vm._v(" "),
-      _vm._m(3)
+        : _vm._e()
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "priceRow" }, [
-      _c("div", { staticClass: "rowName" }, [
-        _c("a", { attrs: { href: "" } }, [_vm._v("Walmart.com")])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "rowPrice" }, [_c("span", [_vm._v("$55.66")])]),
-      _vm._v(" "),
-      _c("div", { staticClass: "rowStock" }, [
-        _c("span", [_vm._v("In Stock")])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "rowLink" }, [
-        _c("a", { staticClass: "storeBtn", attrs: { href: "" } }, [
-          _vm._v("Visit Store")
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "priceRow" }, [
-      _c("div", { staticClass: "rowName" }, [
-        _c("a", { attrs: { href: "" } }, [_vm._v("Booksamillion.com")])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "rowPrice" }, [_c("span", [_vm._v("$48.66")])]),
-      _vm._v(" "),
-      _c("div", { staticClass: "rowStock" }, [
-        _c("span", [_vm._v("In Stock")])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "rowLink" }, [
-        _c("a", { staticClass: "storeBtn", attrs: { href: "" } }, [
-          _vm._v("Visit Store")
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "priceRow" }, [
-      _c("div", { staticClass: "rowName" }, [
-        _c("a", { attrs: { href: "" } }, [_vm._v("Walmart.com")])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "rowPrice" }, [_c("span", [_vm._v("$55.66")])]),
-      _vm._v(" "),
-      _c("div", { staticClass: "rowStock" }, [
-        _c("span", [_vm._v("In Stock")])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "rowLink" }, [
-        _c("a", { staticClass: "storeBtn", attrs: { href: "" } }, [
-          _vm._v("Visit Store")
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "priceRow" }, [
-      _c("div", { staticClass: "rowName" }, [
-        _c("a", { attrs: { href: "" } }, [_vm._v("Barnesandnoble.com")])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "rowPrice" }, [_c("span", [_vm._v("$45.66")])]),
-      _vm._v(" "),
-      _c("div", { staticClass: "rowStock" }, [
-        _c("span", [_vm._v("Out of Stock")])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "rowLink" }, [
-        _c("a", { staticClass: "storeBtn", attrs: { href: "" } }, [
-          _vm._v("Visit Store")
-        ])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -23293,7 +23140,7 @@ exports = module.exports = __webpack_require__(171)(undefined);
 
 
 // module
-exports.push([module.i, "\n.clearfix[data-v-31821bba] {\n  *zoom: 1;\n}\n.clearfix[data-v-31821bba]:before, .clearfix[data-v-31821bba]:after {\n    display: table;\n    content: \"\";\n    line-height: 0;\n}\n.clearfix[data-v-31821bba]:after {\n    clear: both;\n}\n#heroSearchBar[data-v-31821bba] {\n  padding: 6.925em 0;\n  background-size: cover;\n  background-position: center;\n}\n#heroSearchBar h2[data-v-31821bba] {\n    text-align: center;\n}\n#heroSearchBar input[data-v-31821bba] {\n    display: block;\n    width: 85%;\n    margin: 0 auto;\n    color: #555;\n    font-size: 1.5em;\n    padding: .5em;\n}\n#heroSearchBar .resultContainer[data-v-31821bba] {\n    position: absolute;\n    background: #fff;\n    padding: .5em;\n    border: 1px solid #555;\n    width: calc(85% - 30px);\n    left: calc(7.5% + 15px);\n}\n", ""]);
+exports.push([module.i, "\n.clearfix[data-v-31821bba] {\n  *zoom: 1;\n}\n.clearfix[data-v-31821bba]:before, .clearfix[data-v-31821bba]:after {\n    display: table;\n    content: \"\";\n    line-height: 0;\n}\n.clearfix[data-v-31821bba]:after {\n    clear: both;\n}\n#heroSearchBar[data-v-31821bba] {\n  padding: 6.925em 0;\n  background-size: cover;\n  background-position: center;\n}\n#heroSearchBar h2[data-v-31821bba] {\n    text-align: center;\n    font-weight: 600;\n    color: #3F5765;\n}\n#heroSearchBar input[data-v-31821bba] {\n    display: block;\n    width: 85%;\n    margin: 0 auto;\n    color: #555;\n    font-size: 1.5em;\n    padding: .5em;\n}\n", ""]);
 
 // exports
 
@@ -23654,10 +23501,6 @@ Vue.use(_vueInstantsearch2.default); //
 //
 //
 //
-//
-//
-//
-//
 
 module.exports = {
   props: ["options"],
@@ -23696,7 +23539,7 @@ module.exports = {
       var bggUrl = 'https://www.boardgamegeek.com/xmlapi2/search?type=boardgame&query=' + this.query;
 
       (0, _axiosCancel2.default)(_axios2.default, {
-        debug: false // default 
+        debug: false
       });
 
       _axios2.default.cancel(requestId);
@@ -23705,15 +23548,15 @@ module.exports = {
         requestId: requestId,
         responseType: 'text'
       }).then(function (res) {
-        console.log('resolved promise');
+        // console.log('resolved promise');
         var bggresponse = _xmltojson2.default.parseString(res.data);
         _this.posts = bggresponse.items[0].item;
       }).catch(function (thrown) {
         if (_axios2.default.isCancel(thrown)) {
-          console.log('request cancelled');
+          // console.log('request cancelled');
         } else {
-          console.log('some other reason');
-        }
+            // console.log('some other reason');
+          }
       }).then(function (res) {
         _this.filterBGG(_this.posts);
       });
@@ -38047,7 +37890,9 @@ var render = function() {
       _c("div", { staticClass: "container" }, [
         _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col-md-12" }, [
-            _c("h2", [_vm._v("Search CTA goes here")]),
+            _c("h2", [
+              _vm._v("Find the lowest prices for your favorite games.")
+            ]),
             _vm._v(" "),
             _c("input", {
               directives: [
@@ -38072,7 +37917,17 @@ var render = function() {
             _vm._v(" "),
             _c(
               "div",
-              { staticClass: "resultContainer" },
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.query,
+                    expression: "query"
+                  }
+                ],
+                staticClass: "resultContainer"
+              },
               [
                 _c(
                   "ais-index",
@@ -38103,12 +37958,21 @@ var render = function() {
                             { staticClass: "searchResults" },
                             _vm._l(_vm.results, function(result) {
                               return _c("li", { key: result.id }, [
-                                _c("a", {
-                                  attrs: { href: result.permalink },
-                                  domProps: {
-                                    innerHTML: _vm._s(result.post_title)
-                                  }
-                                })
+                                _c("a", { attrs: { href: result.permalink } }, [
+                                  result.images.thumbnail
+                                    ? _c("img", {
+                                        attrs: {
+                                          src: result.images.thumbnail.url
+                                        }
+                                      })
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  _c("span", {
+                                    domProps: {
+                                      innerHTML: _vm._s(result.post_title)
+                                    }
+                                  })
+                                ])
                               ])
                             })
                           )

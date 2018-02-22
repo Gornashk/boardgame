@@ -38,13 +38,13 @@
 					</a>
 	      </div>
 	      <div class="col-sm-6 col-md-8">
-	        <?php wp_nav_menu( array( 'theme_location' => 'main-nav' ) ); ?>
+	        <?php // wp_nav_menu( array( 'theme_location' => 'main-nav' ) ); ?>
 	        
-	        <div class="navicon-wrap">
+	        <!-- <div class="navicon-wrap">
 	        	<button class="lines-button x" :class="{ close: mobileMenu }"  @click="mobileMenu = !mobileMenu" type="button" role="button" aria-label="Toggle Navigation">
 	        		<span class="lines"></span>
 	        	</button>
-	        </div>
+	        </div> -->
 
 	      </div>
 	    </div>
