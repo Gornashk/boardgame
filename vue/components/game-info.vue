@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div class="col-md-4">
+    <div class="col-md-4 gameImage">
 			<img :src="game.thumb">
 		</div>
 		<div class="col-md-8 gameInfoTop">
-			<div class="gameTitle"><h1 v-text="game.title"></h1></div>
+			<div class="gameTitle"><h1 v-html="game.title"></h1></div>
 			<hr/>
 			<div class="row">
 				<div class="col-md-3">

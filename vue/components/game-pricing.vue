@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h4>Current Offers for {{game.title}}</h4>
+    <h4>Current Offers for <span v-html="game.title"></span></h4>
     <div class="priceTable">
       <div class="priceRow" v-if="amazonResponse.ItemLookupResponse">
         <div class="rowName">
@@ -24,6 +24,7 @@
 // require('dotenv').config()
 import axios from 'axios';
 import xmltojson from 'xmltojson';
+import _compact from 'lodash/compact';
 
 module.exports = {
   data () { 
@@ -105,9 +106,9 @@ module.exports = {
       }
     },
     getGameIDs () {
-      if( this.game.acf.upcs ) {
+      if( this.game.acf.codes ) {
 
-        if( this.game.acf.upcs.length > 0 ) {
+        if( this.game.acf.codes = true ) {
           this.amazonPrices()
           return;
         }
@@ -132,7 +133,7 @@ module.exports = {
       })
     },
     saveGameIDs () {
-      if( this.game.acf.upcs ) {
+      if( this.game.acf.codes ) {
         // Cancel function if UPCs already exist
         return;
       }
@@ -143,17 +144,47 @@ module.exports = {
       var elid = [];
       var mpn = [];
       responseItems.forEach(function(item){
-        upc.push(item.upc)
-        asin.push(item.asin)
-        ean.push(item.ean)
-        elid.push(item.elid)
-        mpn.push(item.model)
+        if(item.upc) {
+          var upcObj = {
+            upc: item.upc,
+            title: item.title
+          }
+        }
+        if(item.asin) {
+          var asinObj = {
+            asin: item.asin,
+            title: item.title
+          }
+        }
+        if(item.ean) {
+          var eanObj = {
+            ean: item.ean,
+            title: item.title
+          }
+        }
+        if(item.elid) {
+          var elidObj = {
+            elid: item.elid,
+            title: item.title
+          }
+        }
+        if(item.model) {
+          var mpnObj = {
+            mpn: item.model,
+            title: item.title
+          }
+        }
+        upc.push(upcObj)
+        asin.push(asinObj)
+        ean.push(eanObj)
+        elid.push(elidObj)
+        mpn.push(mpnObj)
       })
-      upc = _.compact(upc)
-      asin = _.compact(asin)
-      ean = _.compact(ean)
-      elid = _.compact(elid)
-      mpn = _.compact(mpn)
+      upc = _compact(upc)
+      asin = _compact(asin)
+      ean = _compact(ean)
+      elid = _compact(elid)
+      mpn = _compact(mpn)
 
       jQuery.ajax({
         type: "post",

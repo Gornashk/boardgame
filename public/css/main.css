@@ -3753,7 +3753,6 @@ textarea {
 
 body {
   background-color: #fff;
-  background-image: url("/wp-content/themes/base/img/350x350.png");
 }
 
 a {
@@ -3765,6 +3764,10 @@ a:active,
 a:focus {
   color: #2B3A42;
   text-decoration: none;
+}
+
+.adsbygoogle {
+  margin-bottom: 3em;
 }
 
 /* Headings */
@@ -4206,6 +4209,10 @@ img {
   margin-bottom: 3em;
 }
 
+.gameInfoContainer .gameImage {
+  margin-bottom: 1.5em;
+}
+
 .gameInfoContainer .gameInfoTop {
   margin-bottom: 1.5em;
 }
@@ -4357,12 +4364,31 @@ img {
 }
 
 .resultContainer .bggResults {
+  position: relative;
+}
+
+.resultContainer .bggResults.searching {
+  min-height: 130px;
+}
+
+.resultContainer .bggResults .loadingOver {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(189, 212, 222, 0.75);
+  text-align: center;
+  padding-top: 1.5em;
+}
+
+.resultContainer .bggResults ul {
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.resultContainer .bggResults li {
+.resultContainer .bggResults ul li {
   font-size: 1.25em;
   padding: .5em;
   cursor: pointer;
@@ -4370,7 +4396,7 @@ img {
   transition: all 0.15s ease-in-out;
 }
 
-.resultContainer .bggResults li:hover {
+.resultContainer .bggResults ul li:hover {
   background: #BDD4DE;
   color: #2B3A42;
 }

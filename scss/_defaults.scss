@@ -22,7 +22,7 @@ textarea {
 
 body {
   background-color: $white;
-  background-image: url("/wp-content/themes/base/img/350x350.png");
+  // background-image: url("/wp-content/themes/base/img/350x350.png");
 }
 a {
   color: $blue;
@@ -32,6 +32,10 @@ a {
     color: $darkBlue;
     text-decoration: none;
   }
+}
+
+.adsbygoogle {
+  margin-bottom: 3em;
 }
 
 /* Headings */

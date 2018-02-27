@@ -8,7 +8,7 @@
           <div class="resultContainer" v-show="query">
             <ais-index
             :searchStore="searchStore"
-            index-name="boardgame_local_posts_post"
+            :index-name="algoliaPrefix + 'posts_post'"
             :query="query"
             v-show="query.length > 1">
               <ais-results inline-template>
@@ -22,16 +22,28 @@
                 </ul>
               </ais-results>
               <ais-no-results>
-                
+                <template slot-scope="props">
+                 
+                </template>
               </ais-no-results>
             </ais-index>
-            <ul class="bggResults">
-              <li 
-              v-for="post in filteredBGG"
-              :key="post.id"
-              v-html="post.name[0]._attr.value._value"
-              @click="createPost(post.name[0]._attr.value._value, post._attr.id._value)"></li>
-            </ul>
+            <div class="bggResults" :class="{ searching: searchingBGG, creating: creatingBGG }">
+              <div class="loadingOver" v-show="searchingBGG === true">
+                <img :src="options.dir + '/img/searchLoader.gif'">
+                <p>Finding ALL the games!</p>
+              </div>
+              <div class="loadingOver" v-show="creatingBGG === true">
+                <img :src="options.dir + '/img/searchLoader.gif'">
+                <p>Getting the game page ready for it's first visit!</p>
+              </div>
+              <ul>
+                <li 
+                v-for="post in filteredBGG"
+                :key="post.id"
+                v-html="post.name[0]._attr.value._value"
+                @click="createPost(post.name[0]._attr.value._value, post._attr.id._value)"></li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
@@ -47,6 +59,7 @@
   padding: 6.925em 0;
   background-size: cover;
   background-position: center;
+  margin-bottom: 3em;
   
   h2 {
     text-align: center;
@@ -69,7 +82,9 @@ import axios from 'axios';
 import axiosCancel from 'axios-cancel';
 import xmltojson from 'xmltojson';
 import InstantSearch from 'vue-instantsearch';
+import _debounce from 'lodash/debounce';
 import _uniq from 'lodash/uniq';
+import _compact from 'lodash/compact';
 Vue.use(InstantSearch);
 import { createFromAlgoliaCredentials } from 'vue-instantsearch';
 
@@ -83,7 +98,10 @@ module.exports = {
       query: '',
       searchStore: createFromAlgoliaCredentials('LXQBY5Z3HD', 'c9b85b2d6f1cc197402589cd615b3cd5'),
       resultCount: '',
-      upcResponse: []
+      upcResponse: [],
+      searchingBGG: false,
+      creatingBGG: false,
+      algoliaPrefix: algoliaPrefix
     }
   },
   mounted () {
@@ -92,7 +110,7 @@ module.exports = {
     //console.log(adminAjax)
   },
   watch: {
-    query: _.debounce(function() {
+    query: _debounce(function() {
       const requestId = 'my_sample_request';
       this.bggQuery(requestId)
     }, 500)
@@ -103,6 +121,8 @@ module.exports = {
   },
   methods: {
     bggQuery (requestId) {
+
+      this.searchingBGG = true;
       
       // var CancelToken = axios.CancelToken;
       // var source = CancelToken.source();
@@ -123,10 +143,13 @@ module.exports = {
           // console.log('resolved promise');
           var bggresponse = xmltojson.parseString(res.data)
           this.posts = bggresponse.items[0].item
+          this.searchingBGG = false;
         }).catch((thrown) => {
           if (axios.isCancel(thrown)) {
             // console.log('request cancelled');
+            // this.searchingBGG = false;
           } else {
+            // this.searchingBGG = false;
             // console.log('some other reason');
           }
         }).then( (res) => {
@@ -161,6 +184,7 @@ module.exports = {
 
     },
     createPost (name, id) {
+      this.creatingBGG = true;
       axios({
         method: 'get',
         url: 'https://www.boardgamegeek.com/xmlapi2/thing?id=' + id + '&ratingcomments=1&stats=1',
@@ -293,17 +317,47 @@ module.exports = {
       var elid = [];
       var mpn = [];
       responseItems.forEach(function(item){
-        upc.push(item.upc)
-        asin.push(item.asin)
-        ean.push(item.ean)
-        elid.push(item.elid)
-        mpn.push(item.model)
+        if(item.upc) {
+          var upcObj = {
+            upc: item.upc,
+            title: item.title
+          }
+        }
+        if(item.asin) {
+          var asinObj = {
+            asin: item.asin,
+            title: item.title
+          }
+        }
+        if(item.ean) {
+          var eanObj = {
+            ean: item.ean,
+            title: item.title
+          }
+        }
+        if(item.elid) {
+          var elidObj = {
+            elid: item.elid,
+            title: item.title
+          }
+        }
+        if(item.model) {
+          var mpnObj = {
+            mpn: item.model,
+            title: item.title
+          }
+        }
+        upc.push(upcObj)
+        asin.push(asinObj)
+        ean.push(eanObj)
+        elid.push(elidObj)
+        mpn.push(mpnObj)
       })
-      upc = _.compact(upc)
-      asin = _.compact(asin)
-      ean = _.compact(ean)
-      elid = _.compact(elid)
-      mpn = _.compact(mpn)
+      upc = _compact(upc)
+      asin = _compact(asin)
+      ean = _compact(ean)
+      elid = _compact(elid)
+      mpn = _compact(mpn)
 
       jQuery.ajax({
         type: "post",
@@ -323,7 +377,7 @@ module.exports = {
         success: function(data){
           console.log(data);
           // Send user to newly created game post
-          // window.location.replace( siteUrl + '/?p=' + postID );
+          window.location.replace( siteUrl + '/?p=' + postID );
         },
         error: function(data) {
           console.log('error')
