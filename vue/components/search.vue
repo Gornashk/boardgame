@@ -85,6 +85,7 @@ import InstantSearch from 'vue-instantsearch';
 import _debounce from 'lodash/debounce';
 import _uniq from 'lodash/uniq';
 import _compact from 'lodash/compact';
+import _flatten from 'lodash/flatten';
 Vue.use(InstantSearch);
 import { createFromAlgoliaCredentials } from 'vue-instantsearch';
 
@@ -99,6 +100,7 @@ module.exports = {
       searchStore: createFromAlgoliaCredentials('LXQBY5Z3HD', 'c9b85b2d6f1cc197402589cd615b3cd5'),
       resultCount: '',
       upcResponse: [],
+      amazonSearch: [],
       searchingBGG: false,
       creatingBGG: false,
       algoliaPrefix: algoliaPrefix
@@ -273,7 +275,7 @@ module.exports = {
           success: function(data){
             //alert('success');
             //console.log('success')
-              console.log(data);
+              // console.log(data);
               var postID = data.toString().substr(0, data.toString().length - 1);
               that.getGameIDs(name, postID)
           },
@@ -289,34 +291,77 @@ module.exports = {
     },
     getGameIDs (name, postID) {
       var that = this;
-      var title = encodeURIComponent(name);
+      var title = name;
+      var titleEncode = encodeURIComponent(name);
 
+      // Search Amazon API, then search UPC Item DB
       axios.get(adminAjax, {
-        responseType: 'json',
+        responseType: 'text',
         params: {
-          action: "ks_getUpcIds",
+          action: "ks_getAmazonSearch",
           gameTitle: title
         }
       })
       .then((response) => {
         console.log(response)
-        this.upcResponse = response.data
+        var str = response.data
+        var amazonSearch = str.substring(0, str.length - 1);
+        that.amazonSearch = xmltojson.parseString(amazonSearch);
+        
       })
       .catch(function (error) {
-        this.upcResponse = 'Error! Could not reach the API. ' + error
+        that.amazonSearch = 'Error! Could not reach the API. ' + error
       })
       .then(() => {
-        this.saveGameIDs(postID)
+
+        // Search UPC Item DB after searching Amazon API
+        axios.get(adminAjax, {
+          responseType: 'json',
+          params: {
+            action: "ks_getUpcIds",
+            gameTitle: titleEncode
+          }
+        })
+        .then((response) => {
+          console.log(response)
+          that.upcResponse = response.data
+        })
+        .catch(function (error) {
+          that.upcResponse = 'Error! Could not reach the API. ' + error
+        })
+        .then(() => {
+          this.saveGameIDs(postID)
+        })
+
       })
+
+      
     },
     saveGameIDs (postID) {
-      var responseItems = this.upcResponse.items
+      if(this.amazonSearch.ItemSearchResponse[0].Items[0].Item) {
+        var amazonItem = this.amazonSearch.ItemSearchResponse[0].Items[0].Item[0];
+        var amzTitle = amazonItem.ItemAttributes[0].Title[0]._text;
+        var amzASIN = amazonItem.ASIN[0]._text;
+        if(amazonItem.ItemAttributes[0].EAN) {
+          var amzEAN = amazonItem.ItemAttributes[0].EAN[0]._text;
+        }
+        if(amazonItem.ItemAttributes[0].MPN) {
+          var amzMPN = amazonItem.ItemAttributes[0].MPN[0]._text;
+        }
+        if(amazonItem.ItemAttributes[0].UPC) {
+          var amzUPC = amazonItem.ItemAttributes[0].UPC[0]._text;
+        }
+        if(amazonItem.ItemAttributes[0].ELID) {
+          var amzELID = amazonItem.ItemAttributes[0].ELID[0]._text;
+        }
+      }
+      var upcItems = this.upcResponse.items
       var upc = [];
       var asin = [];
       var ean = [];
       var elid = [];
       var mpn = [];
-      responseItems.forEach(function(item){
+      upcItems.forEach(function(item){
         if(item.upc) {
           var upcObj = {
             upc: item.upc,
@@ -368,6 +413,12 @@ module.exports = {
           action: "ks_saveGameIds",
           nonce: nonce,
           postID: postID,
+          amzTitle: amzTitle,
+          amzAsin: amzASIN,
+          amzEan: amzEAN,
+          amzMpn: amzMPN,
+          amzUpc: amzUPC,
+          amzElid: amzELID,
           upc: upc,
           asin: asin,
           ean: ean,

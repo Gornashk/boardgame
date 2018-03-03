@@ -46,13 +46,54 @@ add_action( 'wp_ajax_nopriv_ks_saveGameIds', 'ks_saveGameIds' );
 add_action( 'wp_ajax_ks_saveGameIds', 'ks_saveGameIds' );
 function ks_saveGameIds() {
   $postID = $_POST['postID'];
+  $amzTitle = $_POST['amzTitle'];
+  $amzAsin = $_POST['amzAsin'];
+  $amzEan = $_POST['amzEan'];
+  $amzMpn = $_POST['amzMpn'];
+  $amzUpc = $_POST['amzUpc'];
+  $amzElid = $_POST['amzElid'];
   $upcs = $_POST['upc'];
   $asins = $_POST['asin'];
   $eans = $_POST['ean'];
   $elids = $_POST['elid'];
   $mpns = $_POST['mpn'];
 
-  // crafted_var_dump($eans);
+  
+  if($amzAsin) {
+    $amzAsinArr = array(
+      'field_5a63bffd794ae' => $amzAsin,
+      'field_5a93402a9cbc6' => $amzTitle
+    );
+    add_row( 'field_5a2dac2e832c4', $amzAsinArr, $postID );
+  }
+  if($amzEan) {
+    $amzEanArr = array(
+      'field_5a63c00a794af' => $amzEan,
+      'field_5a9340379cbc7' => $amzTitle
+    );
+    add_row( 'field_5a41b153e46cf', $amzEanArr, $postID );
+  }
+  if($amzMpn) {
+    $amzMpnArr = array(
+      'field_5a63bfdb794ac' => $amzMpn,
+      'field_5a933fe296fa7' => $amzTitle
+    );
+    add_row( 'field_5a2dac1c832c2', $amzMpnArr, $postID );
+  }
+  if($amzUpc) {
+    $amzUpcArr = array(
+      'field_5a63bff0794ad' => $amzUpc,
+      'field_5a9340209cbc5' => $amzTitle
+    );
+    add_row( 'field_5a2dac28832c3', $amzUpcArr, $postID );
+  }
+  if($amzElid) {
+    $amzElidArr = array(
+      'field_5a63c016794b0' => $amzElid,
+      'field_5a93403f9cbc8' => $amzTitle
+    );
+    add_row( 'field_5a63b843892e3', $amzElidArr, $postID );
+  }
 
   if($upcs) {
     foreach ($upcs as $upc) {

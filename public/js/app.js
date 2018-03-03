@@ -22721,8 +22721,8 @@ module.exports = {
     };
   },
   mounted: function mounted() {
-    console.log('mounted 2');
-    console.log(Object({"NODE_ENV":"development"}).AWS_ID);
+    // console.log('mounted 2')
+    // console.log(process.env.AWS_ID);
     this.getGameIDs();
     // this.amazonPrices()
   },
@@ -22777,6 +22777,18 @@ module.exports = {
     },
     saveAmazon: function saveAmazon() {
       if (this.amazonResponse) {
+        if (!this.amazonResponse.ItemLookupResponse[0].Items[0].Item) {
+          // If no item found on Amazon at all
+          this.amazonData = false;
+          return;
+        }
+        if (!this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].Offers[0].Offer) {
+          // If no amazon offer found, check for private seller offers
+          this.amazonData.amazonPrice = this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].OfferSummary[0].LowestNewPrice[0].FormattedPrice[0]._text;
+          this.amazonData.amazonStock = '';
+          this.amazonData.amazonLink = this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].DetailPageURL[0]._text;
+          return;
+        }
         this.amazonData.amazonPrice = this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].Offers[0].Offer[0].OfferListing[0].Price[0].FormattedPrice[0]._text;
         this.amazonData.amazonStock = this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].Offers[0].Offer[0].OfferListing[0].Availability[0]._text;
         this.amazonData.amazonASIN = this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].ASIN[0]._text;
@@ -22911,6 +22923,11 @@ module.exports = {
 //
 //
 //
+//
+//
+//
+//
+//
 
 // require('dotenv').config()
 
@@ -22929,7 +22946,11 @@ var render = function() {
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "priceTable" }, [
-      _vm.amazonResponse.ItemLookupResponse
+      !_vm.amazonData
+        ? _c("div", { staticClass: "priceRow" }, [_vm._m(0)])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.amazonData
         ? _c("div", { staticClass: "priceRow" }, [
             _c("div", { staticClass: "rowName" }, [
               _c("a", { attrs: { href: _vm.amazonData.amazonLink } }, [
@@ -22964,7 +22985,16 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [
+      _c("span", [_vm._v("We could not find this game for sale at this time.")])
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -23586,9 +23616,12 @@ var _compact2 = __webpack_require__(62);
 
 var _compact3 = _interopRequireDefault(_compact2);
 
+var _flatten2 = __webpack_require__(139);
+
+var _flatten3 = _interopRequireDefault(_flatten2);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-Vue.use(_vueInstantsearch2.default); //
 //
 //
 //
@@ -23667,6 +23700,10 @@ Vue.use(_vueInstantsearch2.default); //
 //
 //
 //
+//
+
+Vue.use(_vueInstantsearch2.default);
+
 
 module.exports = {
   props: ["options"],
@@ -23679,6 +23716,7 @@ module.exports = {
       searchStore: (0, _vueInstantsearch.createFromAlgoliaCredentials)('LXQBY5Z3HD', 'c9b85b2d6f1cc197402589cd615b3cd5'),
       resultCount: '',
       upcResponse: [],
+      amazonSearch: [],
       searchingBGG: false,
       creatingBGG: false,
       algoliaPrefix: algoliaPrefix
@@ -23849,7 +23887,7 @@ module.exports = {
           success: function success(data) {
             //alert('success');
             //console.log('success')
-            console.log(data);
+            // console.log(data);
             var postID = data.toString().substr(0, data.toString().length - 1);
             that.getGameIDs(name, postID);
           },
@@ -23864,31 +23902,67 @@ module.exports = {
       var _this3 = this;
 
       var that = this;
-      var title = encodeURIComponent(name);
+      var title = name;
+      var titleEncode = encodeURIComponent(name);
 
+      // Search Amazon API, then search UPC Item DB
       _axios2.default.get(adminAjax, {
-        responseType: 'json',
+        responseType: 'text',
         params: {
-          action: "ks_getUpcIds",
+          action: "ks_getAmazonSearch",
           gameTitle: title
         }
       }).then(function (response) {
         console.log(response);
-        _this3.upcResponse = response.data;
+        var str = response.data;
+        var amazonSearch = str.substring(0, str.length - 1);
+        that.amazonSearch = _xmltojson2.default.parseString(amazonSearch);
       }).catch(function (error) {
-        this.upcResponse = 'Error! Could not reach the API. ' + error;
+        that.amazonSearch = 'Error! Could not reach the API. ' + error;
       }).then(function () {
-        _this3.saveGameIDs(postID);
+
+        // Search UPC Item DB after searching Amazon API
+        _axios2.default.get(adminAjax, {
+          responseType: 'json',
+          params: {
+            action: "ks_getUpcIds",
+            gameTitle: titleEncode
+          }
+        }).then(function (response) {
+          console.log(response);
+          that.upcResponse = response.data;
+        }).catch(function (error) {
+          that.upcResponse = 'Error! Could not reach the API. ' + error;
+        }).then(function () {
+          _this3.saveGameIDs(postID);
+        });
       });
     },
     saveGameIDs: function saveGameIDs(postID) {
-      var responseItems = this.upcResponse.items;
+      if (this.amazonSearch.ItemSearchResponse[0].Items[0].Item) {
+        var amazonItem = this.amazonSearch.ItemSearchResponse[0].Items[0].Item[0];
+        var amzTitle = amazonItem.ItemAttributes[0].Title[0]._text;
+        var amzASIN = amazonItem.ASIN[0]._text;
+        if (amazonItem.ItemAttributes[0].EAN) {
+          var amzEAN = amazonItem.ItemAttributes[0].EAN[0]._text;
+        }
+        if (amazonItem.ItemAttributes[0].MPN) {
+          var amzMPN = amazonItem.ItemAttributes[0].MPN[0]._text;
+        }
+        if (amazonItem.ItemAttributes[0].UPC) {
+          var amzUPC = amazonItem.ItemAttributes[0].UPC[0]._text;
+        }
+        if (amazonItem.ItemAttributes[0].ELID) {
+          var amzELID = amazonItem.ItemAttributes[0].ELID[0]._text;
+        }
+      }
+      var upcItems = this.upcResponse.items;
       var upc = [];
       var asin = [];
       var ean = [];
       var elid = [];
       var mpn = [];
-      responseItems.forEach(function (item) {
+      upcItems.forEach(function (item) {
         if (item.upc) {
           var upcObj = {
             upc: item.upc,
@@ -23940,6 +24014,12 @@ module.exports = {
           action: "ks_saveGameIds",
           nonce: nonce,
           postID: postID,
+          amzTitle: amzTitle,
+          amzAsin: amzASIN,
+          amzEan: amzEAN,
+          amzMpn: amzMPN,
+          amzUpc: amzUPC,
+          amzElid: amzELID,
           upc: upc,
           asin: asin,
           ean: ean,

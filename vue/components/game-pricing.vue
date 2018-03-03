@@ -2,7 +2,12 @@
   <div>
     <h4>Current Offers for <span v-html="game.title"></span></h4>
     <div class="priceTable">
-      <div class="priceRow" v-if="amazonResponse.ItemLookupResponse">
+      <div class="priceRow" v-if="!amazonData">
+        <div>
+          <span>We could not find this game for sale at this time.</span>
+        </div>
+      </div>
+      <div class="priceRow" v-if="amazonData">
         <div class="rowName">
           <a :href="amazonData.amazonLink">Amazon.com</a>
         </div>
@@ -43,8 +48,8 @@ module.exports = {
     }
   },
   mounted () {
-    console.log('mounted 2')
-    console.log(process.env.AWS_ID);
+    // console.log('mounted 2')
+    // console.log(process.env.AWS_ID);
     this.getGameIDs()
     // this.amazonPrices()
   },
@@ -99,6 +104,18 @@ module.exports = {
     },
     saveAmazon () {
       if(this.amazonResponse) {
+        if( !this.amazonResponse.ItemLookupResponse[0].Items[0].Item ) {
+          // If no item found on Amazon at all
+          this.amazonData = false;
+          return
+        }
+        if( !this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].Offers[0].Offer ) {
+          // If no amazon offer found, check for private seller offers
+          this.amazonData.amazonPrice = this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].OfferSummary[0].LowestNewPrice[0].FormattedPrice[0]._text;
+          this.amazonData.amazonStock = '';
+          this.amazonData.amazonLink = this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].DetailPageURL[0]._text;  
+          return
+        }
         this.amazonData.amazonPrice = this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].Offers[0].Offer[0].OfferListing[0].Price[0].FormattedPrice[0]._text;
         this.amazonData.amazonStock = this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].Offers[0].Offer[0].OfferListing[0].Availability[0]._text;
         this.amazonData.amazonASIN = this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].ASIN[0]._text;
