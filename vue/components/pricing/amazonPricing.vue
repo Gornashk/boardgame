@@ -1,27 +1,30 @@
 <template>
-  <div class="priceRow" v-if="amazonData">
-    <div class="rowName">
-      <a :href="amazonData.amazonLink">Amazon.com</a>
-    </div>
-    <div class="rowPrice">
-      <span v-html="amazonData.amazonPrice"></span>
-    </div>
-    <div class="rowStock">
-      <span v-html="amazonData.amazonStock"></span>
-    </div>
-    <div class="rowLink">
-      <a :href="amazonData.amazonLink" class="storeBtn">Visit Store</a>
+  <div>
+    <div class="priceRow" v-if="amazonData.amazonPrice">
+      <div class="rowName">
+        <a :href="amazonData.amazonLink">Amazon.com</a>
+      </div>
+      <div class="rowPrice">
+        <span v-html="amazonData.amazonPrice"></span>
+      </div>
+      <div class="rowStock">
+        <span v-html="amazonData.amazonStock"></span>
+      </div>
+      <div class="rowLink">
+        <a :href="amazonData.amazonLink" class="storeBtn">Visit Store</a>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import xmltojson from 'xmltojson';
 
 module.exports = {
-  data () { 
+  props: ["game"],
+  data () {
     return {
-      game: singleGame,
       amazonResponse: [],
       amazonData: {
         amazonPrice: '',
@@ -33,7 +36,21 @@ module.exports = {
       }
     }
   },
+  mounted () {
+    this.checkCodes();
+  },
   methods: {
+    checkCodes() {
+      if( this.game.acf.codes ) {
+
+        if( this.game.acf.codes = true ) {
+          this.amazonPrices()
+          return;
+        }
+        // Cancel function if UPCs already exist
+        return;
+      }
+    },
     amazonPrices () {
       var that = this;
       // create blank id code vars
@@ -89,13 +106,16 @@ module.exports = {
           this.amazonData.amazonPrice = this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].OfferSummary[0].LowestNewPrice[0].FormattedPrice[0]._text;
           this.amazonData.amazonStock = '';
           this.amazonData.amazonLink = this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].DetailPageURL[0]._text;  
+          this.$emit('pricing', true)
           return
         }
         this.amazonData.amazonPrice = this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].Offers[0].Offer[0].OfferListing[0].Price[0].FormattedPrice[0]._text;
         this.amazonData.amazonStock = this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].Offers[0].Offer[0].OfferListing[0].Availability[0]._text;
         this.amazonData.amazonASIN = this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].ASIN[0]._text;
         this.amazonData.amazonLink = this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].DetailPageURL[0]._text;
+        this.$emit('pricing', true)
       }
     },
   }
-}
+};
+</script>
