@@ -8,6 +8,7 @@
         </div>
       </div>
       <amazon-pricing :game="game" v-on:pricing="pricingCheck"></amazon-pricing>
+      <walmart-pricing :game="game" v-on:pricing="pricingCheck"></walmart-pricing>
     </div>
   </div>
 </template>
@@ -19,9 +20,10 @@ import xmltojson from 'xmltojson';
 import _compact from 'lodash/compact';
 
 import amazonPricing from './pricing/amazonPricing.vue';
+import walmartPricing from './pricing/walmartPricing.vue';
 
 module.exports = {
-  components: { amazonPricing },
+  components: { amazonPricing, walmartPricing },
   data () { 
     return {
       game: singleGame,
@@ -42,7 +44,6 @@ module.exports = {
   },
   methods: {
     pricingCheck (payload) {
-      console.log('pricing check')
       if(payload) {
         this.pricingExists = true
       }

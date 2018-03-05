@@ -88,7 +88,7 @@ module.exports = {
         this.amazonResponse = xmltojson.parseString(amazonResponse)
       }) 
       .catch(function (error) {
-        that.amazonError = 'Error! Could not get Amazon prices. ' + error
+        that.amazonData.amazonError = 'Error! Could not get Amazon prices. ' + error
       })
       .then( () => {
         this.saveAmazon()  

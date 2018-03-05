@@ -261,7 +261,9 @@ function my_post_attributes( array $attributes, WP_Post $post ) {
   require_once( __DIR__ . '/inc/postGame.php' );
   
   require_once( __DIR__ . '/inc/amazonPrice.php' );
+  require_once( __DIR__ . '/inc/walmartPrice.php' );
 
   require_once( __DIR__ . '/inc/upcIDs.php' );
 
   require_once( __DIR__ . '/inc/amazonSearch.php' );
+  
