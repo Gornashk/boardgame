@@ -23,8 +23,11 @@ function vue_enqueue_scripts_styles () {
 // Pass controllers/data to page
 add_action( 'wp_head', function () {
   // Example of conditionally running controllers
-  if ( is_front_page() ) {
-    crafted_get_posts();
+  // if ( is_front_page() ) {
+  //   crafted_get_posts();
+  // }
+  if ( is_tax() || is_category() ) {
+    category_games();
   }
   if ( is_singular('post') ) {
     single_game();

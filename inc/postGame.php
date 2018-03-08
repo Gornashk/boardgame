@@ -101,12 +101,4 @@
   
     die();
   }
-  
-  
-  add_action( 'wp_ajax_nopriv_ks_updateGamePrice', 'ks_updateGamePrice' );
-  add_action( 'wp_ajax_ks_updateGamePrice', 'ks_updateGamePrice' );
-  function ks_updateGamePrice() {
-  
-    die();
-  }
 ?>

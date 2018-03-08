@@ -90,9 +90,35 @@ module.exports = {
         this.walmartData.walmartPrice = Number.parseFloat(this.walmartResponse.items[0].salePrice).toFixed(2);
         this.walmartData.walmartLink = this.walmartResponse.items[0].productTrackingUrl;
         this.walmartData.walmartStock = this.walmartResponse.items[0].stock;
+        this.updateWalmart(this.walmartData.walmartPrice, this.walmartData.walmartStock, this.walmartData.walmartLink);
         this.$emit('pricing', true)
       }
     },
+    updateWalmart (price, stock, link) {
+      jQuery.ajax({
+        type: "post",
+        url: adminAjax,
+        //contentType: 'application/json; charset=utf-8',
+        dataType: "json",
+        data: { 
+          action: "ks_updateGamePrice",
+          nonce: nonce,
+          postID: this.game.id,
+          retailer: 'walmart',
+          price: price,
+          stock: stock,
+          link: link
+          },
+        success: function(data){
+          // console.log('success')
+          // console.log(data);
+        },
+        error: function(data) {
+          console.log('error')
+          console.log(data);
+        }
+      })
+    }
   }
 };
 </script>

@@ -107,6 +107,7 @@ module.exports = {
           this.amazonData.amazonStock = '';
           this.amazonData.amazonLink = this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].DetailPageURL[0]._text;  
           this.$emit('pricing', true)
+          this.updateAmazon(this.amazonData.amazonPrice, this.amazonData.amazonStock, this.amazonData.amazonLink);
           return
         }
         this.amazonData.amazonPrice = this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].Offers[0].Offer[0].OfferListing[0].Price[0].FormattedPrice[0]._text;
@@ -114,8 +115,34 @@ module.exports = {
         this.amazonData.amazonASIN = this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].ASIN[0]._text;
         this.amazonData.amazonLink = this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].DetailPageURL[0]._text;
         this.$emit('pricing', true)
+        this.updateAmazon(this.amazonData.amazonPrice, this.amazonData.amazonStock, this.amazonData.amazonLink);
       }
     },
+    updateAmazon (price, stock, link) {
+      jQuery.ajax({
+        type: "post",
+        url: adminAjax,
+        //contentType: 'application/json; charset=utf-8',
+        dataType: "json",
+        data: { 
+          action: "ks_updateGamePrice",
+          nonce: nonce,
+          postID: this.game.id,
+          retailer: 'amazon',
+          price: price,
+          stock: stock,
+          link: link
+          },
+        success: function(data){
+          // console.log('success')
+          // console.log(data);
+        },
+        error: function(data) {
+          console.log('error')
+          console.log(data);
+        }
+      })
+    }
   }
 };
 </script>

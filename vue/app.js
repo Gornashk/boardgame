@@ -2,6 +2,7 @@ import Posts from "./components/posts";
 import gamePricing from "./components/game-pricing";
 import gameInfo from "./components/game-info";
 import frontSearch from "./components/search";
+import categories from "./components/categories";
 
 var app = new Vue({
   el: "#app",
@@ -9,7 +10,8 @@ var app = new Vue({
     Posts,
     frontSearch,
     gamePricing,
-    gameInfo
+    gameInfo,
+    categories
   },
   data() {
     return {
