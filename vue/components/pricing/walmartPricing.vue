@@ -2,7 +2,7 @@
   <div>
     <div class="priceRow" v-if="walmartData.walmartPrice">
       <div class="rowName">
-        <a :href="walmartData.walmartLink">Walmart.com</a>
+        <a :href="walmartData.walmartLink" @click="linkClick">Walmart.com</a>
       </div>
       <div class="rowPrice">
         <span v-html="'$' + walmartData.walmartPrice"></span>
@@ -11,7 +11,7 @@
         <span v-html="walmartData.walmartStock"></span>
       </div>
       <div class="rowLink">
-        <a :href="walmartData.walmartLink" class="storeBtn">Visit Store</a>
+        <a :href="walmartData.walmartLink" class="storeBtn" @click="linkClick">Visit Store</a>
       </div>
     </div>
   </div>
@@ -22,6 +22,7 @@ import axios from 'axios';
 import xmltojson from 'xmltojson';
 
 module.exports = {
+  // props: ['acfs','upcs','eans','elids','codes'],
   props: ["game"],
   data () {
     return {
@@ -39,6 +40,13 @@ module.exports = {
     this.checkCodes();
   },
   methods: {
+    linkClick() {
+      __gaTracker('send', 'event', {
+        eventCategory: 'Walmart',
+        eventAction: this.walmartData.walmartLink,
+        eventLabel: this.game.title
+      });
+    },
     checkCodes() {
       if( this.game.acf.codes ) {
 
@@ -87,11 +95,13 @@ module.exports = {
         return;
       }
       if(this.walmartResponse) {
-        this.walmartData.walmartPrice = Number.parseFloat(this.walmartResponse.items[0].salePrice).toFixed(2);
-        this.walmartData.walmartLink = this.walmartResponse.items[0].productTrackingUrl;
-        this.walmartData.walmartStock = this.walmartResponse.items[0].stock;
-        this.updateWalmart(this.walmartData.walmartPrice, this.walmartData.walmartStock, this.walmartData.walmartLink);
-        this.$emit('pricing', true)
+        if(this.walmartResponse.items.length > 0) {
+          this.walmartData.walmartPrice = Number.parseFloat(this.walmartResponse.items[0].salePrice).toFixed(2);
+          this.walmartData.walmartLink = this.walmartResponse.items[0].productTrackingUrl;
+          this.walmartData.walmartStock = this.walmartResponse.items[0].stock;
+          this.updateWalmart(this.walmartData.walmartPrice, this.walmartData.walmartStock, this.walmartData.walmartLink);
+          this.$emit('pricing', true)
+        }
       }
     },
     updateWalmart (price, stock, link) {

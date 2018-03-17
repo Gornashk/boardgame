@@ -1,0 +1,13 @@
+.frontContent {
+  font-size: .875em;
+  background: $grayLighter;
+  padding: 2em 0;
+
+  h4 {
+    font-weight: 700;
+  }
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+}

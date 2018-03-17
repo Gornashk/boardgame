@@ -6,7 +6,8 @@ require_once('bones.php'); // if you remove this, bones will break
 
 /* NOTE: Only use thumbnails if you need to, to stop digital waste */
 
-//add_image_size( '300x300', 300, 300, true );
+add_image_size( '540x999', 540, 999, false );
+add_image_size( '250x250', 250, 250, false );
 
 /************* ACTIVE SIDEBARS ********************/
 
@@ -267,4 +268,5 @@ function my_post_attributes( array $attributes, WP_Post $post ) {
   require_once( __DIR__ . '/inc/upcIDs.php' );
 
   require_once( __DIR__ . '/inc/amazonSearch.php' );
+  // require_once( __DIR__ . '/inc/bggHot.php' );
   

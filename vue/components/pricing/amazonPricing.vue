@@ -2,7 +2,7 @@
   <div>
     <div class="priceRow" v-if="amazonData.amazonPrice">
       <div class="rowName">
-        <a :href="amazonData.amazonLink">Amazon.com</a>
+        <a :href="amazonData.amazonLink" @click="linkClick">Amazon.com</a>
       </div>
       <div class="rowPrice">
         <span v-html="amazonData.amazonPrice"></span>
@@ -11,7 +11,7 @@
         <span v-html="amazonData.amazonStock"></span>
       </div>
       <div class="rowLink">
-        <a :href="amazonData.amazonLink" class="storeBtn">Visit Store</a>
+        <a :href="amazonData.amazonLink" class="storeBtn" @click="linkClick">Visit Store</a>
       </div>
     </div>
   </div>
@@ -22,6 +22,7 @@ import axios from 'axios';
 import xmltojson from 'xmltojson';
 
 module.exports = {
+  // props: ['acfs','upcs','eans','elids','codes','gameTitle'],
   props: ["game"],
   data () {
     return {
@@ -40,6 +41,13 @@ module.exports = {
     this.checkCodes();
   },
   methods: {
+    linkClick() {
+      __gaTracker('send', 'event', {
+        eventCategory: 'Amazon',
+        eventAction: this.amazonData.amazonLink,
+        eventLabel: this.game.title
+      });
+    },
     checkCodes() {
       if( this.game.acf.codes ) {
 
@@ -110,10 +118,18 @@ module.exports = {
           this.updateAmazon(this.amazonData.amazonPrice, this.amazonData.amazonStock, this.amazonData.amazonLink);
           return
         }
-        this.amazonData.amazonPrice = this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].Offers[0].Offer[0].OfferListing[0].Price[0].FormattedPrice[0]._text;
-        this.amazonData.amazonStock = this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].Offers[0].Offer[0].OfferListing[0].Availability[0]._text;
-        this.amazonData.amazonASIN = this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].ASIN[0]._text;
-        this.amazonData.amazonLink = this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].DetailPageURL[0]._text;
+        if( this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].Offers[0].Offer[0].OfferListing[0].Price[0].FormattedPrice ) {
+          this.amazonData.amazonPrice = this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].Offers[0].Offer[0].OfferListing[0].Price[0].FormattedPrice[0]._text;
+        }
+        if( this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].Offers[0].Offer[0].OfferListing[0].Availability ) {
+          this.amazonData.amazonStock = this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].Offers[0].Offer[0].OfferListing[0].Availability[0]._text;
+        }
+        if( this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].ASIN ) {
+          this.amazonData.amazonASIN = this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].ASIN[0]._text;
+        }
+        if( this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].DetailPageURL ) {
+          this.amazonData.amazonLink = this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].DetailPageURL[0]._text;
+        }
         this.$emit('pricing', true)
         this.updateAmazon(this.amazonData.amazonPrice, this.amazonData.amazonStock, this.amazonData.amazonLink);
       }

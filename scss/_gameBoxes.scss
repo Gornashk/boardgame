@@ -1,0 +1,49 @@
+.gameBoxes {
+  display: flex;
+  flex-wrap: wrap;
+
+  .gameBox {
+    flex:0 1 50%;
+    padding: 0 1em 1.5em;
+
+    @include breakpoint(phablet) {
+      flex:0 1 33%;
+    }
+    @include breakpoint(tablet) {
+      flex: 0 1 25%;
+    }
+    @include breakpoint(laptop) {
+      flex: 0 1 20%;
+    }
+
+    a {
+      border: 2px solid $lightBlue;
+      @include border-radius(5px);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+
+      .gameThumb {
+        height: 196px;
+        
+        img {
+          @include border-radius(4px);
+          max-height: 196px;
+          margin: 0 auto;
+          display: block;
+        }
+      }
+
+      h5 {
+        font-weight: 400;
+        font-size: 1em;
+        text-transform: capitalize;
+        text-align: center;
+        padding: 1em .75em;
+        margin-bottom: 0;
+      }
+    }
+
+  }
+}

@@ -2,6 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-12">
+        <h4>Recently Searched Board Games</h4>
         <div class="gameBoxes">
             <div class="gameBox" v-for="post in posts" :key="post.id">
               <a :href="post.link">
@@ -24,9 +25,17 @@ import axios from 'axios';
 module.exports = {
   data() {
     return {
-      posts: posts
+      posts: added
       // posts: []
     }
   }
 }
 </script>
+
+<style lang="scss" scoped>
+@import "../../scss/variables.scss";
+@import "../../scss/mixins.scss";
+
+
+
+</style>

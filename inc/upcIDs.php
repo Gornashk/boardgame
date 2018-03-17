@@ -22,7 +22,7 @@ function ks_getUpcIds() {
   ));
   // HTTP GET
   curl_setopt($ch, CURLOPT_POST, 0);
-  curl_setopt($ch, CURLOPT_URL, $endpoint.'?s='. $title .'&match_mode=0&type=product');
+  curl_setopt($ch, CURLOPT_URL, $endpoint.'?s='. $title .'&match_mode=0&type=product&category=board%20games');
   $response = curl_exec($ch);
   //$response = json_encode($response);
   $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);

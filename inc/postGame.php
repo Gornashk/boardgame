@@ -19,6 +19,10 @@
     //return;
     $date = current_time( 'Y-m-d H:i:s', $gmt = 0 );
     $postdate = date($date);
+
+    // Format game description
+    $description = html_entity_decode($description, 0, "UTF-8");
+    // $description = str_replace( , '&mdash;', $description );
   
   
     // Create New Game Post

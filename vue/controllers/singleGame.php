@@ -12,7 +12,8 @@ function single_game () {
       $item->title   = get_the_title();
       $item->excerpt = get_the_excerpt();
       $item->link    = get_permalink();
-      $item->thumb   = get_the_post_thumbnail_url();
+      $item->thumb   = get_the_post_thumbnail_url( get_the_ID(), '250x250' );
+      $item->image   = get_the_post_thumbnail_url( get_the_ID(), '540x999' );
       $item->date    = get_the_date('m.d.Y');
       $item->div     = get_stylesheet_directory_uri();
       $item->acf     = get_fields(get_the_ID());

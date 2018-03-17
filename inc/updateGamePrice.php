@@ -19,7 +19,25 @@ function ks_updateGamePrice() {
     update_field('field_5aa01f685df74', $link, $postID);
   }
 
+    // Update price repeater
+    $pricePlain = str_replace('$', '', $price);
+    // Repeater sub-field IDs
+    $priceRepeaterArr = array(
+      'field_5aad656479234' => $pricePlain,
+      'field_5aad7c84aa607' => $retailer
+    );
+    // Repeater field ID
+    add_row( 'field_5aad654a79233', $priceRepeaterArr, $postID );
+
   return;
   die();
+}
+
+// add_action( 'wp_ajax_nopriv_ks_clearPriceRepeater', 'ks_clearPriceRepeater' );
+// add_action( 'wp_ajax_ks_clearPriceRepeater', 'ks_clearPriceRepeater' );
+function ks_clearPriceRepeater($postID) {  
+  if( have_rows('prices', $postID) ) {
+    delete_field('prices', $postID);
+  }
 }
 ?>

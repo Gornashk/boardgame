@@ -24,6 +24,7 @@ import walmartPricing from './pricing/walmartPricing.vue';
 
 module.exports = {
   components: { amazonPricing, walmartPricing },
+  // props: ['acfs','upcs','eans','elids','codes','gameTitle'],
   data () { 
     return {
       game: singleGame,
@@ -37,11 +38,11 @@ module.exports = {
     this.getGameIDs()
     // this.amazonPrices()
   },
-  watch: {
-    upcResponse (newResponse, oldResponse) {
-      this.saveGameIDs()
-    }
-  },
+  // watch: {
+  //   upcResponse (newResponse, oldResponse) {
+  //     this.saveGameIDs()
+  //   }
+  // },
   methods: {
     pricingCheck (payload) {
       if(payload) {
@@ -59,20 +60,47 @@ module.exports = {
         return;
       }
       var that = this;
-      var title = encodeURIComponent(this.game.title);
+      var title = this.game.title;
+      var titleEncode = encodeURIComponent(title);
+      // Search Amazon API, then search UPC Item DB
       axios.get(adminAjax, {
-        responseType: 'json',
+        responseType: 'text',
         params: {
-          action: "ks_getUpcIds",
+          action: "ks_getAmazonSearch",
           gameTitle: title
         }
       })
       .then((response) => {
         console.log(response)
-        this.upcResponse = response.data
+        var str = response.data
+        var amazonSearch = str.substring(0, str.length - 1);
+        that.amazonSearch = xmltojson.parseString(amazonSearch);
+        
       })
       .catch(function (error) {
-        this.upcResponse = 'Error! Could not reach the API. ' + error
+        that.amazonSearch = 'Error! Could not reach the API. ' + error
+      })
+      .then(() => {
+
+        // Search UPC Item DB after searching Amazon API
+        axios.get(adminAjax, {
+          responseType: 'json',
+          params: {
+            action: "ks_getUpcIds",
+            gameTitle: titleEncode
+          }
+        })
+        .then((response) => {
+          console.log(response)
+          that.upcResponse = response.data
+        })
+        .catch(function (error) {
+          that.upcResponse = 'Error! Could not reach the API. ' + error
+        })
+        .then(() => {
+          this.saveGameIDs()
+        })
+
       })
     },
     saveGameIDs () {
@@ -80,13 +108,30 @@ module.exports = {
         // Cancel function if UPCs already exist
         return;
       }
-      var responseItems = this.upcResponse.items
+      if(this.amazonSearch.ItemSearchResponse[0].Items[0].Item) {
+        var amazonItem = this.amazonSearch.ItemSearchResponse[0].Items[0].Item[0];
+        var amzTitle = amazonItem.ItemAttributes[0].Title[0]._text;
+        var amzASIN = amazonItem.ASIN[0]._text;
+        if(amazonItem.ItemAttributes[0].EAN) {
+          var amzEAN = amazonItem.ItemAttributes[0].EAN[0]._text;
+        }
+        if(amazonItem.ItemAttributes[0].MPN) {
+          var amzMPN = amazonItem.ItemAttributes[0].MPN[0]._text;
+        }
+        if(amazonItem.ItemAttributes[0].UPC) {
+          var amzUPC = amazonItem.ItemAttributes[0].UPC[0]._text;
+        }
+        if(amazonItem.ItemAttributes[0].ELID) {
+          var amzELID = amazonItem.ItemAttributes[0].ELID[0]._text;
+        }
+      }
+      var upcItems = this.upcResponse.items
       var upc = [];
       var asin = [];
       var ean = [];
       var elid = [];
       var mpn = [];
-      responseItems.forEach(function(item){
+      upcItems.forEach(function(item){
         if(item.upc) {
           var upcObj = {
             upc: item.upc,
@@ -138,6 +183,12 @@ module.exports = {
           action: "ks_saveGameIds",
           nonce: nonce,
           postID: this.game.id,
+          amzTitle: amzTitle,
+          amzAsin: amzASIN,
+          amzEan: amzEAN,
+          amzMpn: amzMPN,
+          amzUpc: amzUPC,
+          amzElid: amzELID,
           upc: upc,
           asin: asin,
           ean: ean,
@@ -145,7 +196,8 @@ module.exports = {
           mpn: mpn
          },
         success: function(data){
-          console.log(data);
+          // console.log(data);
+          // Send user to newly created game post
         },
         error: function(data) {
           console.log('error')
