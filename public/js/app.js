@@ -38856,14 +38856,6 @@ module.exports = {
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 
 /***/ }),
 /* 397 */
@@ -38880,17 +38872,7 @@ var render = function() {
           "div",
           { staticClass: "gameBoxes" },
           _vm._l(_vm.posts, function(post) {
-            return _c("div", { key: post.id, staticClass: "gameBox" }, [
-              _c("a", { attrs: { href: post.link } }, [
-                _c("div", { staticClass: "gameThumb" }, [
-                  post.thumb
-                    ? _c("img", { attrs: { src: post.thumb, alt: post.title } })
-                    : _vm._e()
-                ]),
-                _vm._v(" "),
-                _c("h5", { domProps: { innerHTML: _vm._s(post.title) } })
-              ])
-            ])
+            return _c("game-box", { key: post.id, attrs: { post: post } })
           })
         )
       ])
@@ -39005,13 +38987,14 @@ exports.push([module.i, "\n.clearfix[data-v-67b9f165] {\n  *zoom: 1;\n}\n.clearf
 "use strict";
 
 
-var _axios = __webpack_require__(8);
+var _gameBox = __webpack_require__(407);
 
-var _axios2 = _interopRequireDefault(_axios);
+var _gameBox2 = _interopRequireDefault(_gameBox);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 module.exports = {
+  components: { gameBox: _gameBox2.default },
   data: function data() {
     return {
       posts: added
@@ -39019,14 +39002,6 @@ module.exports = {
     };
   }
 }; //
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -39057,17 +39032,7 @@ var render = function() {
           "div",
           { staticClass: "gameBoxes" },
           _vm._l(_vm.posts, function(post) {
-            return _c("div", { key: post.id, staticClass: "gameBox" }, [
-              _c("a", { attrs: { href: post.link } }, [
-                _c("div", { staticClass: "gameThumb" }, [
-                  post.thumb
-                    ? _c("img", { attrs: { src: post.thumb, alt: post.title } })
-                    : _vm._e()
-                ]),
-                _vm._v(" "),
-                _c("h5", { domProps: { innerHTML: _vm._s(post.title) } })
-              ])
-            ])
+            return _c("game-box", { key: post.id, attrs: { post: post } })
           })
         )
       ])
@@ -39132,6 +39097,208 @@ Array.prototype.flexFilter = function (info) {
   // Give us a new array containing the objects matching the filter criteria
   return matches;
 };
+
+/***/ }),
+/* 404 */,
+/* 405 */,
+/* 406 */,
+/* 407 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(410)
+}
+var normalizeComponent = __webpack_require__(13)
+/* script */
+var __vue_script__ = __webpack_require__(408)
+/* template */
+var __vue_template__ = __webpack_require__(412)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-1ddf8257"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "vue\\components\\gameBox.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-1ddf8257", Component.options)
+  } else {
+    hotAPI.reload("data-v-1ddf8257", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 408 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+module.exports = {
+  props: ['post'],
+  data: function data() {
+    return {
+      // posts: added
+      // posts: []
+    };
+  },
+
+  computed: {
+    lowestPrice: function lowestPrice() {
+      if (this.post.acf.prices) {
+        var prices = [];
+        var _iteratorNormalCompletion = true;
+        var _didIteratorError = false;
+        var _iteratorError = undefined;
+
+        try {
+          for (var _iterator = this.post.acf.prices[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+            var price = _step.value;
+
+            prices.push(Number.parseFloat(price.price));
+          }
+        } catch (err) {
+          _didIteratorError = true;
+          _iteratorError = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion && _iterator.return) {
+              _iterator.return();
+            }
+          } finally {
+            if (_didIteratorError) {
+              throw _iteratorError;
+            }
+          }
+        }
+
+        return Math.min.apply(Math, prices);
+      }
+    }
+  }
+};
+
+/***/ }),
+/* 409 */,
+/* 410 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(411);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(103)("68ca17fe", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-1ddf8257\",\"scoped\":true,\"hasInlineConfig\":true}!../../node_modules/sass-loader/lib/loader.js!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./gameBox.vue", function() {
+     var newContent = require("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-1ddf8257\",\"scoped\":true,\"hasInlineConfig\":true}!../../node_modules/sass-loader/lib/loader.js!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./gameBox.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 411 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(97)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, "\n.clearfix[data-v-1ddf8257] {\n  *zoom: 1;\n}\n.clearfix[data-v-1ddf8257]:before, .clearfix[data-v-1ddf8257]:after {\n    display: table;\n    content: \"\";\n    line-height: 0;\n}\n.clearfix[data-v-1ddf8257]:after {\n    clear: both;\n}\n.gameBox .lastPrice[data-v-1ddf8257] {\n  border-top: 2px solid #BDD4DE;\n  font-size: .625em;\n  padding: .5em .5em 0;\n  text-align: center;\n}\n.gameBox .lastPrice span[data-v-1ddf8257] {\n    font-size: 1.75em;\n    display: block;\n    font-weight: 700;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 412 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "gameBox" }, [
+    _c("a", { attrs: { href: _vm.post.link } }, [
+      _c("div", { staticClass: "gameThumb" }, [
+        _vm.post.thumb
+          ? _c("img", { attrs: { src: _vm.post.thumb, alt: _vm.post.title } })
+          : _vm._e()
+      ]),
+      _vm._v(" "),
+      _c("h5", { domProps: { innerHTML: _vm._s(_vm.post.title) } }),
+      _vm._v(" "),
+      _vm.lowestPrice
+        ? _c("p", { staticClass: "lastPrice" }, [
+            _vm._v("\n      Last Seen Lowest Price\n      "),
+            _c("span", {
+              domProps: { textContent: _vm._s("$" + _vm.lowestPrice) }
+            })
+          ])
+        : _vm._e()
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-1ddf8257", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

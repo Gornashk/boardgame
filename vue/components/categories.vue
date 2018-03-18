@@ -3,15 +3,7 @@
     <div class="row">
       <div class="col-md-12">
         <div class="gameBoxes">
-            <div class="gameBox" v-for="post in posts" :key="post.id">
-              <a :href="post.link">
-                <div class="gameThumb">
-                  <img v-if="post.thumb"
-                  :src="post.thumb" :alt="post.title">
-                </div>
-                <h5 v-html="post.title"></h5>
-              </a>
-            </div>
+            <game-box v-for="post in posts" :key="post.id" :post="post"></game-box>
         </div>
       </div>
     </div>

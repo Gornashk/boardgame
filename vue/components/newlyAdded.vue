@@ -4,15 +4,7 @@
       <div class="col-md-12">
         <h4>Recently Searched Board Games</h4>
         <div class="gameBoxes">
-            <div class="gameBox" v-for="post in posts" :key="post.id">
-              <a :href="post.link">
-                <div class="gameThumb">
-                  <img v-if="post.thumb"
-                  :src="post.thumb" :alt="post.title">
-                </div>
-                <h5 v-html="post.title"></h5>
-              </a>
-            </div>
+          <game-box v-for="post in posts" :key="post.id" :post="post"></game-box>
         </div>
       </div>
     </div>
@@ -20,9 +12,10 @@
 </template>
 
 <script>
-import axios from 'axios';
+import gameBox from './gameBox.vue';
 
 module.exports = {
+  components: { gameBox },
   data() {
     return {
       posts: added
