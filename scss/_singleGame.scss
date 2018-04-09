@@ -3,6 +3,12 @@
 
   .gameImage {
     margin-bottom: 1.5em;
+
+    img {
+      max-height: 350px;
+      margin: 0 auto;
+      display: block;
+    }
   }
 
   .gameInfoTop {
@@ -10,7 +16,7 @@
   }
 }
 .gameStats {
-  margin: 0;
+  margin: 0 0 1.5em 0;
   padding: 0;
   list-style: none;
   border: 2px solid $lightBlue;

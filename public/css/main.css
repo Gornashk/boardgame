@@ -4213,12 +4213,18 @@ img {
   margin-bottom: 1.5em;
 }
 
+.gameInfoContainer .gameImage img {
+  max-height: 350px;
+  margin: 0 auto;
+  display: block;
+}
+
 .gameInfoContainer .gameInfoTop {
   margin-bottom: 1.5em;
 }
 
 .gameStats {
-  margin: 0;
+  margin: 0 0 1.5em 0;
   padding: 0;
   list-style: none;
   border: 2px solid #BDD4DE;
@@ -4468,10 +4474,6 @@ img {
       -ms-flex-pack: justify;
           justify-content: space-between;
   height: 100%;
-}
-
-.gameBoxes .gameBox a .gameThumb {
-  height: 196px;
 }
 
 .gameBoxes .gameBox a .gameThumb img {

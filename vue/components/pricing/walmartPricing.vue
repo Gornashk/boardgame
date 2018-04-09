@@ -1,17 +1,18 @@
 <template>
   <div>
-    <div class="priceRow" v-if="walmartData.walmartPrice">
+    <div class="priceRow" v-if="walmartData.walmartPrice"
+    itemprop="seller" itemscope itemtype="http://schema.org/Organization">
       <div class="rowName">
-        <a :href="walmartData.walmartLink" @click="linkClick">Walmart.com</a>
+        <a :href="walmartData.walmartLink" @click="linkClick" itemprop="name">Walmart.com</a>
       </div>
       <div class="rowPrice">
-        <span v-html="'$' + walmartData.walmartPrice"></span>
+        <span v-html="'$' + walmartData.walmartPrice" itemprop="price"></span>
       </div>
       <div class="rowStock">
         <span v-html="walmartData.walmartStock"></span>
       </div>
       <div class="rowLink">
-        <a :href="walmartData.walmartLink" class="storeBtn" @click="linkClick">Visit Store</a>
+        <a :href="walmartData.walmartLink" itemprop="url" class="storeBtn" @click="linkClick">Visit Store</a>
       </div>
     </div>
   </div>

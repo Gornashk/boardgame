@@ -11,9 +11,10 @@
 </template>
 
 <script>
-import axios from 'axios';
+import gameBox from './gameBox.vue';
 
 module.exports = {
+  components: { gameBox },
   data() {
     return {
       posts: posts

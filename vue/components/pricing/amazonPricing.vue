@@ -1,17 +1,18 @@
 <template>
   <div>
-    <div class="priceRow" v-if="amazonData.amazonPrice">
+    <div class="priceRow" v-if="amazonData.amazonPrice"
+    itemprop="seller" itemscope itemtype="http://schema.org/Organization">
       <div class="rowName">
-        <a :href="amazonData.amazonLink" @click="linkClick">Amazon.com</a>
+        <a :href="amazonData.amazonLink" @click="linkClick" itemprop="name">Amazon.com</a>
       </div>
       <div class="rowPrice">
-        <span v-html="amazonData.amazonPrice"></span>
+        <span v-html="amazonData.amazonPrice" itemprop="price"></span>
       </div>
       <div class="rowStock">
         <span v-html="amazonData.amazonStock"></span>
       </div>
       <div class="rowLink">
-        <a :href="amazonData.amazonLink" class="storeBtn" @click="linkClick">Visit Store</a>
+        <a :href="amazonData.amazonLink" itemprop="url" class="storeBtn" @click="linkClick">Visit Store</a>
       </div>
     </div>
   </div>

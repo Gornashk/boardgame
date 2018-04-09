@@ -61,6 +61,7 @@
 import gamePricing from './game-pricing.vue';
 import axios from 'axios';
 import xmltojson from 'xmltojson';
+import NaturalLanguage from 'nlg';
 
 module.exports = {
 	components: { gamePricing },
@@ -70,10 +71,12 @@ module.exports = {
     }
   },
   mounted () {
-
+		this.nlgDescription()
   },
   methods: {
-  
+		nlgDescription () {
+
+		}
   }
 }
 

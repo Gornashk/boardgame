@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "axios-cancel": "^0.2.2",
+    "nlg": "^0.1.1",
     "vue-instantsearch": "^1.3.4",
     "xmltojson": "^1.3.5"
   }
