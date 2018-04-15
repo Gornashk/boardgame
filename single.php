@@ -74,11 +74,11 @@ $fields = get_fields();
 							'terms' => get_the_terms( $post->ID, 'category' )
 						);
 						$family = array(
-							'title' => 'Families',
+							'title' => 'Groups',
 							'terms' => get_the_terms( $post->ID, 'family' )
 						);
 						$mechanic = array(
-							'title' => 'Mechanics',
+							'title' => 'Gameplay Mechanics',
 							'terms' => get_the_terms( $post->ID, 'mechanic' )
 						);
 						$publisher = array(

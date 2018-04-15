@@ -1,5 +1,11 @@
 <template>
   <div id="heroSearchBar" :style="{ backgroundImage: 'url(' + options.search_background.sizes.large + ')' }">
+    <div class="creatingOver" v-show="creatingBGG === true">
+      <div>
+        <img :src="options.dir + '/img/searchLoader.gif'">
+        <p>Getting the game page ready for it's first visit!</p>
+      </div>
+    </div>
     <div class="container">
       <div class="row">
         <div class="col-md-12">
@@ -32,16 +38,13 @@
                 <img :src="options.dir + '/img/searchLoader.gif'">
                 <p>Finding ALL the games!</p>
               </div>
-              <div class="loadingOver" v-show="creatingBGG === true">
-                <img :src="options.dir + '/img/searchLoader.gif'">
-                <p>Getting the game page ready for it's first visit!</p>
-              </div>
               <ul>
                 <li 
                 v-for="post in filteredBGG"
                 :key="post.id"
                 v-html="post.name[0]._attr.value._value"
-                @click="createPost(post.name[0]._attr.value._value, post._attr.id._value)"></li>
+                @click="createPost(post.name[0]._attr.value._value, post._attr.id._value)">
+                </li>
               </ul>
             </div>
           </div>
@@ -115,7 +118,14 @@ module.exports = {
     query: _debounce(function() {
       const requestId = 'my_sample_request';
       this.bggQuery(requestId)
-    }, 500)
+    }, 500),
+    creatingBGG (oldVal, newVal) {
+      if(this.creatingBGG == true) {
+        document.body.style.position = 'fixed';
+        document.body.style.overflowY = 'scroll';
+        document.body.style.width = '100%';
+      }
+    }
     
   },
   computed: {

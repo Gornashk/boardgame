@@ -24069,6 +24069,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
+//
 
 Vue.use(_vueInstantsearch2.default);
 
@@ -24100,8 +24103,14 @@ module.exports = {
     query: (0, _debounce3.default)(function () {
       var requestId = 'my_sample_request';
       this.bggQuery(requestId);
-    }, 500)
-
+    }, 500),
+    creatingBGG: function creatingBGG(oldVal, newVal) {
+      if (this.creatingBGG == true) {
+        document.body.style.position = 'fixed';
+        document.body.style.overflowY = 'scroll';
+        document.body.style.width = '100%';
+      }
+    }
   },
   computed: {},
   methods: {
@@ -38654,6 +38663,32 @@ var render = function() {
       attrs: { id: "heroSearchBar" }
     },
     [
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.creatingBGG === true,
+              expression: "creatingBGG === true"
+            }
+          ],
+          staticClass: "creatingOver"
+        },
+        [
+          _c("div", [
+            _c("img", {
+              attrs: { src: _vm.options.dir + "/img/searchLoader.gif" }
+            }),
+            _vm._v(" "),
+            _c("p", [
+              _vm._v("Getting the game page ready for it's first visit!")
+            ])
+          ])
+        ]
+      ),
+      _vm._v(" "),
       _c("div", { staticClass: "container" }, [
         _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col-md-12" }, [
@@ -38793,34 +38828,6 @@ var render = function() {
                         }),
                         _vm._v(" "),
                         _c("p", [_vm._v("Finding ALL the games!")])
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: _vm.creatingBGG === true,
-                            expression: "creatingBGG === true"
-                          }
-                        ],
-                        staticClass: "loadingOver"
-                      },
-                      [
-                        _c("img", {
-                          attrs: {
-                            src: _vm.options.dir + "/img/searchLoader.gif"
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("p", [
-                          _vm._v(
-                            "Getting the game page ready for it's first visit!"
-                          )
-                        ])
                       ]
                     ),
                     _vm._v(" "),
