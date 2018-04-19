@@ -365,54 +365,58 @@ module.exports = {
           var amzELID = amazonItem.ItemAttributes[0].ELID[0]._text;
         }
       }
-      var upcItems = this.upcResponse.items
+      if(this.upcResponse) {
+        var upcItems = this.upcResponse.items
+      }
       var upc = [];
       var asin = [];
       var ean = [];
       var elid = [];
       var mpn = [];
-      upcItems.forEach(function(item){
-        if(item.upc) {
-          var upcObj = {
-            upc: item.upc,
-            title: item.title
+      if(upcItems) {
+        upcItems.forEach(function(item){
+          if(item.upc) {
+            var upcObj = {
+              upc: item.upc,
+              title: item.title
+            }
           }
-        }
-        if(item.asin) {
-          var asinObj = {
-            asin: item.asin,
-            title: item.title
+          if(item.asin) {
+            var asinObj = {
+              asin: item.asin,
+              title: item.title
+            }
           }
-        }
-        if(item.ean) {
-          var eanObj = {
-            ean: item.ean,
-            title: item.title
+          if(item.ean) {
+            var eanObj = {
+              ean: item.ean,
+              title: item.title
+            }
           }
-        }
-        if(item.elid) {
-          var elidObj = {
-            elid: item.elid,
-            title: item.title
+          if(item.elid) {
+            var elidObj = {
+              elid: item.elid,
+              title: item.title
+            }
           }
-        }
-        if(item.model) {
-          var mpnObj = {
-            mpn: item.model,
-            title: item.title
+          if(item.model) {
+            var mpnObj = {
+              mpn: item.model,
+              title: item.title
+            }
           }
-        }
-        upc.push(upcObj)
-        asin.push(asinObj)
-        ean.push(eanObj)
-        elid.push(elidObj)
-        mpn.push(mpnObj)
-      })
-      upc = _compact(upc)
-      asin = _compact(asin)
-      ean = _compact(ean)
-      elid = _compact(elid)
-      mpn = _compact(mpn)
+          upc.push(upcObj)
+          asin.push(asinObj)
+          ean.push(eanObj)
+          elid.push(elidObj)
+          mpn.push(mpnObj)
+        })
+        upc = _compact(upc)
+        asin = _compact(asin)
+        ean = _compact(ean)
+        elid = _compact(elid)
+        mpn = _compact(mpn)
+      }
 
       jQuery.ajax({
         type: "post",
