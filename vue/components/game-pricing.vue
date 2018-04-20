@@ -10,6 +10,7 @@
       <amazon-pricing :game="game" v-on:pricing="pricingCheck"></amazon-pricing>
       <walmart-pricing :game="game" v-on:pricing="pricingCheck"></walmart-pricing>
       <barnes-pricing :game="game" v-on:pricing="pricingCheck"></barnes-pricing>
+      <entertainment-pricing :game="game" v-on:pricing="pricingCheck"></entertainment-pricing>
     </div>
   </div>
 </template>
@@ -23,9 +24,10 @@ import _compact from 'lodash/compact';
 import amazonPricing from './pricing/amazonPricing.vue';
 import walmartPricing from './pricing/walmartPricing.vue';
 import barnesPricing from './pricing/barnesnoblePricing.vue';
+import entertainmentPricing from './pricing/entertainmentEarthPricing.vue';
 
 module.exports = {
-  components: { amazonPricing, walmartPricing, barnesPricing },
+  components: { amazonPricing, walmartPricing, barnesPricing, entertainmentPricing },
   // props: ['acfs','upcs','eans','elids','codes','gameTitle'],
   data () { 
     return {

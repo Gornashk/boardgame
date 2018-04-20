@@ -1,7 +1,7 @@
 <?php
-add_action( 'wp_ajax_nopriv_ks_getBarnesPrice', 'ks_getBarnesPrice' );
-add_action( 'wp_ajax_ks_getBarnesPrice', 'ks_getBarnesPrice' );
-function ks_getBarnesPrice() {
+add_action( 'wp_ajax_nopriv_ks_getCjPrice', 'ks_getCjPrice' );
+add_action( 'wp_ajax_ks_getCjPrice', 'ks_getCjPrice' );
+function ks_getCjPrice() {
   $upcCode = $_GET['upc'];
   $websiteId = $_GET['websiteId'];
   $advertiserId = $_GET['advertiserId'];

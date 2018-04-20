@@ -1,20 +1,20 @@
 <template>
   <div>
-    <div class="priceRow" v-if="barnesData.barnesPrice"
+    <div class="priceRow" v-if="entertainmentData.entertainmentPrice"
     itemprop="seller" itemscope itemtype="http://schema.org/Organization">
       <div class="rowName">
-        <a :href="barnesData.barnesLink" @click="linkClick" itemprop="name">Barnes and Noble</a>
+        <a :href="entertainmentData.entertainmentLink" @click="linkClick" itemprop="name">Entertainment Earth</a>
       </div>
       <div class="rowPrice">
-        <span v-html="'$' + barnesData.barnesPrice" itemprop="price"></span>
+        <span v-html="'$' + entertainmentData.entertainmentPrice" itemprop="price"></span>
       </div>
       <div class="rowStock">
         <span
-        v-if="barnesData.barnesStock">In Stock</span>
+        v-if="entertainmentData.entertainmentStock">In Stock</span>
         <span v-else>Out of Stock</span>
       </div>
       <div class="rowLink">
-        <a :href="barnesData.barnesLink" itemprop="url" class="storeBtn" @click="linkClick">Visit Store</a>
+        <a :href="entertainmentData.entertainmentLink" itemprop="url" class="storeBtn" @click="linkClick">Visit Store</a>
       </div>
     </div>
   </div>
@@ -29,13 +29,13 @@ module.exports = {
   props: ["game"],
   data () {
     return {
-      barnesResponse: [],
-      barnesData: {
-        barnesPrice: '',
-        barnesLink: '',
-        barnesDate: '',
-        barnesStock: '',
-        barnesError: ''
+      entertainmentResponse: [],
+      entertainmentData: {
+        entertainmentPrice: '',
+        entertainmentLink: '',
+        entertainmentDate: '',
+        entertainmentStock: '',
+        entertainmentError: ''
       }
     }
   },
@@ -45,8 +45,8 @@ module.exports = {
   methods: {
     linkClick() {
       __gaTracker('send', 'event', {
-        eventCategory: 'Barnes and Noble',
-        eventAction: this.barnesData.barnesLink,
+        eventCategory: 'Entertainment Earth',
+        eventAction: this.entertainmentData.entertainmentLink,
         eventLabel: this.game.title
       });
     },
@@ -55,14 +55,14 @@ module.exports = {
 
         if( this.game.acf.codes = true ) {
           // If I have ID codes, look for product prices
-          this.barnesPrices()
+          this.entertainmentPrices()
           return;
         }
         // Don't get prices if ID codes don't exist
         return;
       }
     },
-    barnesPrices () {
+    entertainmentPrices () {
       var that = this;
       // create blank id code vars
       var upcCode
@@ -91,37 +91,37 @@ module.exports = {
           action: "ks_getCjPrice",
           upc: upcCode,
           websiteId: '8512196', // BoardGamerDeal's ID through CJ
-          advertiserId: '4258829' // B&N's ID through CJ
+          advertiserId: '1413722' // Entertainment Earth's ID through CJ
         }
       })
       .then((response) => {
         var str = response.data
-        var barnesResponse = str.substring(0, str.length - 1);
+        var entertainmentResponse = str.substring(0, str.length - 1);
 
-        that.barnesResponse = xmltojson.parseString(barnesResponse);
+        that.entertainmentResponse = xmltojson.parseString(entertainmentResponse);
       }) 
       .catch(function (error) {
-        that.barnesData.barnesError = 'Error! Could not get Barnes and Noble prices. ' + error
+        that.entertainmentData.entertainmentError = 'Error! Could not get Entertainment Earth prices. ' + error
       })
       .then( () => {
         this.savePrice()
       })
     },
     savePrice () {
-      if(this.barnesResponse.errors) {
+      if(this.entertainmentResponse.errors) {
         return;
       }
-      if(this.barnesResponse) {
-        if(this.barnesResponse['cj-api'][0].products[0].product) {
-          this.barnesData.barnesPrice = this.barnesResponse['cj-api'][0].products[0].product[0].price[0]._text;
-          this.barnesData.barnesLink = this.barnesResponse['cj-api'][0].products[0].product[0]['buy-url'][0]._text;
-          this.barnesData.barnesStock = this.barnesResponse['cj-api'][0].products[0].product[0]['in-stock'][0]._text;
-          this.updateBarnes(this.barnesData.barnesPrice, this.barnesData.barnesStock, this.barnesData.barnesLink);
+      if(this.entertainmentResponse) {
+        if(this.entertainmentResponse['cj-api'][0].products[0].product) {
+          this.entertainmentData.entertainmentPrice = this.entertainmentResponse['cj-api'][0].products[0].product[0].price[0]._text;
+          this.entertainmentData.entertainmentLink = this.entertainmentResponse['cj-api'][0].products[0].product[0]['buy-url'][0]._text;
+          this.entertainmentData.entertainmentStock = this.entertainmentResponse['cj-api'][0].products[0].product[0]['in-stock'][0]._text;
+          this.updateEntertainment(this.entertainmentData.entertainmentPrice, this.entertainmentData.entertainmentStock, this.entertainmentData.entertainmentLink);
           this.$emit('pricing', true)
         }
       }
     },
-    updateBarnes (price, stock, link) {
+    updateEntertainment (price, stock, link) {
       jQuery.ajax({
         type: "post",
         url: adminAjax,
@@ -131,7 +131,7 @@ module.exports = {
           action: "ks_updateGamePrice",
           nonce: nonce,
           postID: this.game.id,
-          retailer: 'barnes',
+          retailer: 'entertainment',
           price: price,
           stock: stock,
           link: link
