@@ -9,7 +9,9 @@
         <span v-html="'$' + barnesData.barnesPrice" itemprop="price"></span>
       </div>
       <div class="rowStock">
-        <span v-html="barnesData.barnesStock"></span>
+        <span
+        v-if="barnesData.barnesStock">In Stock</span>
+        <span v-else>Out of Stock</span>
       </div>
       <div class="rowLink">
         <a :href="barnesData.barnesLink" itemprop="url" class="storeBtn" @click="linkClick">Visit Store</a>
@@ -68,23 +70,36 @@ module.exports = {
         upcCode = this.game.acf.upcs[0].upc
       }
 
+      // axios.get('https://product-search.api.cj.com/v2/product-search', {
+      //   headers: {
+      //     authorization: '00a6dd1cf06e33479ee017af3d7de3e1e8f77407ab66777c2ca9d7e2c8b2a099e6c22a7e6d01a27277707247503f435ce0dfc18d442771cb347afd4e2306ffb967/292905c8710689363184e61f3efc856f580af11160973cb42fb92721e69e231818776f8b727a9c9a2b18e3ef66840874e395c7d47efce8f5fa7c435936b73b31'
+      //   },
+      //   params: {
+      //     upc: upcCode,
+      //     websiteId: '8512196',
+      //     advertiserId: '4258829'
+      //   }
+      // })
+      // .then((response) => {
+      //   console.log(response)
+      // })
+
       // Axios function to get signed Amazon URL
       axios.get(adminAjax, {
         responseType: 'text',
         params: {
           action: "ks_getBarnesPrice",
-          apiKey: '00a6dd1cf06e33479ee017af3d7de3e1e8f77407ab66777c2ca9d7e2c8b2a099e6c22a7e6d01a27277707247503f435ce0dfc18d442771cb347afd4e2306ffb967/292905c8710689363184e61f3efc856f580af11160973cb42fb92721e69e231818776f8b727a9c9a2b18e3ef66840874e395c7d47efce8f5fa7c435936b73b31',
           upc: upcCode,
-          websiteId: '8512196',
-          advertiserId: '4258829'
+          websiteId: '8512196', // BoardGamerDeal's ID through CJ
+          advertiserId: '4258829' // B&N's ID through CJ
         }
       })
       .then((response) => {
-        
+        console.log(response)
         var str = response.data
         var barnesResponse = str.substring(0, str.length - 1);
 
-        that.barnesResponse = JSON.parse(barnesResponse);
+        that.barnesResponse = xmltojson.parseString(barnesResponse);
       }) 
       .catch(function (error) {
         that.barnesData.barnesError = 'Error! Could not get Barnes and Noble prices. ' + error
@@ -98,10 +113,10 @@ module.exports = {
         return;
       }
       if(this.barnesResponse) {
-        if(this.barnesResponse.items.length > 0) {
-          this.barnesData.barnesPrice = Number.parseFloat('response here').toFixed(2);
-          this.barnesData.barnesLink = '';
-          this.barnesData.barnesStock = '';
+        if(this.barnesResponse['cj-api'].length > 0) {
+          this.barnesData.barnesPrice = this.barnesResponse['cj-api'][0].products[0].product[0].price[0]._text;
+          this.barnesData.barnesLink = this.barnesResponse['cj-api'][0].products[0].product[0]['buy-url'][0]._text;
+          this.barnesData.barnesStock = this.barnesResponse['cj-api'][0].products[0].product[0]['in-stock'][0]._text;
           this.updateBarnes(this.barnesData.barnesPrice, this.barnesData.barnesStock, this.barnesData.barnesLink);
           this.$emit('pricing', true)
         }

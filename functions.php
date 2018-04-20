@@ -246,23 +246,34 @@ function my_post_attributes( array $attributes, WP_Post $post ) {
       return $data;
   }
 
-  function get_Cj_data($url, $auth) {
-    $ch = curl_init();
-    $timeout = 15;
-    $userAgent = 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; .NET CLR 1.1.4322)';
-    curl_setopt($ch, CURLOPT_USERAGENT, $userAgent);
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
-    if($auth) {
-      curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-        'authorization: '.$auth
-      ));
+  function get_Cj_data($url) {
+    $curl = curl_init();
+    curl_setopt_array($curl, array(
+      CURLOPT_URL => $url,
+      CURLOPT_RETURNTRANSFER => 1,
+      CURLOPT_USERAGENT => 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; .NET CLR 1.1.4322)',
+      // CURLOPT_ENCODING => "",
+      CURLOPT_MAXREDIRS => 10,
+      CURLOPT_TIMEOUT => 30,
+      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+      CURLOPT_CUSTOMREQUEST => "GET",
+      CURLOPT_SSL_VERIFYPEER => false,
+      CURLOPT_HTTPHEADER => array(
+        "Authorization: 00a6dd1cf06e33479ee017af3d7de3e1e8f77407ab66777c2ca9d7e2c8b2a099e6c22a7e6d01a27277707247503f435ce0dfc18d442771cb347afd4e2306ffb967/292905c8710689363184e61f3efc856f580af11160973cb42fb92721e69e231818776f8b727a9c9a2b18e3ef66840874e395c7d47efce8f5fa7c435936b73b31"
+      ),
+    ));
+
+    $response = curl_exec($curl);
+    $err = curl_error($curl);
+
+    curl_close($curl);
+
+    if ($err) {
+      return "cURL Error #:" . $err;
+    } else {
+      return $response;
     }
-    $data = curl_exec($ch);
-    curl_close($ch);
-    return $data;
-}
+  }
   
   if( function_exists('acf_add_options_page') ) {
 	
@@ -282,6 +293,7 @@ function my_post_attributes( array $attributes, WP_Post $post ) {
   
   require_once( __DIR__ . '/inc/amazonPrice.php' );
   require_once( __DIR__ . '/inc/walmartPrice.php' );
+  require_once( __DIR__ . '/inc/barnesPrice.php' );
 
   require_once( __DIR__ . '/inc/upcIDs.php' );
 
