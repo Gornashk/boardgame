@@ -245,6 +245,24 @@ function my_post_attributes( array $attributes, WP_Post $post ) {
       curl_close($ch);
       return $data;
   }
+
+  function get_Cj_data($url, $auth) {
+    $ch = curl_init();
+    $timeout = 15;
+    $userAgent = 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; .NET CLR 1.1.4322)';
+    curl_setopt($ch, CURLOPT_USERAGENT, $userAgent);
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+    if($auth) {
+      curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+        'authorization: '.$auth
+      ));
+    }
+    $data = curl_exec($ch);
+    curl_close($ch);
+    return $data;
+}
   
   if( function_exists('acf_add_options_page') ) {
 	

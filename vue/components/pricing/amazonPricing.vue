@@ -53,10 +53,11 @@ module.exports = {
       if( this.game.acf.codes ) {
 
         if( this.game.acf.codes = true ) {
+          // If I have ID codes, look for product prices
           this.amazonPrices()
           return;
         }
-        // Cancel function if UPCs already exist
+        // Don't get prices if ID codes don't exist
         return;
       }
     },
