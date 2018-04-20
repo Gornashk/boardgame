@@ -3,7 +3,7 @@
     <div class="priceRow" v-if="barnesData.barnesPrice"
     itemprop="seller" itemscope itemtype="http://schema.org/Organization">
       <div class="rowName">
-        <a :href="barnesData.barnesLink" @click="linkClick" itemprop="name">barnesandnoble.com</a>
+        <a :href="barnesData.barnesLink" @click="linkClick" itemprop="name">Barnes and Noble</a>
       </div>
       <div class="rowPrice">
         <span v-html="'$' + barnesData.barnesPrice" itemprop="price"></span>
@@ -95,7 +95,6 @@ module.exports = {
         }
       })
       .then((response) => {
-        console.log(response)
         var str = response.data
         var barnesResponse = str.substring(0, str.length - 1);
 
@@ -113,7 +112,7 @@ module.exports = {
         return;
       }
       if(this.barnesResponse) {
-        if(this.barnesResponse['cj-api'].length > 0) {
+        if(this.barnesResponse['cj-api'][0].products[0].product) {
           this.barnesData.barnesPrice = this.barnesResponse['cj-api'][0].products[0].product[0].price[0]._text;
           this.barnesData.barnesLink = this.barnesResponse['cj-api'][0].products[0].product[0]['buy-url'][0]._text;
           this.barnesData.barnesStock = this.barnesResponse['cj-api'][0].products[0].product[0]['in-stock'][0]._text;
