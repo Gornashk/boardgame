@@ -12,7 +12,7 @@
         <span v-html="amazonData.amazonStock"></span>
       </div>
       <div class="rowLink">
-        <a :href="amazonData.amazonLink" itemprop="url" class="storeBtn" @click="linkClick">Visit Store</a>
+        <a :href="amazonData.amazonLink" target="_blank" itemprop="url" class="storeBtn" @click="linkClick">Visit Store</a>
       </div>
     </div>
   </div>

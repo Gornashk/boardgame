@@ -1,20 +1,20 @@
 <template>
   <div>
-    <div class="priceRow" v-if="barnesData.barnesPrice"
+    <div class="priceRow" v-if="startrekData.startrekPrice"
     itemprop="seller" itemscope itemtype="http://schema.org/Organization">
       <div class="rowName">
-        <a :href="barnesData.barnesLink" @click="linkClick" itemprop="name">Barnes and Noble</a>
+        <a :href="startrekData.startrekLink" @click="linkClick" itemprop="name">StarTrek.com</a>
       </div>
       <div class="rowPrice">
-        <span v-html="'$' + barnesData.barnesPrice" itemprop="price"></span>
+        <span v-html="'$' + startrekData.startrekPrice" itemprop="price"></span>
       </div>
       <div class="rowStock">
         <span
-        v-if="barnesData.barnesStock">In Stock</span>
+        v-if="startrekData.startrekStock">In Stock</span>
         <span v-else>Out of Stock</span>
       </div>
       <div class="rowLink">
-        <a :href="barnesData.barnesLink" target="_blank" itemprop="url" class="storeBtn" @click="linkClick">Visit Store</a>
+        <a :href="startrekData.startrekLink" target="_blank" itemprop="url" class="storeBtn" @click="linkClick">Visit Store</a>
       </div>
     </div>
   </div>
@@ -29,13 +29,13 @@ module.exports = {
   props: ["game"],
   data () {
     return {
-      barnesResponse: [],
-      barnesData: {
-        barnesPrice: '',
-        barnesLink: '',
-        barnesDate: '',
-        barnesStock: '',
-        barnesError: ''
+      startrekResponse: [],
+      startrekData: {
+        startrekPrice: '',
+        startrekLink: '',
+        startrekDate: '',
+        startrekStock: '',
+        startrekError: ''
       }
     }
   },
@@ -45,8 +45,8 @@ module.exports = {
   methods: {
     linkClick() {
       __gaTracker('send', 'event', {
-        eventCategory: 'Barnes and Noble',
-        eventAction: this.barnesData.barnesLink,
+        eventCategory: 'Star Trek',
+        eventAction: this.startrekData.startrekLink,
         eventLabel: this.game.title
       });
     },
@@ -55,14 +55,14 @@ module.exports = {
 
         if( this.game.acf.codes = true ) {
           // If I have ID codes, look for product prices
-          this.barnesPrices()
+          this.startrekPrices()
           return;
         }
         // Don't get prices if ID codes don't exist
         return;
       }
     },
-    barnesPrices () {
+    startrekPrices () {
       var that = this;
       // create blank id code vars
       var upcCode
@@ -77,17 +77,17 @@ module.exports = {
             action: "ks_getCjPrice",
             upc: upcCode,
             websiteId: '8512196', // BoardGamerDeal's ID through CJ
-            advertiserId: '4258829' // B&N's ID through CJ
+            advertiserId: '4338270' // Star Trek's ID through CJ
           }
         })
         .then((response) => {
           var str = response.data
-          var barnesResponse = str.substring(0, str.length - 1);
+          var startrekResponse = str.substring(0, str.length - 1);
 
-          that.barnesResponse = xmltojson.parseString(barnesResponse);
+          that.startrekResponse = xmltojson.parseString(startrekResponse);
         }) 
         .catch(function (error) {
-          that.barnesData.barnesError = 'Error! Could not get Barnes and Noble prices. ' + error
+          that.startrekData.startrekError = 'Error! Could not get star trek prices. ' + error
         })
         .then( () => {
           this.savePrice()
@@ -95,20 +95,20 @@ module.exports = {
       }
     },
     savePrice () {
-      if(this.barnesResponse.errors) {
+      if(this.startrekResponse.errors) {
         return;
       }
-      if(this.barnesResponse) {
-        if(this.barnesResponse['cj-api'][0].products[0].product) {
-          this.barnesData.barnesPrice = Number.parseFloat(this.barnesResponse['cj-api'][0].products[0].product[0].price[0]._text).toFixed(2);
-          this.barnesData.barnesLink = this.barnesResponse['cj-api'][0].products[0].product[0]['buy-url'][0]._text;
-          this.barnesData.barnesStock = this.barnesResponse['cj-api'][0].products[0].product[0]['in-stock'][0]._text;
-          this.updateBarnes(this.barnesData.barnesPrice, this.barnesData.barnesStock, this.barnesData.barnesLink);
+      if(this.startrekResponse) {
+        if(this.startrekResponse['cj-api'][0].products[0].product) {
+          this.startrekData.startrekPrice = Number.parseFloat(this.startrekResponse['cj-api'][0].products[0].product[0].price[0]._text).toFixed(2);
+          this.startrekData.startrekLink = this.startrekResponse['cj-api'][0].products[0].product[0]['buy-url'][0]._text;
+          this.startrekData.startrekStock = this.startrekResponse['cj-api'][0].products[0].product[0]['in-stock'][0]._text;
+          this.updateStartrek(this.startrekData.startrekPrice, this.startrekData.startrekStock, this.startrekData.startrekLink);
           this.$emit('pricing', true)
         }
       }
     },
-    updateBarnes (price, stock, link) {
+    updateStartrek (price, stock, link) {
       jQuery.ajax({
         type: "post",
         url: adminAjax,
@@ -118,7 +118,7 @@ module.exports = {
           action: "ks_updateGamePrice",
           nonce: nonce,
           postID: this.game.id,
-          retailer: 'barnes',
+          retailer: 'starTrek',
           price: price,
           stock: stock,
           link: link
