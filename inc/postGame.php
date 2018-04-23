@@ -2,19 +2,34 @@
   
   add_action( 'wp_ajax_nopriv_ks_postNewGame', 'ks_postNewGame' );
   add_action( 'wp_ajax_ks_postNewGame', 'ks_postNewGame' );
-  function ks_postNewGame() {
-    $title = $_POST['title'];
-    $bggID = $_POST['bggID'];
-    $description = $_POST['description'];
-    $image = $_POST['image'];
-    $categories = $_POST['categories'];
-    $maxPlayers = $_POST['maxPlayers'];
-    $minPlayers = $_POST['minPlayers'];
-    $maxPlayTime = $_POST['maxPlayTime'];
-    $minPlayTime = $_POST['minPlayTime'];
-    $minAge = $_POST['minAge'];
-    $yearPublished = $_POST['yearPublished'];
-    $rating = $_POST['rating'];
+  function ks_postNewGame($game) {
+    if($game) {
+      $title = $game['title'];
+      $bggID = $game['bggID'];
+      $description = $game['description'];
+      $image = $game['image'];
+      $categories = $game['categories'];
+      $maxPlayers = $game['maxPlayers'];
+      $minPlayers = $game['minPlayers'];
+      $maxPlayTime = $game['maxPlayTime'];
+      $minPlayTime = $game['minPlayTime'];
+      $minAge = $game['minAge'];
+      $yearPublished = $game['yearPublished'];
+      $rating = $game['rating'];
+    } else {
+      $title = $_POST['title'];
+      $bggID = $_POST['bggID'];
+      $description = $_POST['description'];
+      $image = $_POST['image'];
+      $categories = $_POST['categories'];
+      $maxPlayers = $_POST['maxPlayers'];
+      $minPlayers = $_POST['minPlayers'];
+      $maxPlayTime = $_POST['maxPlayTime'];
+      $minPlayTime = $_POST['minPlayTime'];
+      $minAge = $_POST['minAge'];
+      $yearPublished = $_POST['yearPublished'];
+      $rating = $_POST['rating'];
+    }
   
     //return;
     $date = current_time( 'Y-m-d H:i:s', $gmt = 0 );
