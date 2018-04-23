@@ -77,7 +77,7 @@ module.exports = {
             action: "ks_getCjPrice",
             upc: upcCode,
             websiteId: '8512196', // BoardGamerDeal's ID through CJ
-            advertiserId: '1807847' // Unbeatable Sale's ID through CJ
+            advertiserId: '1567450' // Unbeatable Sale's ID through CJ
           }
         })
         .then((response) => {
