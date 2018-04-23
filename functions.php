@@ -274,6 +274,12 @@ function my_post_attributes( array $attributes, WP_Post $post ) {
       return $response;
     }
   }
+
+  function xml_attribute($object, $attribute)
+{
+    if(isset($object[$attribute]))
+        return (string) $object[$attribute];
+}
   
   if( function_exists('acf_add_options_page') ) {
 	
@@ -298,5 +304,5 @@ function my_post_attributes( array $attributes, WP_Post $post ) {
   require_once( __DIR__ . '/inc/upcIDs.php' );
 
   require_once( __DIR__ . '/inc/amazonSearch.php' );
-  // require_once( __DIR__ . '/inc/bggHot.php' );
+  require_once( __DIR__ . '/inc/bggHot.php' );
   
