@@ -14,7 +14,7 @@
         <span v-else>Out of Stock</span>
       </div>
       <div class="rowLink">
-        <a :href="entertainmentData.entertainmentLink" itemprop="url" class="storeBtn" @click="linkClick">Visit Store</a>
+        <a :href="entertainmentData.entertainmentLink" target="_blank" itemprop="url" class="storeBtn" @click="linkClick">Visit Store</a>
       </div>
     </div>
   </div>
@@ -68,44 +68,31 @@ module.exports = {
       var upcCode
       if( this.game.acf.upcs ) {
         upcCode = this.game.acf.upcs[0].upc
+      
+
+        // Axios function to get signed Amazon URL
+        axios.get(adminAjax, {
+          responseType: 'text',
+          params: {
+            action: "ks_getCjPrice",
+            upc: upcCode,
+            websiteId: '8512196', // BoardGamerDeal's ID through CJ
+            advertiserId: '1413722' // Entertainment Earth's ID through CJ
+          }
+        })
+        .then((response) => {
+          var str = response.data
+          var entertainmentResponse = str.substring(0, str.length - 1);
+
+          that.entertainmentResponse = xmltojson.parseString(entertainmentResponse);
+        }) 
+        .catch(function (error) {
+          that.entertainmentData.entertainmentError = 'Error! Could not get Entertainment Earth prices. ' + error
+        })
+        .then( () => {
+          this.savePrice()
+        })
       }
-
-      // axios.get('https://product-search.api.cj.com/v2/product-search', {
-      //   headers: {
-      //     authorization: '00a6dd1cf06e33479ee017af3d7de3e1e8f77407ab66777c2ca9d7e2c8b2a099e6c22a7e6d01a27277707247503f435ce0dfc18d442771cb347afd4e2306ffb967/292905c8710689363184e61f3efc856f580af11160973cb42fb92721e69e231818776f8b727a9c9a2b18e3ef66840874e395c7d47efce8f5fa7c435936b73b31'
-      //   },
-      //   params: {
-      //     upc: upcCode,
-      //     websiteId: '8512196',
-      //     advertiserId: '4258829'
-      //   }
-      // })
-      // .then((response) => {
-      //   console.log(response)
-      // })
-
-      // Axios function to get signed Amazon URL
-      axios.get(adminAjax, {
-        responseType: 'text',
-        params: {
-          action: "ks_getCjPrice",
-          upc: upcCode,
-          websiteId: '8512196', // BoardGamerDeal's ID through CJ
-          advertiserId: '1413722' // Entertainment Earth's ID through CJ
-        }
-      })
-      .then((response) => {
-        var str = response.data
-        var entertainmentResponse = str.substring(0, str.length - 1);
-
-        that.entertainmentResponse = xmltojson.parseString(entertainmentResponse);
-      }) 
-      .catch(function (error) {
-        that.entertainmentData.entertainmentError = 'Error! Could not get Entertainment Earth prices. ' + error
-      })
-      .then( () => {
-        this.savePrice()
-      })
     },
     savePrice () {
       if(this.entertainmentResponse.errors) {
@@ -113,7 +100,7 @@ module.exports = {
       }
       if(this.entertainmentResponse) {
         if(this.entertainmentResponse['cj-api'][0].products[0].product) {
-          this.entertainmentData.entertainmentPrice = this.entertainmentResponse['cj-api'][0].products[0].product[0].price[0]._text;
+          this.entertainmentData.entertainmentPrice = Number.parseFloat(this.entertainmentResponse['cj-api'][0].products[0].product[0].price[0]._text).toFixed(2);
           this.entertainmentData.entertainmentLink = this.entertainmentResponse['cj-api'][0].products[0].product[0]['buy-url'][0]._text;
           this.entertainmentData.entertainmentStock = this.entertainmentResponse['cj-api'][0].products[0].product[0]['in-stock'][0]._text;
           this.updateEntertainment(this.entertainmentData.entertainmentPrice, this.entertainmentData.entertainmentStock, this.entertainmentData.entertainmentLink);

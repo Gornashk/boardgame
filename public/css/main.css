@@ -4222,6 +4222,15 @@ img {
   margin-bottom: 1.5em;
 }
 
+.gameInfoContainer .gameInfoTop hr {
+  margin: 1em 0;
+}
+
+.gameInfoContainer .gameInfoTop h4 {
+  font-size: .925em;
+  font-weight: 600;
+}
+
 .gameStats {
   margin: 0 0 1.5em 0;
   padding: 0;
@@ -4255,7 +4264,8 @@ img {
 
 .gameTitle h1 {
   font-size: 2em;
-  margin: 0 0 .75em 0;
+  margin: 0;
+  font-weight: 500;
 }
 
 .gameDescription {
@@ -4302,10 +4312,15 @@ img {
   text-align: right;
 }
 
+.priceTable .priceRow div.rowStock span {
+  font-size: .75em;
+}
+
 .priceTable .priceRow a.storeBtn:link,
 .priceTable .priceRow a.storeBtn:visited {
   display: inline-block;
-  padding: .75em 1em;
+  padding: .675em 1em;
+  font-size: .875em;
   background: #FF530D;
   color: #EFEFEF;
   border-radius: 4px;

@@ -1,20 +1,20 @@
 <template>
   <div>
-    <div class="priceRow" v-if="barnesData.barnesPrice"
+    <div class="priceRow" v-if="neweggData.neweggPrice"
     itemprop="seller" itemscope itemtype="http://schema.org/Organization">
       <div class="rowName">
-        <a :href="barnesData.barnesLink" @click="linkClick" itemprop="name">Barnes and Noble</a>
+        <a :href="neweggData.neweggLink" @click="linkClick" itemprop="name">Newegg.com</a>
       </div>
       <div class="rowPrice">
-        <span v-html="'$' + barnesData.barnesPrice" itemprop="price"></span>
+        <span v-html="'$' + neweggData.neweggPrice" itemprop="price"></span>
       </div>
       <div class="rowStock">
         <span
-        v-if="barnesData.barnesStock">In Stock</span>
+        v-if="neweggData.neweggStock">In Stock</span>
         <span v-else>Out of Stock</span>
       </div>
       <div class="rowLink">
-        <a :href="barnesData.barnesLink" target="_blank" itemprop="url" class="storeBtn" @click="linkClick">Visit Store</a>
+        <a :href="neweggData.neweggLink" target="_blank" itemprop="url" class="storeBtn" @click="linkClick">Visit Store</a>
       </div>
     </div>
   </div>
@@ -29,13 +29,13 @@ module.exports = {
   props: ["game"],
   data () {
     return {
-      barnesResponse: [],
-      barnesData: {
-        barnesPrice: '',
-        barnesLink: '',
-        barnesDate: '',
-        barnesStock: '',
-        barnesError: ''
+      neweggResponse: [],
+      neweggData: {
+        neweggPrice: '',
+        neweggLink: '',
+        neweggDate: '',
+        neweggStock: '',
+        neweggError: ''
       }
     }
   },
@@ -45,8 +45,8 @@ module.exports = {
   methods: {
     linkClick() {
       __gaTracker('send', 'event', {
-        eventCategory: 'Barnes and Noble',
-        eventAction: this.barnesData.barnesLink,
+        eventCategory: 'Newegg',
+        eventAction: this.neweggData.neweggLink,
         eventLabel: this.game.title
       });
     },
@@ -55,14 +55,14 @@ module.exports = {
 
         if( this.game.acf.codes = true ) {
           // If I have ID codes, look for product prices
-          this.barnesPrices()
+          this.neweggPrices()
           return;
         }
         // Don't get prices if ID codes don't exist
         return;
       }
     },
-    barnesPrices () {
+    neweggPrices () {
       var that = this;
       // create blank id code vars
       var upcCode
@@ -77,17 +77,17 @@ module.exports = {
             action: "ks_getCjPrice",
             upc: upcCode,
             websiteId: '8512196', // BoardGamerDeal's ID through CJ
-            advertiserId: '4258829' // B&N's ID through CJ
+            advertiserId: '1807847' // NewEgg's ID through CJ
           }
         })
         .then((response) => {
           var str = response.data
-          var barnesResponse = str.substring(0, str.length - 1);
+          var neweggResponse = str.substring(0, str.length - 1);
 
-          that.barnesResponse = xmltojson.parseString(barnesResponse);
+          that.neweggResponse = xmltojson.parseString(neweggResponse);
         }) 
         .catch(function (error) {
-          that.barnesData.barnesError = 'Error! Could not get Barnes and Noble prices. ' + error
+          that.neweggData.neweggError = 'Error! Could not get Newegg prices. ' + error
         })
         .then( () => {
           this.savePrice()
@@ -95,20 +95,20 @@ module.exports = {
       }
     },
     savePrice () {
-      if(this.barnesResponse.errors) {
+      if(this.neweggResponse.errors) {
         return;
       }
-      if(this.barnesResponse) {
-        if(this.barnesResponse['cj-api'][0].products[0].product) {
-          this.barnesData.barnesPrice = Number.parseFloat(this.barnesResponse['cj-api'][0].products[0].product[0].price[0]._text).toFixed(2);
-          this.barnesData.barnesLink = this.barnesResponse['cj-api'][0].products[0].product[0]['buy-url'][0]._text;
-          this.barnesData.barnesStock = this.barnesResponse['cj-api'][0].products[0].product[0]['in-stock'][0]._text;
-          this.updateBarnes(this.barnesData.barnesPrice, this.barnesData.barnesStock, this.barnesData.barnesLink);
+      if(this.neweggResponse) {
+        if(this.neweggResponse['cj-api'][0].products[0].product) {
+          this.neweggData.neweggPrice = Number.parseFloat(this.neweggResponse['cj-api'][0].products[0].product[0].price[0]._text).toFixed(2);
+          this.neweggData.neweggLink = this.neweggResponse['cj-api'][0].products[0].product[0]['buy-url'][0]._text;
+          this.neweggData.neweggStock = this.neweggResponse['cj-api'][0].products[0].product[0]['in-stock'][0]._text;
+          this.updateNewegg(this.neweggData.neweggPrice, this.neweggData.neweggStock, this.neweggData.neweggLink);
           this.$emit('pricing', true)
         }
       }
     },
-    updateBarnes (price, stock, link) {
+    updateNewegg (price, stock, link) {
       jQuery.ajax({
         type: "post",
         url: adminAjax,
@@ -118,7 +118,7 @@ module.exports = {
           action: "ks_updateGamePrice",
           nonce: nonce,
           postID: this.game.id,
-          retailer: 'barnes',
+          retailer: 'newegg',
           price: price,
           stock: stock,
           link: link

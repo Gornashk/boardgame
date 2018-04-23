@@ -13,6 +13,14 @@
 
   .gameInfoTop {
     margin-bottom: 1.5em;
+
+    hr {
+      margin: 1em 0;
+    }
+    h4 {
+      font-size: .925em;
+      font-weight: 600;
+    }
   }
 }
 .gameStats {
@@ -62,7 +70,8 @@
 .gameTitle {
   h1 {
     font-size: 2em;
-    margin: 0 0 .75em 0;
+    margin: 0;
+    font-weight: 500;
   }
 }
 .gameDescription {
@@ -96,11 +105,17 @@
       &.rowLink {
         text-align: right;
       }
+      &.rowStock {
+        span {
+          font-size: .75em;
+        }
+      }
     }
     
     a.storeBtn:link, a.storeBtn:visited {
       display: inline-block;
-      padding: .75em 1em;
+      padding: .675em 1em;
+      font-size: .875em;
       background: $orange;
       color: $grayLighter;
       @include border-radius(4px);

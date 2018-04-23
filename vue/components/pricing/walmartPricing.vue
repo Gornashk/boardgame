@@ -12,7 +12,7 @@
         <span v-html="walmartData.walmartStock"></span>
       </div>
       <div class="rowLink">
-        <a :href="walmartData.walmartLink" itemprop="url" class="storeBtn" @click="linkClick">Visit Store</a>
+        <a :href="walmartData.walmartLink" target="_blank" itemprop="url" class="storeBtn" @click="linkClick">Visit Store</a>
       </div>
     </div>
   </div>
@@ -95,7 +95,7 @@ module.exports = {
       if(this.walmartResponse.errors) {
         return;
       }
-      if(this.walmartResponse) {
+      if(this.walmartResponse.items) {
         if(this.walmartResponse.items.length > 0) {
           this.walmartData.walmartPrice = Number.parseFloat(this.walmartResponse.items[0].salePrice).toFixed(2);
           this.walmartData.walmartLink = this.walmartResponse.items[0].productTrackingUrl;
