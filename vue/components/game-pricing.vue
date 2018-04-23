@@ -14,6 +14,7 @@
       <newegg-pricing :game="game" v-on:pricing="pricingCheck"></newegg-pricing>
       <star-trek-pricing :game="game" v-on:pricing="pricingCheck"></star-trek-pricing>
       <bam-pricing :game="game" v-on:pricing="pricingCheck"></bam-pricing>
+      <unbeatable-pricing :game="game" v-on:pricing="pricingCheck"></unbeatable-pricing>
     </div>
   </div>
 </template>
@@ -31,9 +32,10 @@ import entertainmentPricing from './pricing/entertainmentEarthPricing.vue';
 import neweggPricing from './pricing/neweggPricing.vue';
 import starTrekPricing from './pricing/startrekPricing.vue';
 import bamPricing from './pricing/bamPricing.vue';
+import unbeatablePricing from './pricing/unbeatablePricing.vue';
 
 module.exports = {
-  components: { amazonPricing, walmartPricing, barnesPricing, entertainmentPricing, neweggPricing, starTrekPricing, bamPricing },
+  components: { amazonPricing, walmartPricing, barnesPricing, entertainmentPricing, neweggPricing, starTrekPricing, bamPricing, unbeatablePricing },
   // props: ['acfs','upcs','eans','elids','codes','gameTitle'],
   data () { 
     return {
