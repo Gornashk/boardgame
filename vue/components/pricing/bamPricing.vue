@@ -100,7 +100,12 @@ module.exports = {
       }
       if(this.bamResponse) {
         if(this.bamResponse['cj-api'][0].products[0].product) {
-          this.bamData.bamPrice = Number.parseFloat(this.bamResponse['cj-api'][0].products[0].product[0].price[0]._text).toFixed(2);
+          // If a Sale Price exists, use that, otherwise use just the price field
+          if(this.bamResponse['cj-api'][0].products[0].product[0]['sale-price'][0]._text.length > 0) {
+            this.bamData.bamPrice = Number.parseFloat(this.bamResponse['cj-api'][0].products[0].product[0].price[0]._text).toFixed(2);
+          } else {
+            this.bamData.bamPrice = Number.parseFloat(this.bamResponse['cj-api'][0].products[0].product[0]['sale-price'][0]._text).toFixed(2);
+          }
           this.bamData.bamLink = this.bamResponse['cj-api'][0].products[0].product[0]['buy-url'][0]._text;
           this.bamData.bamStock = this.bamResponse['cj-api'][0].products[0].product[0]['in-stock'][0]._text;
           this.updateBam(this.bamData.bamPrice, this.bamData.bamStock, this.bamData.bamLink);

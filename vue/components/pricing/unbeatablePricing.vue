@@ -100,7 +100,12 @@ module.exports = {
       }
       if(this.unbeatableResponse) {
         if(this.unbeatableResponse['cj-api'][0].products[0].product) {
-          this.unbeatableData.unbeatablePrice = Number.parseFloat(this.unbeatableResponse['cj-api'][0].products[0].product[0].price[0]._text).toFixed(2);
+          // If a Sale Price exists, use that, otherwise use just the price field
+          if(this.unbeatableResponse['cj-api'][0].products[0].product[0]['sale-price'][0]._text.length > 0) {
+            this.unbeatableData.unbeatablePrice = Number.parseFloat(this.unbeatableResponse['cj-api'][0].products[0].product[0].price[0]._text).toFixed(2);
+          } else {
+            this.unbeatableData.unbeatablePrice = Number.parseFloat(this.unbeatableResponse['cj-api'][0].products[0].product[0]['sale-price'][0]._text).toFixed(2);
+          }
           this.unbeatableData.unbeatableLink = this.unbeatableResponse['cj-api'][0].products[0].product[0]['buy-url'][0]._text;
           this.unbeatableData.unbeatableStock = this.unbeatableResponse['cj-api'][0].products[0].product[0]['in-stock'][0]._text;
           this.updateUnbeatable(this.unbeatableData.unbeatablePrice, this.unbeatableData.unbeatableStock, this.unbeatableData.unbeatableLink);

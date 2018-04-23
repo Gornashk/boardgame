@@ -100,7 +100,12 @@ module.exports = {
       }
       if(this.startrekResponse) {
         if(this.startrekResponse['cj-api'][0].products[0].product) {
-          this.startrekData.startrekPrice = Number.parseFloat(this.startrekResponse['cj-api'][0].products[0].product[0].price[0]._text).toFixed(2);
+          // If a Sale Price exists, use that, otherwise use just the price field
+          if(this.startrekResponse['cj-api'][0].products[0].product[0]['sale-price'][0]._text.length > 0) {
+            this.startrekData.startrekPrice = Number.parseFloat(this.startrekResponse['cj-api'][0].products[0].product[0].price[0]._text).toFixed(2);
+          } else {
+            this.startrekData.startrekPrice = Number.parseFloat(this.startrekResponse['cj-api'][0].products[0].product[0]['sale-price'][0]._text).toFixed(2);
+          }
           this.startrekData.startrekLink = this.startrekResponse['cj-api'][0].products[0].product[0]['buy-url'][0]._text;
           this.startrekData.startrekStock = this.startrekResponse['cj-api'][0].products[0].product[0]['in-stock'][0]._text;
           this.updateStartrek(this.startrekData.startrekPrice, this.startrekData.startrekStock, this.startrekData.startrekLink);

@@ -100,7 +100,12 @@ module.exports = {
       }
       if(this.entertainmentResponse) {
         if(this.entertainmentResponse['cj-api'][0].products[0].product) {
-          this.entertainmentData.entertainmentPrice = Number.parseFloat(this.entertainmentResponse['cj-api'][0].products[0].product[0].price[0]._text).toFixed(2);
+          // If a Sale Price exists, use that, otherwise use just the price field
+          if(this.entertainmentResponse['cj-api'][0].products[0].product[0]['sale-price'][0]._text.length > 0) {
+            this.entertainmentData.entertainmentPrice = Number.parseFloat(this.entertainmentResponse['cj-api'][0].products[0].product[0].price[0]._text).toFixed(2);
+          } else {
+            this.entertainmentData.entertainmentPrice = Number.parseFloat(this.entertainmentResponse['cj-api'][0].products[0].product[0]['sale-price'][0]._text).toFixed(2);
+          }
           this.entertainmentData.entertainmentLink = this.entertainmentResponse['cj-api'][0].products[0].product[0]['buy-url'][0]._text;
           this.entertainmentData.entertainmentStock = this.entertainmentResponse['cj-api'][0].products[0].product[0]['in-stock'][0]._text;
           this.updateEntertainment(this.entertainmentData.entertainmentPrice, this.entertainmentData.entertainmentStock, this.entertainmentData.entertainmentLink);

@@ -100,7 +100,12 @@ module.exports = {
       }
       if(this.barnesResponse) {
         if(this.barnesResponse['cj-api'][0].products[0].product) {
-          this.barnesData.barnesPrice = Number.parseFloat(this.barnesResponse['cj-api'][0].products[0].product[0].price[0]._text).toFixed(2);
+          // If a Sale Price exists, use that, otherwise use just the price field
+          if(this.barnesResponse['cj-api'][0].products[0].product[0]['sale-price'][0]._text.length > 0) {
+            this.barnesData.barnesPrice = Number.parseFloat(this.barnesResponse['cj-api'][0].products[0].product[0].price[0]._text).toFixed(2);
+          } else {
+            this.barnesData.barnesPrice = Number.parseFloat(this.barnesResponse['cj-api'][0].products[0].product[0]['sale-price'][0]._text).toFixed(2);
+          }
           this.barnesData.barnesLink = this.barnesResponse['cj-api'][0].products[0].product[0]['buy-url'][0]._text;
           this.barnesData.barnesStock = this.barnesResponse['cj-api'][0].products[0].product[0]['in-stock'][0]._text;
           this.updateBarnes(this.barnesData.barnesPrice, this.barnesData.barnesStock, this.barnesData.barnesLink);
