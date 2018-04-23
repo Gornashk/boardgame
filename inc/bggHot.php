@@ -29,6 +29,22 @@ function ks_getBggHot() {
   if ($err) {
     echo "cURL Error #:" . $err;
   } else {
+    // Get all current games from database. We need this to compare to later
+    $args = array(
+      'post_type' => 'post',
+      'posts_per_page' => -1,
+      'fields' => 'ids',
+    );
+    $the_query = new WP_Query( $args );
+    if(isset($the_query->posts) && !empty($the_query->posts)){
+      $prevGames = array();
+      foreach((array) $the_query->posts as $id) {
+        $bggID = get_field('bgg_id', $id);
+        $prevGames[] = array( 'bggID' => $bggID );
+      }
+    }
+    $prevGames = array_column($prevGames, 'bggID');
+
     $xml = simplexml_load_string($response);
     $items = $xml->item;
     $games = [];
@@ -50,13 +66,30 @@ function ks_getBggHot() {
       if( strtotime($game['published']) >= strtotime($year) ) {
         continue;
       }
-      array_push($games, $game);
+
+      // Filter out any games that have already been added to site database. Matching based on BGG ID
+      $exists = ks_filterExisting($prevGames, $game);
+
+      // Push any games that remain into games array to be added
+      if(!$exists) {
+        array_push($games, $game);
+      }
     }
     
     crafted_var_dump($games);
     // echo $response;
   }
 
+}
+
+// Filter out any games that have already been added to site database. Matching based on BGG ID
+function ks_filterExisting($prevGames, $hotGame) {
+  $array_id = array_search($hotGame['id'], $prevGames);
+  if($array_id !== false) {
+    return true;
+  } else {
+    return false;
+  }
 }
 
 ?>
