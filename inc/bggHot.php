@@ -142,52 +142,130 @@ function ks_getGameDetails($games) {
       }
       $postGame['categories'] = $cats;
       
-      // crafted_var_dump($postGame);
 
       // Post game with details from BGG
-      // $postID = ks_postNewGame($postGame);
+      $postID = ks_postNewGame($postGame);
 
+      // Then pass created post ID to new function to get UPC and other ID codes for product
+      ks_getGameIds($postID);
 
-      // Get responses from Amazon and UPC Item DB
-      $codes = array();
-      $amazonRes = ks_getAmazonSearch($postGame['title']);
-      $amazonRes = simplexml_load_string($amazonRes);
-      $amazonItem = $amazonRes->Items->Item[0];
-
-      $amzTitle = xml_attribute($amazonItem->ItemAttributes->Title, 0);
-      $amzAsin = xml_attribute($amazonItem->ASIN, 0);
-      $amzEan = xml_attribute($amazonItem->ItemAttributes->EAN, 0);
-      $amzMpn = xml_attribute($amazonItem->ItemAttributes->MPN, 0);
-      $amzUpc = xml_attribute($amazonItem->ItemAttributes->UPC, 0);
-      $amzElid = xml_attribute($amazonItem->ItemAttributes->ELID, 0);
-
-      $upcRes = ks_getUpcIds($postGame['title']);
-      $upcRes = json_decode($upcRes);
-      $upcItems = $upcRes->items;
-
-      $upcs = array();
-      $asins = array();
-      $eans = array();
-      $elids = array();
-      $mpns = array();
-      foreach($upcItems as $upcItem) {
-        crafted_var_dump($upcItem);
-      }
-
-      crafted_var_dump($codes);
-
-      // crafted_var_dump($amazonItem);
-      // crafted_var_dump($upcRes);
-
-
-      // Send game ID codes to function to be saved into DB.
-      // ks_saveGameIds($codes);
 
       break;
     }
 
 
   }
+}
+
+function ks_getGameIds($postID) {
+
+  if(!$postID) {
+    return;
+  }
+  $gameTitle = get_the_title($postID);
+  
+  $codes = array();
+  $codes['postID'] = $postID;
+  
+  // Get responses from Amazon
+  $amazonRes = ks_getAmazonSearch($gameTitle);
+  $amazonRes = simplexml_load_string($amazonRes);
+  $amazonItem = $amazonRes->Items->Item[0];
+
+  // Assign Amazon response codes
+  $codes['amzTitle'] = xml_attribute($amazonItem->ItemAttributes->Title, 0);
+  $codes['amzAsin'] = xml_attribute($amazonItem->ASIN, 0);
+  $codes['amzEan'] = xml_attribute($amazonItem->ItemAttributes->EAN, 0);
+  $codes['amzMpn'] = xml_attribute($amazonItem->ItemAttributes->MPN, 0);
+  $codes['amzUpc'] = xml_attribute($amazonItem->ItemAttributes->UPC, 0);
+  $codes['amzElid'] = xml_attribute($amazonItem->ItemAttributes->ELID, 0);
+
+  // Get responses from UPC Item DB
+  $upcRes = ks_getUpcIds($gameTitle);
+  $upcRes = json_decode($upcRes);
+  $upcItems = $upcRes->items;
+
+  $upcs = array();
+  $asins = array();
+  $eans = array();
+  $elids = array();
+  $mpns = array();
+  // Assign UPC Item DB response codes
+  foreach($upcItems as $upcItem) {
+    if($upcItem->upc) {
+      $upcObj = array(
+        'upc' => $upcItem->upc,
+        'title' => $upcItem->title
+      );
+    }
+    if($upcItem->asin) {
+      $asinObj = array(
+        'asin' => $upcItem->asin,
+        'title' => $upcItem->title
+      );
+    }
+    if($upcItem->ean) {
+      $eanObj = array(
+        'ean' => $upcItem->ean,
+        'title' => $upcItem->title
+      );
+    }
+    if($upcItem->elid) {
+      $elidObj = array(
+        'elid' => $upcItem->elid,
+        'title' => $upcItem->title
+      );
+    }
+    if($upcItem->model) {
+      $mpnObj = array(
+        'mpn' => $upcItem->model,
+        'title' => $upcItem->title
+      );
+    }
+    if($upcObj != NULL) {
+      array_push($upcs, $upcObj);
+    }
+    if($asinObj != NULL) {
+      array_push($asins, $asinObj);
+    }
+    if($eanObj != NULL) {
+      array_push($eans, $eanObj);
+    }
+    if($elidObj != NULL) {
+      array_push($elids, $elidObj);
+    }
+    if($mpnObj != NULL) {
+      array_push($mpns, $mpnObj);
+    }
+  }
+  
+
+  if( count($upcs) > 0 ) {
+    $codes['upc'] = $upcs;
+  }
+  if( count($asins) > 0 ) {
+    $codes['asin'] = $asins;
+  }
+  if( count($eans) > 0 ) {
+    $codes['ean'] = $eans;
+  }
+  if( count($elids) > 0 ) {
+    $codes['elid'] = $elids;
+  }
+  if( count($mpns) > 0 ) {
+    $codes['mpn'] = $mpns;
+  }
+  
+
+  // crafted_var_dump($codes);
+
+  // crafted_var_dump($amazonItem);
+  // crafted_var_dump($upcRes);
+
+
+  // Send game ID codes to function to be saved into DB.
+  ks_saveGameIds($codes);
+
 }
 
 // Filter out any games that have already been added to site database. Matching based on BGG ID
