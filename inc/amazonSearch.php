@@ -1,8 +1,12 @@
 <?php
 add_action( 'wp_ajax_nopriv_ks_getAmazonSearch', 'ks_getAmazonSearch' );
 add_action( 'wp_ajax_ks_getAmazonSearch', 'ks_getAmazonSearch' );
-function ks_getAmazonSearch() {
-  $gameTitle = $_GET['gameTitle'];
+function ks_getAmazonSearch($game) {
+	if($game) {
+		$gameTitle = $game;
+	} else {
+		$gameTitle = $_GET['gameTitle'];
+	}
 
   // Your Access Key ID, as taken from the Your Account page
   $access_key_id = "AKIAJJPEFEFEBAODFIAQ";
@@ -55,7 +59,11 @@ function ks_getAmazonSearch() {
   // Get data from signed URL
   $response = get_data($request_url);
 
-  echo $response;
+	if(!$game) {
+		echo $response;
+	} else {
+		return $response;
+	}
 
   return;
   die();

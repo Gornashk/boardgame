@@ -1,8 +1,12 @@
 <?php
 add_action( 'wp_ajax_nopriv_ks_getUpcIds', 'ks_getUpcIds' );
 add_action( 'wp_ajax_ks_getUpcIds', 'ks_getUpcIds' );
-function ks_getUpcIds() {
-  $title = $_GET['gameTitle'];
+function ks_getUpcIds($game) {
+  if($game) {
+    $title = $game;
+  } else {
+    $title = $_GET['gameTitle'];
+  }
   //var_dump($title);
   // $title = rawurlencode($title);
   // $user_key = 'only_for_dev_or_pro';
@@ -29,8 +33,12 @@ function ks_getUpcIds() {
   if ($httpcode != 200)
     echo "error status $httpcode...";
   else 
-    //return $response;
-    echo $response;
+
+    if($game) {
+      return $response;
+    } else {
+      echo $response;
+    }
   /* if you need to run more queries, do them in the same connection.
   * use rawurlencode() instead of URLEncode(), if you set search string
   * as url query param
@@ -44,19 +52,34 @@ function ks_getUpcIds() {
   
 add_action( 'wp_ajax_nopriv_ks_saveGameIds', 'ks_saveGameIds' );
 add_action( 'wp_ajax_ks_saveGameIds', 'ks_saveGameIds' );
-function ks_saveGameIds() {
-  $postID = $_POST['postID'];
-  $amzTitle = $_POST['amzTitle'];
-  $amzAsin = $_POST['amzAsin'];
-  $amzEan = $_POST['amzEan'];
-  $amzMpn = $_POST['amzMpn'];
-  $amzUpc = $_POST['amzUpc'];
-  $amzElid = $_POST['amzElid'];
-  $upcs = $_POST['upc'];
-  $asins = $_POST['asin'];
-  $eans = $_POST['ean'];
-  $elids = $_POST['elid'];
-  $mpns = $_POST['mpn'];
+function ks_saveGameIds($codes) {
+  if($codes) {
+    $postID = $codes['postID'];
+    $amzTitle = $codes['amzTitle'];
+    $amzAsin = $codes['amzAsin'];
+    $amzEan = $codes['amzEan'];
+    $amzMpn = $codes['amzMpn'];
+    $amzUpc = $codes['amzUpc'];
+    $amzElid = $codes['amzElid'];
+    $upcs = $codes['upc'];
+    $asins = $codes['asin'];
+    $eans = $codes['ean'];
+    $elids = $codes['elid'];
+    $mpns = $codes['mpn'];
+  } else {
+    $postID = $_POST['postID'];
+    $amzTitle = $_POST['amzTitle'];
+    $amzAsin = $_POST['amzAsin'];
+    $amzEan = $_POST['amzEan'];
+    $amzMpn = $_POST['amzMpn'];
+    $amzUpc = $_POST['amzUpc'];
+    $amzElid = $_POST['amzElid'];
+    $upcs = $_POST['upc'];
+    $asins = $_POST['asin'];
+    $eans = $_POST['ean'];
+    $elids = $_POST['elid'];
+    $mpns = $_POST['mpn'];
+  }
 
   
   if($amzAsin) {

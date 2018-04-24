@@ -113,11 +113,16 @@
     wp_update_attachment_metadata( $attach_id, $attach_data );
     
     set_post_thumbnail( $game_post_ID, $attach_id );
-  
-    echo $game_post_ID;
     
-    return;
-  
-    die();
+    // If function invoked by cron
+    if($game) {
+      return $game_post_ID;
+    } else {
+      echo $game_post_ID;
+      
+      return;
+    
+      die();
+    }
   }
 ?>
