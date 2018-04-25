@@ -1,5 +1,5 @@
 <?php
-// add_action( 'wp_footer', 'ks_getBggHot' );
+add_action( 'get_bgg_hotlist', 'ks_getBggHot' );
 
 function ks_getBggHot() {
   
@@ -75,17 +75,17 @@ function ks_getBggHot() {
         array_push($games, $game);
       }
     }
-    
+    // crafted_var_dump($games);
     // Send filtered array to function to retrieve game details
     ks_getGameDetails($games);
 
-    // crafted_var_dump($games);
+    
   }
 
 }
 
 function ks_getGameDetails($games) {
-
+  $postIDs = array();
   foreach($games as $game) {
     $curl = curl_init();
 
@@ -144,16 +144,21 @@ function ks_getGameDetails($games) {
       
 
       // Post game with details from BGG
-      $postID = ks_postNewGame($postGame);
+      $postIDs[] = ks_postNewGame($postGame);
 
-      // Then pass created post ID to new function to get UPC and other ID codes for product
-      ks_getGameIds($postID);
-
+    
 
       break;
     }
+  }
 
-
+  if($postIDs) {
+    crafted_var_dump($postIDs);
+    // Then pass created post ID to new function to get UPC and other ID codes for product
+    foreach($postIDs as $postID) {
+      ks_getGameIds($postID);
+      sleep(5);
+    }
   }
 }
 
@@ -265,6 +270,9 @@ function ks_getGameIds($postID) {
 
   // Send game ID codes to function to be saved into DB.
   ks_saveGameIds($codes);
+
+  return;
+  die();
 
 }
 
