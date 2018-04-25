@@ -12,7 +12,10 @@
 	      </div>
 			</div>
 	    <div class="row">
-	      <div class="col-md-12">&copy; <?php echo date('Y'); ?></div>
+	      <div class="col-md-12">
+					<p>&copy; <?php echo date('Y'); ?></p>
+					<p style="font-size:12px;">We are a participant in the Amazon Services LLC Associates Program, an affiliate advertising program designed to provide a means for us to earn fees by linking to Amazon.com and affiliated sites.</p>
+				</div>
 	    </div>
 	  </div>
 	</footer>
