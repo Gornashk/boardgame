@@ -63,6 +63,9 @@ function ks_getBggHot() {
 
       // Filter out any games that have a published date of current year or in the future
       $year = date('Y');
+      if(!$game['published']) {
+        continue;
+      }
       if( strtotime($game['published']) >= strtotime($year) ) {
         continue;
       }
