@@ -117,6 +117,17 @@ function bones_gallery_style($css) {
 SCRIPTS & ENQUEUEING
 *********************/
 
+function add_async_forscript($url)
+{
+    if (strpos($url, '#asyncload')===false)
+        return $url;
+    else if (is_admin())
+        return str_replace('#asyncload', '', $url);
+    else
+        return str_replace('#asyncload', '', $url)."' async='async"; 
+}
+add_filter('clean_url', 'add_async_forscript', 11, 1);
+
 // loading modernizr and jquery, and reply script
 function bones_scripts_and_styles() {
   if (!is_admin()) {
@@ -133,8 +144,8 @@ function bones_scripts_and_styles() {
 		wp_enqueue_style( 'main-styles', get_template_directory_uri() . '/public/css/main.css' . $cache_bust, '' );
 		wp_deregister_script('jquery');
 		wp_enqueue_script( 'jquery', 'https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js', array(), '', true );
-		wp_enqueue_script( 'font-awesome', 'https://use.fontawesome.com/releases/v5.0.6/js/all.js', array(), '', true );
-		wp_enqueue_script( 'main-js', get_template_directory_uri() . '/public/js/app.js' . $cache_bust, '', '', true );
+		wp_enqueue_script( 'font-awesome', 'https://use.fontawesome.com/releases/v5.0.6/js/all.js#asyncload', array(), '', true );
+		wp_enqueue_script( 'main-js', get_template_directory_uri() . '/public/js/app.js#asyncload' . $cache_bust, '', '', true );
 	
 
   }
