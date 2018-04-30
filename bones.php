@@ -146,6 +146,9 @@ function bones_scripts_and_styles() {
 		wp_enqueue_script( 'jquery', 'https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js', array(), '', true );
 		wp_enqueue_script( 'font-awesome', 'https://use.fontawesome.com/releases/v5.0.6/js/all.js#asyncload', array(), '', true );
 		wp_enqueue_script( 'main-js', get_template_directory_uri() . '/public/js/app.js#asyncload' . $cache_bust, '', '', true );
+		
+		// Disable embeds script at least for now
+		wp_deregister_script( 'wp-embed' );
 	
 
   }
