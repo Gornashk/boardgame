@@ -28,6 +28,8 @@
     border: 1px solid $gray;
     width: calc(85% - 30px);
     left: calc(7.5% + 15px);
+    max-height: 60vh;
+    overflow-y:scroll;
 
     .searchResults {
       margin: 0;

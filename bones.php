@@ -454,6 +454,7 @@ register_post_type(
 		'rewrite' => array('slug' => ''),
 		'query_var' => true,
 		'exclude_from_search' => false,
+		'show_in_rest' => true,
 		'supports' => array('title','editor','excerpt','trackbacks','custom-fields','comments','revisions','thumbnail','author','page-attributes',),
 		'labels' => array (
 			'name' => 'Changelog',
