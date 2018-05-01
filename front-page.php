@@ -19,6 +19,8 @@ get_header();
 
 <newly-added></newly-added>
 
+<home-cats></home-cats>
+
 <?php
 if( have_posts() ) :
   while( have_posts() ) :

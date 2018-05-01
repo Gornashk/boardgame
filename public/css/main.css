@@ -4397,6 +4397,8 @@ img {
   border: 1px solid #555;
   width: calc(85% - 30px);
   left: calc(7.5% + 15px);
+  max-height: 60vh;
+  overflow-y: scroll;
 }
 
 .resultContainer .searchResults {
@@ -4476,6 +4478,49 @@ img {
   color: #2B3A42;
 }
 
+.recentSearch,
+.homeCats {
+  margin-bottom: 1.25em;
+}
+
+.recentSearch h4,
+.homeCats h4 {
+  font-weight: 600;
+  font-size: 1.75em;
+}
+
+@media (min-width: 768px) {
+  .recentSearch,
+  .homeCats {
+    margin-bottom: 3em;
+  }
+}
+
+.homeCats .slick-track {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.homeCats .slick-track .slick-slide {
+  height: auto;
+}
+
+.homeCats .slick-track .slick-slide > div {
+  height: 100%;
+}
+
+.homeCats .slick-track .slick-slide > div .gameBox {
+  height: 100%;
+  padding-bottom: 0;
+}
+
 .frontContent {
   font-size: .875em;
   background: #EFEFEF;
@@ -4496,6 +4541,36 @@ img {
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
+}
+
+.gameBoxes .slick-arrow {
+  display: none !important;
+  position: absolute;
+  top: calc(50% - 15px);
+  width: 30px;
+  height: 30px;
+  border: none;
+  background: none;
+  padding: 0;
+}
+
+.gameBoxes .slick-arrow svg {
+  width: 30px;
+  height: 30px;
+}
+
+@media (min-width: 768px) {
+  .gameBoxes .slick-arrow {
+    display: inline-block !important;
+  }
+}
+
+.gameBoxes .slideNext {
+  right: -30px;
+}
+
+.gameBoxes .slidePrev {
+  left: -30px;
 }
 
 .gameBoxes .gameBox {
@@ -4559,5 +4634,9 @@ img {
   text-align: center;
   padding: 1em .75em;
   margin-bottom: 0;
+}
+
+.gameBoxes .gameBox a:hover h5 {
+  text-decoration: underline;
 }
 

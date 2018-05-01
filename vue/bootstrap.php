@@ -25,6 +25,7 @@ add_action( 'wp_head', function () {
   // Example of conditionally running controllers
   if ( is_front_page() ) {
     newly_added();
+    home_cats();
   }
   if ( is_tax() || is_category() ) {
     category_games();

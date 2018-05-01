@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="row">
+    <div class="row recentSearch">
       <div class="col-md-12">
         <h4>Recently Searched Board Games</h4>
         <div class="gameBoxes">
