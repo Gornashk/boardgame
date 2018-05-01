@@ -1,6 +1,36 @@
+// .homeCats .gameBoxes {
+//   display: block;
+// }
+
 .gameBoxes {
   display: flex;
   flex-wrap: wrap;
+
+  .slick-arrow {
+    display: none!important;
+    position: absolute;
+    top: calc(50% - 15px);
+    width: 30px;
+    height: 30px;
+    border: none;
+    background: none;
+    padding: 0;
+
+    svg {
+      width: 30px;
+      height: 30px;
+    }
+
+    @include breakpoint(tablet) {
+      display: inline-block!important;
+    }
+  }
+  .slideNext {
+    right: -30px;
+  }
+  .slidePrev {
+    left: -30px;
+  }
 
   .gameBox {
     flex:0 1 50%;
@@ -42,6 +72,12 @@
         text-align: center;
         padding: 1em .75em;
         margin-bottom: 0;
+      }
+
+      &:hover {
+        h5 {
+          text-decoration: underline;
+        }
       }
     }
 

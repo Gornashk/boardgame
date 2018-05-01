@@ -1,3 +1,37 @@
+.recentSearch, .homeCats {
+  margin-bottom: 1.25em;
+
+  h4 {
+    font-weight: 600;
+    font-size: 1.75em;
+  }
+
+  @include breakpoint(tablet) {
+    margin-bottom: 3em;
+  }
+}
+
+.homeCats {
+  .slick-track{
+    display: flex;
+    align-items: stretch; 
+    justify-content: center;
+    
+    .slick-slide{
+      height: auto;
+
+      > div {
+        height: 100%;
+
+        .gameBox {
+          height: 100%;
+          padding-bottom: 0;
+        }
+      }
+    }
+  }
+}
+
 .frontContent {
   font-size: .875em;
   background: $grayLighter;
@@ -10,4 +44,5 @@
   p:last-child {
     margin-bottom: 0;
   }
+
 }

@@ -142,6 +142,7 @@ function bones_scripts_and_styles() {
 
 	$cache_bust = (WP_DEBUG) ? '?' . date("His") : '';
 		wp_enqueue_style( 'main-styles', get_template_directory_uri() . '/public/css/main.css' . $cache_bust, '' );
+		wp_enqueue_style( 'additional', get_template_directory_uri() . '/public/css/additional.css' . $cache_bust, '' );
 		wp_deregister_script('jquery');
 		wp_enqueue_script( 'jquery', 'https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js', array(), '', true );
 		wp_enqueue_script( 'font-awesome', 'https://use.fontawesome.com/releases/v5.0.6/js/all.js#asyncload', array(), '', true );
@@ -457,20 +458,35 @@ function bones_get_the_author_posts_link() {
 
 
 register_post_type(
-	'board', array(	'label' => 'Board','description' => '','public' => true,'show_ui' => true,'show_in_menu' => true,'capability_type' => 'post','hierarchical' => false,'rewrite' => array('slug' => ''),'query_var' => true,'exclude_from_search' => false,'supports' => array('title','editor','excerpt','trackbacks','custom-fields','comments','revisions','thumbnail','author','page-attributes',),'labels' => array (
-	'name' => 'Board',
-	'singular_name' => 'Board',
-	'menu_name' => 'Board',
-	'add_new' => 'Add Board',
-	'add_new_item' => 'Add New Board',
-	'edit' => 'Edit',
-	'edit_item' => 'Edit Board',
-	'new_item' => 'New Board',
-	'view' => 'View Board',
-	'view_item' => 'View Board',
-	'search_items' => 'Search Board',
-	'not_found' => 'No Board Found',
-	'not_found_in_trash' => 'No Board Found in Trash',
-	'parent' => 'Parent Board',
-),) );
+	'changelog', array(	
+		'label' => 'Changelog',
+		'description' => '',
+		'public' => true,
+		'show_ui' => true,
+		'show_in_menu' => true,
+		'capability_type' => 'post',
+		'hierarchical' => false,
+		'rewrite' => array('slug' => ''),
+		'query_var' => true,
+		'exclude_from_search' => false,
+		'show_in_rest' => true,
+		'supports' => array('title','editor','excerpt','trackbacks','custom-fields','comments','revisions','thumbnail','author','page-attributes',),
+		'labels' => array (
+			'name' => 'Changelog',
+			'singular_name' => 'Changelog',
+			'menu_name' => 'Changelog',
+			'add_new' => 'Add Changelog',
+			'add_new_item' => 'Add New Changelog',
+			'edit' => 'Edit',
+			'edit_item' => 'Edit Changelog',
+			'new_item' => 'New Changelog',
+			'view' => 'View Changelog',
+			'view_item' => 'View Changelog',
+			'search_items' => 'Search Changelog',
+			'not_found' => 'No Changelog Found',
+			'not_found_in_trash' => 'No Changelog Found in Trash',
+			'parent' => 'Parent Changelog',
+		),
+	)
+);
 ?>

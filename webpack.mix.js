@@ -13,4 +13,10 @@ let mix = require("laravel-mix");
 
 mix.js("js/app.js", "public/js")
 .sass("scss/main.scss", "public/css")
+.styles(
+  [
+    "node_modules/slick-carousel/slick/slick.css",
+    "node_modules/slick-carousel/slick/slick-theme.css"
+  ],
+  "public/css/additional.css")
 .setPublicPath('public');
