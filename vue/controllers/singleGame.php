@@ -9,10 +9,10 @@ function single_game () {
       
       // Set the properties we want on the item
       $item->id      = get_the_ID();
-      $item->title   = get_the_title();
+      $item->post_title   = get_the_title();
       $item->excerpt = get_the_excerpt();
-      $item->link    = get_permalink();
-      $item->thumb   = get_the_post_thumbnail_url( get_the_ID(), '250x250' );
+      $item->permalink    = get_permalink();
+      $item->images['medium']['url']   = get_the_post_thumbnail_url( get_the_ID(), '250x250' );
       $item->image   = get_the_post_thumbnail_url( get_the_ID(), '540x999' );
       $item->date    = get_the_date('m.d.Y');
       $item->div     = get_stylesheet_directory_uri();

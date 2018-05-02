@@ -89,6 +89,7 @@ function my_post_attributes( array $attributes, WP_Post $post ) {
     // Get the field value with the 'get_field' method and assign it to the attributes array.
     // @see https://www.advancedcustomfields.com/resources/get_field/
     $attributes['acf']['prices'] = get_field( 'prices', $post->ID );
+    $attributes['acf']['description'] = get_field( 'description', $post->ID );
     $attributes['images']['medium']['url'] = get_the_post_thumbnail_url($post->ID, '250x250');
     $attributes['bgg_id'] = intval( get_field( 'bgg_id', $post->ID ) );
 

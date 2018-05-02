@@ -12,7 +12,7 @@
     minProximity: '2'
   }"
   >
-    <h2>Related Board Games</h2>
+    <h3>Related Board Games</h3>
     <related-results></related-results>
   </ais-index>
 </template>
@@ -41,7 +41,48 @@ module.exports = {
   },
   methods: {
     createQuery: function() {
-      var queryLong = this.game.title +' '+ this.game.acf.description
+      let content = this.game.acf.description
+      let catsGroup = this.game.cats;
+      let groupsGroup = this.game.groups;
+      let mechanicsGroup = this.game.mechanics;
+      if( content.includes('<p>') ) {
+        content = content.replace(/<p>/gm, '');
+      }
+      if( content.includes('</p>') ) {
+        content = content.replace(/<\/p>/gm, '');
+      }
+      if( content.includes('Game description from the publisher:') ) {
+        content = content.replace('Game description from the publisher:', '');
+      }
+      if( content.includes('From the publisher:') ) {
+        content = content.replace('From the publisher:', '');
+      }
+      if( content.includes('Description from the publisher:') ) {
+        content = content.replace('Description from the publisher:', '');
+      }
+      var catsArr = [];
+      var groupsArr = [];
+      var mechanicsArr = [];
+      for(var cat of catsGroup) {
+        catsArr.push(cat.name);
+      }
+      for(var group of groupsGroup) {
+        groupsArr.push(group.name);
+      }
+      for(var mec of mechanicsGroup) {
+        mechanicsArr.push(mec.name);
+      }
+      var cats = catsArr.join(', ');
+      var groups = groupsArr.join(', ');
+      var mechanics = mechanicsArr.join(', ');
+
+      if( cats.includes('Uncategorized') ) {
+        cats = cats.replace('Uncategorized', '');
+      }
+
+      console.log(cats)
+
+      var queryLong = this.game.post_title +' '+ groups +' '+ cats +' '+ mechanics +' '+ content
       if (queryLong.length < 512) {
         this.query = queryLong
       } else {

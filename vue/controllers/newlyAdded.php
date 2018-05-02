@@ -18,10 +18,10 @@ function newly_added () {
       // Set the properties we want on the item
       $item->id      = get_the_ID();
       $item->acf     = get_fields();
-      $item->title   = get_the_title();
+      $item->post_title   = get_the_title();
       // $item->excerpt = get_the_excerpt();
-      $item->link    = get_permalink();
-      $item->thumb   = get_the_post_thumbnail_url(get_the_ID(), '250x250');
+      $item->permalink    = get_permalink();
+      $item->images['medium']['url']   = get_the_post_thumbnail_url(get_the_ID(), '250x250');
       // $item->date    = get_the_date('m.d.Y');
       // Push item to posts array
       array_push($posts, $item);

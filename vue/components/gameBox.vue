@@ -1,17 +1,6 @@
 <template>
   <div class="gameBox">
-    <a :href="post.link" v-if="fromRelated != 'true'">
-      <div class="gameThumb">
-        <img v-if="post.thumb"
-        :src="post.thumb" :alt="post.title">
-      </div>
-      <h5 v-html="post.title"></h5>
-      <p v-if="lowestPrice" class="lastPrice">
-        Last Seen Lowest Price
-        <span v-text="'$' + lowestPrice"></span>
-      </p>
-    </a>
-    <a :href="post.permalink" v-else>
+    <a :href="post.permalink">
       <div class="gameThumb">
         <img v-if="post.images.medium"
         :src="post.images.medium.url" :alt="post.post_title">

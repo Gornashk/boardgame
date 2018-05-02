@@ -2,10 +2,10 @@
 	<div class="container gameInfoContainer">
 		<div class="row">
 			<div class="col-md-4 gameImage">
-				<img :src="game.image" :alt="game.title">
+				<img :src="game.image" :alt="game.post_title">
 			</div>
 			<div class="col-md-8 gameInfoTop">
-				<div class="gameTitle"><h1 v-html="game.title"></h1></div>
+				<div class="gameTitle"><h1 v-html="game.post_title"></h1></div>
 				<hr/>
 				<game-pricing></game-pricing>
 			</div>
