@@ -84,12 +84,12 @@ module.exports = {
 
       var queryLong = this.game.post_title +' '+ groups +' '+ cats +' '+ mechanics +' '+ content
 
-      this.query = queryLong.substring(0, 511)
-      // if (queryLong.length < 512) {
-      //   this.query = queryLong
-      // } else {
-      //   this.query = queryLong.substring(0, 512)
-      // }
+      // this.query = queryLong.substr(0, 511)
+      if (queryLong.length < 512) {
+        this.query = queryLong
+      } else {
+        this.query = queryLong.substr(0, 512)
+      }
     }
   }
 }
