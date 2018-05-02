@@ -80,16 +80,18 @@ module.exports = {
         cats = cats.replace('Uncategorized', '');
       }
 
-      console.log(cats)
+      // console.log(cats)
 
       var queryLong = this.game.post_title +' '+ groups +' '+ cats +' '+ mechanics +' '+ content
 
       // this.query = queryLong.substr(0, 511)
-      if (queryLong.length < 512) {
+      if (queryLong.length < 500) {
         this.query = queryLong
       } else {
-        this.query = queryLong.substr(0, 512)
+        this.query = queryLong.substr(0, 500)
       }
+      console.log(this.query.length)
+      console.log(this.query);
     }
   }
 }
