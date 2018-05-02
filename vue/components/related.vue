@@ -90,8 +90,8 @@ module.exports = {
       } else {
         this.query = queryLong.substr(0, 500)
       }
-      console.log(this.query.length)
-      console.log(this.query);
+      // console.log(this.query.length)
+      // console.log(this.query);
     }
   }
 }
