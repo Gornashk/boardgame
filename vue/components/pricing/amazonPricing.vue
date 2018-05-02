@@ -3,7 +3,7 @@
     <div class="priceRow" v-if="amazonData.amazonPrice"
     itemprop="seller" itemscope itemtype="http://schema.org/Organization">
       <div class="rowName">
-        <a :href="amazonData.amazonLink" @click="linkClick" itemprop="name">Amazon.com</a>
+        <a :href="amazonData.amazonLink" @click="linkClick"><span itemprop="name">Amazon.com</span></a>
       </div>
       <div class="rowPrice">
         <span v-html="amazonData.amazonPrice" itemprop="price"></span>

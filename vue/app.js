@@ -6,6 +6,7 @@ import categories from "./components/categories";
 import newlyAdded from "./components/newlyAdded";
 import homeCats from "./components/homeCats";
 import changePosts from "./components/changePosts";
+import related from "./components/related";
 
 var app = new Vue({
   el: "#app",
@@ -15,7 +16,8 @@ var app = new Vue({
     categories,
     newlyAdded,
     homeCats,
-    changePosts
+    changePosts,
+    related
   },
   data() {
     return {

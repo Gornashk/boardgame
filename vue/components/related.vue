@@ -1,50 +1,38 @@
 <template>
   <ais-index
-  app-id="K2PX6XUYZD"
-  api-key="ab6ff564e0cedf34e0716ad88fa36701"
-  index-name="isutoday_posts_announcements"
+  app-id="LXQBY5Z3HD"
+  api-key="c9b85b2d6f1cc197402589cd615b3cd5"
+  :index-name="algoliaPrefix + 'posts_post'"
   :query="query"
   :query-parameters="{
     removeWordsIfNoResults: 'allOptional',
     optionalWords: query,
     filters: filter,
-    hitsPerPage: '4',
+    hitsPerPage: '5',
     minProximity: '2'
   }"
   >
     <h2>Related Board Games</h2>
-    <ais-results>
-      <template scope="{ result }">
-        <div class="col-sm-6 col-md-3 newsPost" v-if="result.images.thumbnail">\
-          <a :href="result.permalink" :style="{ backgroundImage: 'url(' + result.images.thumbnail.url + ')' }">
-            <div class="overlay"></div>
-            <h4>{{result.post_title}}</h4>
-            <div class="postBtn">Read More</div>
-          </a>
-        </div>
-        <div class="col-sm-6 col-md-3 newsPost" v-else>\
-          <a :href="result.permalink">
-            <div class="overlay"></div>
-            <h4>{{result.post_title}}</h4>
-            <div class="postBtn">Read More</div>
-          </a>
-        </div>
-      </template>
-    </ais-results>
+    <related-results></related-results>
   </ais-index>
 </template>
 
 <script>
 import InstantSearch from 'vue-instantsearch';
+Vue.use(InstantSearch);
+import relatedResults from './relatedResults.vue';
+// import { createFromAlgoliaCredentials } from 'vue-instantsearch';
 
 module.exports = {
+  components: { relatedResults },
+  props: [ 'postId' ],
   data () {
     return {
+      // searchStore: createFromAlgoliaCredentials('LXQBY5Z3HD', 'c9b85b2d6f1cc197402589cd615b3cd5'),
+      algoliaPrefix: algoliaPrefix,
+      game: singleGame,
       query: '',
-      title: title,
-      content: content,
-      tags: tags,
-      filter: 'post_id != ' + postID,
+      filter: 'post_id != ' + this.postId,
       ranking: ['words', 'exact']
     }
   },
@@ -53,7 +41,7 @@ module.exports = {
   },
   methods: {
     createQuery: function() {
-      var queryLong = this.title +' '+ this.tags +' '+ this.content
+      var queryLong = this.game.title +' '+ this.game.acf.description
       if (queryLong.length < 512) {
         this.query = queryLong
       } else {

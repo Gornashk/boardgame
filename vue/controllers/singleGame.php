@@ -17,7 +17,10 @@ function single_game () {
       $item->date    = get_the_date('m.d.Y');
       $item->div     = get_stylesheet_directory_uri();
       $item->acf     = get_fields(get_the_ID());
-      
+      $item->cats    = wp_get_post_terms( get_the_ID(), 'category' );
+      $item->groups  = wp_get_post_terms( get_the_ID(), 'family' );
+      $item->mechanics = wp_get_post_terms( get_the_ID(), 'mechanic' );
+
     }
     // Print posts array to javascript for use in Vue
     $reshuffled_data = array(

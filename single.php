@@ -143,6 +143,13 @@ $fields = get_fields();
 	</div>
 
 	<!-- <game-info></game-info> -->
+<div class="container">
+	<div class="row homeCats">
+		<div class="col-sm-12">
+			<related post-id="<?php echo $post->ID; ?>"></related>
+		</div>
+	</div>
+</div>
 
 
 <front-search :options="options"></front-search>

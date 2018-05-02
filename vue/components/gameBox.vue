@@ -1,6 +1,6 @@
 <template>
   <div class="gameBox">
-    <a :href="post.link">
+    <a :href="post.link" v-if="fromRelated != 'true'">
       <div class="gameThumb">
         <img v-if="post.thumb"
         :src="post.thumb" :alt="post.title">
@@ -11,12 +11,23 @@
         <span v-text="'$' + lowestPrice"></span>
       </p>
     </a>
+    <a :href="post.permalink" v-else>
+      <div class="gameThumb">
+        <img v-if="post.images.medium"
+        :src="post.images.medium.url" :alt="post.post_title">
+      </div>
+      <h5 v-html="post.post_title"></h5>
+      <p v-if="lowestPrice" class="lastPrice">
+        Last Seen Lowest Price
+        <span v-text="'$' + lowestPrice"></span>
+      </p>
+    </a>
   </div>
 </template>
 
 <script>
 module.exports = {
-  props: ['post'],
+  props: ['post', 'from-related'],
   data() {
     return {
       // posts: added
