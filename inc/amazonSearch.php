@@ -3,9 +3,9 @@ add_action( 'wp_ajax_nopriv_ks_getAmazonSearch', 'ks_getAmazonSearch' );
 add_action( 'wp_ajax_ks_getAmazonSearch', 'ks_getAmazonSearch' );
 function ks_getAmazonSearch($game) {
 	if($game) {
-		$gameTitle = preg_replace('/[^\w]/', '', $game);
+		$gameTitle = preg_replace('/[^\w\d\s]/', '', $game);
 	} else {
-		$gameTitle = preg_replace('/[^\w]/', '', $_GET['gameTitle']);
+		$gameTitle = preg_replace('/[^\w\d\s]/', '', $_GET['gameTitle']);
 	}
 
   // Your Access Key ID, as taken from the Your Account page
