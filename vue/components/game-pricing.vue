@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h4>Current Offers for <span v-html="game.title"></span></h4>
+    <h4>Current Offers for <span v-html="game.post_title"></span></h4>
     <div class="priceTable" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
       <div class="priceRow" v-if="!pricingExists">
         <div>
