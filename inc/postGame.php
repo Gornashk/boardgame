@@ -89,6 +89,51 @@
     // Remove from uncategorized
     wp_remove_object_terms( $game_post_ID, 'Uncategorized', $category );
 
+
+    $path =  get_home_path();
+    // Create new SEO friendly image file name
+    $imgSlug = strtolower($title);
+    //Make alphanumeric (removes all other characters)
+    $imgSlug = preg_replace("/[^a-z0-9_\s-]/", "", $imgSlug);
+    //Clean up multiple dashes or whitespaces
+    $imgSlug = preg_replace("/[\s-]+/", " ", $imgSlug);
+    //Convert whitespaces and underscore to dash
+    $imgSlug = preg_replace("/[\s_]/", "-", $imgSlug);
+    
+    $orgImage = file_get_contents($image);
+
+    $imageTypeArray = array
+    (
+        0=>'UNKNOWN',
+        1=>'gif',
+        2=>'jpg',
+        3=>'png',
+        4=>'swf',
+        5=>'psd',
+        6=>'bmp',
+        7=>'TIFF_II',
+        8=>'TIFF_MM',
+        9=>'JPC',
+        10=>'JP2',
+        11=>'JPX',
+        12=>'JB2',
+        13=>'SWC',
+        14=>'IFF',
+        15=>'WBMP',
+        16=>'XBM',
+        17=>'ICO',
+        18=>'COUNT'  
+    );
+    $imgSize = getimagesize($image);
+    
+    $imgExt = $imageTypeArray[$imgSize[2]];
+
+    file_put_contents($path.'game-imgs/'.$imgSlug.'.'.$imgExt, $orgImage);
+    
+    $savePath = $path.'game-imgs/'.$imgSlug.'.'.$imgExt;  //full path to saved image, including filename and extension
+    // crafted_var_dump($savePath);
+    
+    $image = $savePath;
   
     // Insert Featured Image
     $upload_dir = wp_upload_dir();

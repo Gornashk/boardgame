@@ -290,7 +290,7 @@ module.exports = {
               that.getGameIDs(name, postID)
           },
           error: function(data) {
-            console.log('error')
+            console.log('error posting new game')
             console.log(data);
           }
         })

@@ -55,7 +55,7 @@ module.exports = {
     }
   },
   mounted () {
-    console.log(this.slickOptions)
+    // console.log(this.slickOptions)
   },
   watch: {
     catRows: function (newItems) {

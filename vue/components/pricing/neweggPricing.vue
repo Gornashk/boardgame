@@ -133,7 +133,7 @@ module.exports = {
           // console.log(data);
         },
         error: function(data) {
-          console.log('error')
+          console.log('error updating game price newegg')
           console.log(data);
         }
       })

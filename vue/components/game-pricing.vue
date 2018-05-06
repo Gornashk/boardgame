@@ -220,7 +220,7 @@ module.exports = {
           // Send user to newly created game post
         },
         error: function(data) {
-          console.log('error')
+          console.log('error saving game Ids')
           console.log(data);
         }
       })
