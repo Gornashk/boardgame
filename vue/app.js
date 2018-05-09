@@ -7,6 +7,7 @@ import newlyAdded from "./components/newlyAdded";
 import homeCats from "./components/homeCats";
 import changePosts from "./components/changePosts";
 import related from "./components/related";
+import socialShare from "./components/socialShare";
 
 var app = new Vue({
   el: "#app",
@@ -17,7 +18,8 @@ var app = new Vue({
     newlyAdded,
     homeCats,
     changePosts,
-    related
+    related,
+    socialShare
   },
   data() {
     return {

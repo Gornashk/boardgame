@@ -9,9 +9,13 @@ $fields = get_fields();
 			<div class="col-sm-4 gameImage">
 			<?php
 				if (has_post_thumbnail( $post->ID )): 
-  	    $image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), '540x999' ); ?>
-				<img src="<?php echo $image[0]; ?>" alt="<?php echo get_the_title(); ?>" itemprop="image">
+  	    	$image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), '540x999' ); ?>
+					<img src="<?php echo $image[0]; ?>" alt="<?php echo get_the_title(); ?>" itemprop="image">
 			<?php endif; ?>
+			<social-share 
+			url="<?php echo get_the_permalink(); ?>"
+			title="<?php echo get_the_title(); ?>"
+			media="<?php echo $image[0]; ?>"></social-share>
 			</div>
 			<div class="col-sm-8 gameInfoTop">
 				<div class="gameTitle"><h1><span itemprop="name"><?php the_title(); ?></span></h1></div>
