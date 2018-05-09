@@ -93,7 +93,7 @@ function my_post_attributes( array $attributes, WP_Post $post ) {
     $attributes['acf']['prices'] = get_field( 'prices', $post->ID );
     $attributes['acf']['description'] = $excerpt;
     $bggRank = get_field( 'rating', $post->ID );
-    $attributes['bggRank'] = floatval( $bggRank );
+    $attributes['bggRank'] = (float)$bggRank;
     $attributes['images']['medium']['url'] = get_the_post_thumbnail_url($post->ID, '250x250');
     $attributes['bgg_id'] = intval( get_field( 'bgg_id', $post->ID ) );
 
