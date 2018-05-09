@@ -68,7 +68,7 @@ module.exports = {
     getGameIDs () {
       if( this.game.acf.codes ) {
 
-        if( this.game.acf.codes = true ) {
+        if( this.game.acf.codes == true ) {
           // this.amazonPrices()
           return;
         }

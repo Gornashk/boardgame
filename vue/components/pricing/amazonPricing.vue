@@ -109,6 +109,7 @@ module.exports = {
         if( !this.amazonResponse.ItemLookupResponse[0].Items[0].Item ) {
           // If no item found on Amazon at all
           this.amazonData = false;
+          this.$emit('noPrice', true);
           return
         }
         if( !this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].Offers[0].Offer ) {
