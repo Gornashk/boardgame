@@ -92,7 +92,8 @@ function my_post_attributes( array $attributes, WP_Post $post ) {
     // @see https://www.advancedcustomfields.com/resources/get_field/
     $attributes['acf']['prices'] = get_field( 'prices', $post->ID );
     $attributes['acf']['description'] = $excerpt;
-    $attributes['bggRank'] = floatval( get_field( 'rating', $post->ID ) );
+    $bggRank = get_field( 'rating', $post->ID );
+    $attributes['bggRank'] = floatval( $bggRank );
     $attributes['images']['medium']['url'] = get_the_post_thumbnail_url($post->ID, '250x250');
     $attributes['bgg_id'] = intval( get_field( 'bgg_id', $post->ID ) );
 
