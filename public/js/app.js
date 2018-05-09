@@ -56063,7 +56063,7 @@ exports = module.exports = __webpack_require__(18)(undefined);
 
 
 // module
-exports.push([module.i, "\n.clearfix {\n  *zoom: 1;\n}\n.clearfix:before, .clearfix:after {\n    display: table;\n    content: \"\";\n    line-height: 0;\n}\n.clearfix:after {\n    clear: both;\n}\n.social-icons {\n  margin-bottom: 1.875em;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n.social-icons span {\n    border: 2px solid #d4d4d4;\n    text-align: center;\n    padding: 15px;\n    -webkit-box-flex: 0;\n        -ms-flex: 0 0 23%;\n            flex: 0 0 23%;\n    cursor: pointer;\n    border-radius: 10px;\n    -webkit-transition: all 0.15s ease-in-out;\n    transition: all 0.15s ease-in-out;\n}\n.social-icons span:hover {\n      background: #3F5765;\n}\n.social-icons span:hover i {\n        color: #fff;\n}\n.social-icons span i {\n      color: #6d6e71;\n      font-size: 1.55em;\n      -webkit-transition: all 0.15s ease-in-out;\n      transition: all 0.15s ease-in-out;\n}\n@media (min-width: 768px) {\n.social-icons span {\n        padding: 30px;\n}\n.social-icons span i {\n          font-size: 2.25em;\n}\n}\n", ""]);
+exports.push([module.i, "\n.clearfix {\n  *zoom: 1;\n}\n.clearfix:before, .clearfix:after {\n    display: table;\n    content: \"\";\n    line-height: 0;\n}\n.clearfix:after {\n    clear: both;\n}\nh6 {\n  font-size: .925em;\n}\n.social-icons {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n.social-icons span {\n    border: 2px solid #d4d4d4;\n    text-align: center;\n    padding: 5px 7%;\n    -webkit-box-flex: 0;\n        -ms-flex: 0 0 23%;\n            flex: 0 0 23%;\n    cursor: pointer;\n    border-radius: 10px;\n    -webkit-transition: all 0.15s ease-in-out;\n    transition: all 0.15s ease-in-out;\n}\n.social-icons span:hover#reddit {\n      background: #ff4500;\n}\n.social-icons span:hover#twitter {\n      background: #1DA1F2;\n}\n.social-icons span:hover#facebook {\n      background: #3B5998;\n}\n.social-icons span:hover#pinterest {\n      background: #BD081C;\n}\n.social-icons span:hover svg.svg-inline--fa {\n      color: #fff !important;\n}\n.social-icons span svg.svg-inline--fa {\n      width: 100%;\n      height: 100%;\n      max-width: 24px;\n      max-height: 24px;\n      vertical-align: middle;\n      -webkit-transition: all 0.15s ease-in-out;\n      transition: all 0.15s ease-in-out;\n}\n.social-icons span#reddit svg.svg-inline--fa {\n      color: #ff4500;\n}\n.social-icons span#twitter svg.svg-inline--fa {\n      color: #1DA1F2;\n}\n.social-icons span#facebook svg.svg-inline--fa {\n      color: #3B5998;\n}\n.social-icons span#pinterest svg.svg-inline--fa {\n      color: #BD081C;\n}\n@media (min-width: 768px) {\n.social-icons span {\n        padding: 5px 7%;\n}\n}\n", ""]);
 
 // exports
 
@@ -56082,11 +56082,6 @@ var _vueSocialSharing2 = _interopRequireDefault(_vueSocialSharing);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 Vue.use(_vueSocialSharing2.default); //
-//
-//
-//
-//
-//
 //
 //
 //
@@ -56504,28 +56499,34 @@ var render = function() {
         var _vm = this
         var _h = _vm.$createElement
         var _c = _vm._self._c || _h
-        return _c(
-          "div",
-          { staticClass: "social-icons" },
-          [
-            _c("network", { attrs: { network: "pinterest" } }, [
-              _c("i", { staticClass: "fab fa-pinterest" })
-            ]),
-            _vm._v(" "),
-            _c("network", { attrs: { network: "facebook" } }, [
-              _c("i", { staticClass: "fab fa-facebook-square" })
-            ]),
-            _vm._v(" "),
-            _c("network", { attrs: { network: "twitter" } }, [
-              _c("i", { staticClass: "fab fa-twitter-square" })
-            ]),
-            _vm._v(" "),
-            _c("network", { attrs: { network: "email" } }, [
-              _c("i", { staticClass: "fas fa-envelope" })
-            ])
-          ],
-          1
-        )
+        return _c("div", { staticClass: "wrap" }, [
+          _c(
+            "div",
+            { staticClass: "social-icons" },
+            [
+              _c(
+                "network",
+                { attrs: { network: "pinterest", id: "pinterest" } },
+                [_c("i", { staticClass: "fab fa-pinterest" })]
+              ),
+              _vm._v(" "),
+              _c(
+                "network",
+                { attrs: { network: "facebook", id: "facebook" } },
+                [_c("i", { staticClass: "fab fa-facebook-square" })]
+              ),
+              _vm._v(" "),
+              _c("network", { attrs: { network: "twitter", id: "twitter" } }, [
+                _c("i", { staticClass: "fab fa-twitter-square" })
+              ]),
+              _vm._v(" "),
+              _c("network", { attrs: { network: "reddit", id: "reddit" } }, [
+                _c("i", { staticClass: "fab fa-reddit" })
+              ])
+            ],
+            1
+          )
+        ])
       },
       staticRenderFns: []
     }

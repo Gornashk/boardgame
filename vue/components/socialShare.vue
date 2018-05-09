@@ -1,28 +1,23 @@
 <template>
-  <!-- <div class="social-icons">
-    <a data-pin-do="buttonBookmark" href="https://www.pinterest.com/pin/create/button/"><i class="fa fa-pinterest"></i></a>
-    <a href=""><i class="fa fa-facebook-f"></i></a>
-    <a href=""><i class="fa fa-twitter"></i></a>
-    <a href=""><i class="fa fa-envelope"></i></a>
-  </div> -->
-  
   <social-sharing :url="url"
   :title="title"
   :media="media"
   inline-template>
-    <div class="social-icons">
-      <network network="pinterest">
-        <i class="fab fa-pinterest"></i>
-      </network>
-      <network network="facebook">
-        <i class="fab fa-facebook-square"></i>
-      </network>
-      <network network="twitter">
-        <i class="fab fa-twitter-square"></i>
-      </network>
-      <network network="email">
-        <i class="fas fa-envelope"></i>
-      </network>
+    <div class="wrap">
+      <div class="social-icons">
+        <network network="pinterest" id="pinterest">
+          <i class="fab fa-pinterest"></i>
+        </network>
+        <network network="facebook" id="facebook">
+          <i class="fab fa-facebook-square"></i>
+        </network>
+        <network network="twitter" id="twitter">
+          <i class="fab fa-twitter-square"></i>
+        </network>
+        <network network="reddit" id="reddit">
+          <i class="fab fa-reddit"></i>
+        </network>
+      </div>
     </div>
   </social-sharing>
 </template>
@@ -45,14 +40,17 @@ module.exports = {
 @import "../../scss/variables.scss";
 @import "../../scss/mixins.scss";
 
+h6 {
+  font-size: .925em;
+}
+
 .social-icons {
-  margin-bottom: 1.875em;
   display: flex;
   justify-content: space-between;
   span {
     border: 2px solid $grayLight;
     text-align: center;
-    padding: 15px;
+    padding: 5px 7%;
     flex: 0 0 23%;
     cursor: pointer;
     @include border-radius(10px);
@@ -60,25 +58,56 @@ module.exports = {
 
 
     &:hover {
-      background:$blue;
+      &#reddit {
+        background: #ff4500;
+      }
+      &#twitter {
+        background: #1DA1F2;
+      }
+      &#facebook {
+        background: #3B5998;
+      }
+      &#pinterest {
+        background: #BD081C;
+      }
 
-      i {
-        color:$white;
+      svg.svg-inline--fa {
+        color: $white!important;
       }
     }
 
-    i {
-      color: #6d6e71;
-      font-size: 1.55em;
+    svg.svg-inline--fa {
+      width: 100%;
+      height: 100%;
+      max-width: 24px;
+      max-height: 24px;
+      vertical-align: middle;
       @include transition(all 0.15s ease-in-out);
     }
 
-    @include breakpoint(tablet) {
-      padding: 30px;
-
-      i {
-        font-size: 2.25em;
+    &#reddit {
+      svg.svg-inline--fa {
+        color: #ff4500;
       }
+    }
+    &#twitter {
+      svg.svg-inline--fa {
+        color: #1DA1F2;
+      }
+    }
+    &#facebook {
+      svg.svg-inline--fa {
+        color: #3B5998;
+      }
+    }
+    &#pinterest {
+      svg.svg-inline--fa {
+        color: #BD081C;
+      }
+    }
+
+    @include breakpoint(tablet) {
+      padding: 5px 7%;
     }
   }
 }

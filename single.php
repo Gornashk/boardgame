@@ -21,16 +21,6 @@ $fields = get_fields();
 				<div class="gameTitle"><h1><span itemprop="name"><?php the_title(); ?></span></h1></div>
 				<hr/>
 				<game-pricing></game-pricing>
-				<?php /*
-				<game-pricing
-				:acfs="<?php echo $fields['acfs']; ?>"
-				:upcs="<?php echo $fields['upcs']; ?>"
-				:eans="<?php echo $fields['eans']; ?>"
-				:elids="<?php echo $fields['elids']; ?>"
-				:codes="<?php echo $fields['codes']; ?>"
-				gameTitle="<?php echo get_the_title(); ?>">
-				</game-pricing>
-				*/ ?>
 			</div>
 		</div>
 		<div class="row">
