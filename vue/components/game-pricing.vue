@@ -2,21 +2,26 @@
   <div>
     <h4>Current Offers for <span v-html="game.post_title"></span></h4>
     <div class="priceTable" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-      <div class="priceRow" v-if="!pricingExists">
+      <div class="priceRow" v-if="noPricingArr.length < 10">
+        <div>
+          <span>Searching for prices.</span>
+        </div>
+      </div>
+      <div class="priceRow" v-if="noPricesFound && noPricingArr.length == 10 && !pricingExists">
         <div>
           <span>We could not find this game for sale at this time.</span>
         </div>
       </div>
-      <amazon-pricing :game="game" v-on:pricing="pricingCheck"></amazon-pricing>
-      <thinkgeek-pricing :game="game" v-on:pricing="pricingCheck"></thinkgeek-pricing>
-      <barnes-pricing :game="game" v-on:pricing="pricingCheck"></barnes-pricing>
-      <entertainment-pricing :game="game" v-on:pricing="pricingCheck"></entertainment-pricing>
-      <newegg-pricing :game="game" v-on:pricing="pricingCheck"></newegg-pricing>
-      <star-trek-pricing :game="game" v-on:pricing="pricingCheck"></star-trek-pricing>
-      <bam-pricing :game="game" v-on:pricing="pricingCheck"></bam-pricing>
-      <unbeatable-pricing :game="game" v-on:pricing="pricingCheck"></unbeatable-pricing>
-      <fun-com-pricing :game="game" v-on:pricing="pricingCheck"></fun-com-pricing>
-      <walmart-pricing :game="game" v-on:pricing="pricingCheck"></walmart-pricing>
+      <amazon-pricing :game="game" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></amazon-pricing>
+      <thinkgeek-pricing :game="game" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></thinkgeek-pricing>
+      <barnes-pricing :game="game" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></barnes-pricing>
+      <entertainment-pricing :game="game" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></entertainment-pricing>
+      <newegg-pricing :game="game" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></newegg-pricing>
+      <star-trek-pricing :game="game" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></star-trek-pricing>
+      <bam-pricing :game="game" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></bam-pricing>
+      <unbeatable-pricing :game="game" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></unbeatable-pricing>
+      <fun-com-pricing :game="game" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></fun-com-pricing>
+      <walmart-pricing :game="game" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></walmart-pricing>
     </div>
   </div>
 </template>
@@ -45,7 +50,8 @@ module.exports = {
     return {
       game: singleGame,
       upcResponse: [],
-      pricingExists: false
+      pricingExists: false,
+      noPricingArr: []
     }
   },
   mounted () {
@@ -59,10 +65,26 @@ module.exports = {
   //     this.saveGameIDs()
   //   }
   // },
+  computed: {
+    noPricesFound () {
+      function checkNoPrice(element, index, array) {
+        return element.noPrice == true;
+      }
+      if(this.noPricingArr.every(checkNoPrice)) {
+        return true;
+      }
+      return false;
+    }
+  },
   methods: {
     pricingCheck (payload) {
       if(payload) {
         this.pricingExists = true
+      }
+    },
+    noPricing (payload) {
+      if(payload) {
+        this.noPricingArr.push(payload)
       }
     },
     getGameIDs () {

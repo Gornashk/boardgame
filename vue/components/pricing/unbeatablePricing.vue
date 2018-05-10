@@ -96,6 +96,7 @@ module.exports = {
     },
     savePrice () {
       if(this.unbeatableResponse.errors) {
+        this.$emit('noPrice', {noPrice: true, retailer: 'unbeatable'});
         return;
       }
       if(this.unbeatableResponse) {
@@ -110,8 +111,11 @@ module.exports = {
           this.unbeatableData.unbeatableStock = this.unbeatableResponse['cj-api'][0].products[0].product[0]['in-stock'][0]._text;
           this.updateUnbeatable(this.unbeatableData.unbeatablePrice, this.unbeatableData.unbeatableStock, this.unbeatableData.unbeatableLink);
           this.$emit('pricing', true)
+          this.$emit('noPrice', {noPrice: false, retailer: 'unbeatable'});
+          return;
         }
       }
+      this.$emit('noPrice', {noPrice: true, retailer: 'unbeatable'});
     },
     updateUnbeatable (price, stock, link) {
       jQuery.ajax({

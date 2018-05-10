@@ -105,11 +105,11 @@ module.exports = {
       })
     },
     saveAmazon () {
-      if(this.amazonResponse) {
+      if(this.amazonResponse.ItemLookupResponse) {
         if( !this.amazonResponse.ItemLookupResponse[0].Items[0].Item ) {
           // If no item found on Amazon at all
           this.amazonData = false;
-          this.$emit('noPrice', true);
+          this.$emit('noPrice', {noPrice: true, retailer: 'amazon'});
           return
         }
         if( !this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].Offers[0].Offer ) {
@@ -118,6 +118,7 @@ module.exports = {
           this.amazonData.amazonStock = '';
           this.amazonData.amazonLink = this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].DetailPageURL[0]._text;  
           this.$emit('pricing', true)
+          this.$emit('noPrice', {noPrice: false, retailer: 'amazon'});
           this.updateAmazon(this.amazonData.amazonPrice, this.amazonData.amazonStock, this.amazonData.amazonLink);
           return
         }
@@ -134,6 +135,7 @@ module.exports = {
           this.amazonData.amazonLink = this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].DetailPageURL[0]._text;
         }
         this.$emit('pricing', true)
+        this.$emit('noPrice', {noPrice: false, retailer: 'amazon'});
         this.updateAmazon(this.amazonData.amazonPrice, this.amazonData.amazonStock, this.amazonData.amazonLink);
       }
     },

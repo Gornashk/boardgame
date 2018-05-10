@@ -96,6 +96,7 @@ module.exports = {
     },
     savePrice () {
       if(this.startrekResponse.errors) {
+        this.$emit('noPrice', {noPrice: true, retailer: 'startrek'});
         return;
       }
       if(this.startrekResponse) {
@@ -110,8 +111,11 @@ module.exports = {
           this.startrekData.startrekStock = this.startrekResponse['cj-api'][0].products[0].product[0]['in-stock'][0]._text;
           this.updateStartrek(this.startrekData.startrekPrice, this.startrekData.startrekStock, this.startrekData.startrekLink);
           this.$emit('pricing', true)
+          this.$emit('noPrice', {noPrice: false, retailer: 'startrek'});
+          return;
         }
       }
+      this.$emit('noPrice', {noPrice: true, retailer: 'startrek'});
     },
     updateStartrek (price, stock, link) {
       jQuery.ajax({

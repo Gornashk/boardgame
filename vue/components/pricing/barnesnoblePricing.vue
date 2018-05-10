@@ -96,6 +96,7 @@ module.exports = {
     },
     savePrice () {
       if(this.barnesResponse.errors) {
+        this.$emit('noPrice', {noPrice: true, retailer: 'barnes'});
         return;
       }
       if(this.barnesResponse) {
@@ -110,8 +111,11 @@ module.exports = {
           this.barnesData.barnesStock = this.barnesResponse['cj-api'][0].products[0].product[0]['in-stock'][0]._text;
           this.updateBarnes(this.barnesData.barnesPrice, this.barnesData.barnesStock, this.barnesData.barnesLink);
           this.$emit('pricing', true)
+          this.$emit('noPrice', {noPrice: false, retailer: 'barnes'});
+          return;
         }
       }
+      this.$emit('noPrice', {noPrice: true, retailer: 'barnes'});
     },
     updateBarnes (price, stock, link) {
       jQuery.ajax({

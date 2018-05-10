@@ -96,6 +96,7 @@ module.exports = {
     },
     savePrice () {
       if(this.neweggResponse.errors) {
+        this.$emit('noPrice', {noPrice: true, retailer: 'newegg'});
         return;
       }
       if(this.neweggResponse) {
@@ -110,8 +111,11 @@ module.exports = {
           this.neweggData.neweggStock = this.neweggResponse['cj-api'][0].products[0].product[0]['in-stock'][0]._text;
           this.updateNewegg(this.neweggData.neweggPrice, this.neweggData.neweggStock, this.neweggData.neweggLink);
           this.$emit('pricing', true)
+          this.$emit('noPrice', {noPrice: false, retailer: 'newegg'});
+          return;
         }
       }
+      this.$emit('noPrice', {noPrice: true, retailer: 'newegg'});
     },
     updateNewegg (price, stock, link) {
       jQuery.ajax({

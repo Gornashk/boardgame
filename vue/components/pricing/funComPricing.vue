@@ -96,6 +96,7 @@ module.exports = {
     },
     savePrice () {
       if(this.funResponse.errors) {
+        this.$emit('noPrice', {noPrice: true, retailer: 'fun'});
         return;
       }
       if(this.funResponse) {
@@ -110,8 +111,11 @@ module.exports = {
           this.funData.funStock = this.funResponse['cj-api'][0].products[0].product[0]['in-stock'][0]._text;
           this.updatefun(this.funData.funPrice, this.funData.funStock, this.funData.funLink);
           this.$emit('pricing', true)
+          this.$emit('noPrice', {noPrice: false, retailer: 'fun'});
+          return;
         }
       }
+      this.$emit('noPrice', {noPrice: true, retailer: 'fun'});
     },
     updateFun (price, stock, link) {
       jQuery.ajax({

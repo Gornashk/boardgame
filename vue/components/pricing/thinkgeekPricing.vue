@@ -96,6 +96,7 @@ module.exports = {
     },
     savePrice () {
       if(this.thinkgeekResponse.errors) {
+        this.$emit('noPrice', {noPrice: true, retailer: 'thinkgeek'});
         return;
       }
       if(this.thinkgeekResponse) {
@@ -110,8 +111,11 @@ module.exports = {
           this.thinkgeekData.thinkgeekStock = this.thinkgeekResponse['cj-api'][0].products[0].product[0]['in-stock'][0]._text;
           this.updateThinkGeek(this.thinkgeekData.thinkgeekPrice, this.thinkgeekData.thinkgeekStock, this.thinkgeekData.thinkgeekLink);
           this.$emit('pricing', true)
+          this.$emit('noPrice', {noPrice: false, retailer: 'thinkgeek'});
+          return;
         }
       }
+      this.$emit('noPrice', {noPrice: true, retailer: 'thinkgeek'});
     },
     updateThinkGeek (price, stock, link) {
       jQuery.ajax({

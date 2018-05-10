@@ -93,6 +93,7 @@ module.exports = {
     },
     savePrice () {
       if(this.walmartResponse.errors) {
+        this.$emit('noPrice', {noPrice: true, retailer: 'walmart'});
         return;
       }
       if(this.walmartResponse.items) {
@@ -102,8 +103,11 @@ module.exports = {
           this.walmartData.walmartStock = this.walmartResponse.items[0].stock;
           this.updateWalmart(this.walmartData.walmartPrice, this.walmartData.walmartStock, this.walmartData.walmartLink);
           this.$emit('pricing', true)
+          this.$emit('noPrice', {noPrice: false, retailer: 'walmart'});
+          return;
         }
       }
+      this.$emit('noPrice', {noPrice: true, retailer: 'walmart'});
     },
     updateWalmart (price, stock, link) {
       jQuery.ajax({

@@ -96,6 +96,7 @@ module.exports = {
     },
     savePrice () {
       if(this.bamResponse.errors) {
+        this.$emit('noPrice', {noPrice: true, retailer: 'bam'});
         return;
       }
       if(this.bamResponse) {
@@ -110,8 +111,11 @@ module.exports = {
           this.bamData.bamStock = this.bamResponse['cj-api'][0].products[0].product[0]['in-stock'][0]._text;
           this.updateBam(this.bamData.bamPrice, this.bamData.bamStock, this.bamData.bamLink);
           this.$emit('pricing', true)
+          this.$emit('noPrice', {noPrice: false, retailer: 'bam'});
+          return;
         }
       }
+      this.$emit('noPrice', {noPrice: true, retailer: 'bam'});
     },
     updateBam (price, stock, link) {
       jQuery.ajax({

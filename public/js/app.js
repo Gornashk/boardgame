@@ -34585,7 +34585,8 @@ module.exports = {
     return {
       game: singleGame,
       upcResponse: [],
-      pricingExists: false
+      pricingExists: false,
+      noPricingArr: []
     };
   },
   mounted: function mounted() {
@@ -34600,10 +34601,26 @@ module.exports = {
   //     this.saveGameIDs()
   //   }
   // },
+  computed: {
+    noPricesFound: function noPricesFound() {
+      function checkNoPrice(element, index, array) {
+        return element.noPrice == true;
+      }
+      if (this.noPricingArr.every(checkNoPrice)) {
+        return true;
+      }
+      return false;
+    }
+  },
   methods: {
     pricingCheck: function pricingCheck(payload) {
       if (payload) {
         this.pricingExists = true;
+      }
+    },
+    noPricing: function noPricing(payload) {
+      if (payload) {
+        this.noPricingArr.push(payload);
       }
     },
     getGameIDs: function getGameIDs() {
@@ -34762,6 +34779,11 @@ module.exports = {
     }
   }
 }; //
+//
+//
+//
+//
+//
 //
 //
 //
@@ -35839,11 +35861,11 @@ module.exports = {
       });
     },
     saveAmazon: function saveAmazon() {
-      if (this.amazonResponse) {
+      if (this.amazonResponse.ItemLookupResponse) {
         if (!this.amazonResponse.ItemLookupResponse[0].Items[0].Item) {
           // If no item found on Amazon at all
           this.amazonData = false;
-          this.$emit('noPrice', true);
+          this.$emit('noPrice', { noPrice: true, retailer: 'amazon' });
           return;
         }
         if (!this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].Offers[0].Offer) {
@@ -35852,6 +35874,7 @@ module.exports = {
           this.amazonData.amazonStock = '';
           this.amazonData.amazonLink = this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].DetailPageURL[0]._text;
           this.$emit('pricing', true);
+          this.$emit('noPrice', { noPrice: false, retailer: 'amazon' });
           this.updateAmazon(this.amazonData.amazonPrice, this.amazonData.amazonStock, this.amazonData.amazonLink);
           return;
         }
@@ -35868,6 +35891,7 @@ module.exports = {
           this.amazonData.amazonLink = this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].DetailPageURL[0]._text;
         }
         this.$emit('pricing', true);
+        this.$emit('noPrice', { noPrice: false, retailer: 'amazon' });
         this.updateAmazon(this.amazonData.amazonPrice, this.amazonData.amazonStock, this.amazonData.amazonLink);
       }
     },
@@ -36134,6 +36158,7 @@ module.exports = {
     },
     savePrice: function savePrice() {
       if (this.walmartResponse.errors) {
+        this.$emit('noPrice', { noPrice: true, retailer: 'walmart' });
         return;
       }
       if (this.walmartResponse.items) {
@@ -36143,8 +36168,11 @@ module.exports = {
           this.walmartData.walmartStock = this.walmartResponse.items[0].stock;
           this.updateWalmart(this.walmartData.walmartPrice, this.walmartData.walmartStock, this.walmartData.walmartLink);
           this.$emit('pricing', true);
+          this.$emit('noPrice', { noPrice: false, retailer: 'walmart' });
+          return;
         }
       }
+      this.$emit('noPrice', { noPrice: true, retailer: 'walmart' });
     },
     updateWalmart: function updateWalmart(price, stock, link) {
       jQuery.ajax({
@@ -36412,6 +36440,7 @@ module.exports = {
     },
     savePrice: function savePrice() {
       if (this.barnesResponse.errors) {
+        this.$emit('noPrice', { noPrice: true, retailer: 'barnes' });
         return;
       }
       if (this.barnesResponse) {
@@ -36426,8 +36455,11 @@ module.exports = {
           this.barnesData.barnesStock = this.barnesResponse['cj-api'][0].products[0].product[0]['in-stock'][0]._text;
           this.updateBarnes(this.barnesData.barnesPrice, this.barnesData.barnesStock, this.barnesData.barnesLink);
           this.$emit('pricing', true);
+          this.$emit('noPrice', { noPrice: false, retailer: 'barnes' });
+          return;
         }
       }
+      this.$emit('noPrice', { noPrice: true, retailer: 'barnes' });
     },
     updateBarnes: function updateBarnes(price, stock, link) {
       jQuery.ajax({
@@ -36692,6 +36724,7 @@ module.exports = {
     },
     savePrice: function savePrice() {
       if (this.entertainmentResponse.errors) {
+        this.$emit('noPrice', { noPrice: true, retailer: 'entertainment' });
         return;
       }
       if (this.entertainmentResponse) {
@@ -36706,8 +36739,11 @@ module.exports = {
           this.entertainmentData.entertainmentStock = this.entertainmentResponse['cj-api'][0].products[0].product[0]['in-stock'][0]._text;
           this.updateEntertainment(this.entertainmentData.entertainmentPrice, this.entertainmentData.entertainmentStock, this.entertainmentData.entertainmentLink);
           this.$emit('pricing', true);
+          this.$emit('noPrice', { noPrice: false, retailer: 'entertainment' });
+          return;
         }
       }
+      this.$emit('noPrice', { noPrice: true, retailer: 'entertainment' });
     },
     updateEntertainment: function updateEntertainment(price, stock, link) {
       jQuery.ajax({
@@ -36977,6 +37013,7 @@ module.exports = {
     },
     savePrice: function savePrice() {
       if (this.neweggResponse.errors) {
+        this.$emit('noPrice', { noPrice: true, retailer: 'newegg' });
         return;
       }
       if (this.neweggResponse) {
@@ -36991,8 +37028,11 @@ module.exports = {
           this.neweggData.neweggStock = this.neweggResponse['cj-api'][0].products[0].product[0]['in-stock'][0]._text;
           this.updateNewegg(this.neweggData.neweggPrice, this.neweggData.neweggStock, this.neweggData.neweggLink);
           this.$emit('pricing', true);
+          this.$emit('noPrice', { noPrice: false, retailer: 'newegg' });
+          return;
         }
       }
+      this.$emit('noPrice', { noPrice: true, retailer: 'newegg' });
     },
     updateNewegg: function updateNewegg(price, stock, link) {
       jQuery.ajax({
@@ -37257,6 +37297,7 @@ module.exports = {
     },
     savePrice: function savePrice() {
       if (this.startrekResponse.errors) {
+        this.$emit('noPrice', { noPrice: true, retailer: 'startrek' });
         return;
       }
       if (this.startrekResponse) {
@@ -37271,8 +37312,11 @@ module.exports = {
           this.startrekData.startrekStock = this.startrekResponse['cj-api'][0].products[0].product[0]['in-stock'][0]._text;
           this.updateStartrek(this.startrekData.startrekPrice, this.startrekData.startrekStock, this.startrekData.startrekLink);
           this.$emit('pricing', true);
+          this.$emit('noPrice', { noPrice: false, retailer: 'startrek' });
+          return;
         }
       }
+      this.$emit('noPrice', { noPrice: true, retailer: 'startrek' });
     },
     updateStartrek: function updateStartrek(price, stock, link) {
       jQuery.ajax({
@@ -37540,6 +37584,7 @@ module.exports = {
     },
     savePrice: function savePrice() {
       if (this.bamResponse.errors) {
+        this.$emit('noPrice', { noPrice: true, retailer: 'bam' });
         return;
       }
       if (this.bamResponse) {
@@ -37554,8 +37599,11 @@ module.exports = {
           this.bamData.bamStock = this.bamResponse['cj-api'][0].products[0].product[0]['in-stock'][0]._text;
           this.updateBam(this.bamData.bamPrice, this.bamData.bamStock, this.bamData.bamLink);
           this.$emit('pricing', true);
+          this.$emit('noPrice', { noPrice: false, retailer: 'bam' });
+          return;
         }
       }
+      this.$emit('noPrice', { noPrice: true, retailer: 'bam' });
     },
     updateBam: function updateBam(price, stock, link) {
       jQuery.ajax({
@@ -37818,6 +37866,7 @@ module.exports = {
     },
     savePrice: function savePrice() {
       if (this.unbeatableResponse.errors) {
+        this.$emit('noPrice', { noPrice: true, retailer: 'unbeatable' });
         return;
       }
       if (this.unbeatableResponse) {
@@ -37832,8 +37881,11 @@ module.exports = {
           this.unbeatableData.unbeatableStock = this.unbeatableResponse['cj-api'][0].products[0].product[0]['in-stock'][0]._text;
           this.updateUnbeatable(this.unbeatableData.unbeatablePrice, this.unbeatableData.unbeatableStock, this.unbeatableData.unbeatableLink);
           this.$emit('pricing', true);
+          this.$emit('noPrice', { noPrice: false, retailer: 'unbeatable' });
+          return;
         }
       }
+      this.$emit('noPrice', { noPrice: true, retailer: 'unbeatable' });
     },
     updateUnbeatable: function updateUnbeatable(price, stock, link) {
       jQuery.ajax({
@@ -38101,6 +38153,7 @@ module.exports = {
     },
     savePrice: function savePrice() {
       if (this.thinkgeekResponse.errors) {
+        this.$emit('noPrice', { noPrice: true, retailer: 'thinkgeek' });
         return;
       }
       if (this.thinkgeekResponse) {
@@ -38115,8 +38168,11 @@ module.exports = {
           this.thinkgeekData.thinkgeekStock = this.thinkgeekResponse['cj-api'][0].products[0].product[0]['in-stock'][0]._text;
           this.updateThinkGeek(this.thinkgeekData.thinkgeekPrice, this.thinkgeekData.thinkgeekStock, this.thinkgeekData.thinkgeekLink);
           this.$emit('pricing', true);
+          this.$emit('noPrice', { noPrice: false, retailer: 'thinkgeek' });
+          return;
         }
       }
+      this.$emit('noPrice', { noPrice: true, retailer: 'thinkgeek' });
     },
     updateThinkGeek: function updateThinkGeek(price, stock, link) {
       jQuery.ajax({
@@ -38384,6 +38440,7 @@ module.exports = {
     },
     savePrice: function savePrice() {
       if (this.funResponse.errors) {
+        this.$emit('noPrice', { noPrice: true, retailer: 'fun' });
         return;
       }
       if (this.funResponse) {
@@ -38398,8 +38455,11 @@ module.exports = {
           this.funData.funStock = this.funResponse['cj-api'][0].products[0].product[0]['in-stock'][0]._text;
           this.updatefun(this.funData.funPrice, this.funData.funStock, this.funData.funLink);
           this.$emit('pricing', true);
+          this.$emit('noPrice', { noPrice: false, retailer: 'fun' });
+          return;
         }
       }
+      this.$emit('noPrice', { noPrice: true, retailer: 'fun' });
     },
     updateFun: function updateFun(price, stock, link) {
       jQuery.ajax({
@@ -38529,58 +38589,62 @@ var render = function() {
         }
       },
       [
-        !_vm.pricingExists
+        _vm.noPricingArr.length < 10
           ? _c("div", { staticClass: "priceRow" }, [_vm._m(0)])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.noPricesFound && _vm.noPricingArr.length == 10 && !_vm.pricingExists
+          ? _c("div", { staticClass: "priceRow" }, [_vm._m(1)])
           : _vm._e(),
         _vm._v(" "),
         _c("amazon-pricing", {
           attrs: { game: _vm.game },
-          on: { pricing: _vm.pricingCheck }
+          on: { pricing: _vm.pricingCheck, noPrice: _vm.noPricing }
         }),
         _vm._v(" "),
         _c("thinkgeek-pricing", {
           attrs: { game: _vm.game },
-          on: { pricing: _vm.pricingCheck }
+          on: { pricing: _vm.pricingCheck, noPrice: _vm.noPricing }
         }),
         _vm._v(" "),
         _c("barnes-pricing", {
           attrs: { game: _vm.game },
-          on: { pricing: _vm.pricingCheck }
+          on: { pricing: _vm.pricingCheck, noPrice: _vm.noPricing }
         }),
         _vm._v(" "),
         _c("entertainment-pricing", {
           attrs: { game: _vm.game },
-          on: { pricing: _vm.pricingCheck }
+          on: { pricing: _vm.pricingCheck, noPrice: _vm.noPricing }
         }),
         _vm._v(" "),
         _c("newegg-pricing", {
           attrs: { game: _vm.game },
-          on: { pricing: _vm.pricingCheck }
+          on: { pricing: _vm.pricingCheck, noPrice: _vm.noPricing }
         }),
         _vm._v(" "),
         _c("star-trek-pricing", {
           attrs: { game: _vm.game },
-          on: { pricing: _vm.pricingCheck }
+          on: { pricing: _vm.pricingCheck, noPrice: _vm.noPricing }
         }),
         _vm._v(" "),
         _c("bam-pricing", {
           attrs: { game: _vm.game },
-          on: { pricing: _vm.pricingCheck }
+          on: { pricing: _vm.pricingCheck, noPrice: _vm.noPricing }
         }),
         _vm._v(" "),
         _c("unbeatable-pricing", {
           attrs: { game: _vm.game },
-          on: { pricing: _vm.pricingCheck }
+          on: { pricing: _vm.pricingCheck, noPrice: _vm.noPricing }
         }),
         _vm._v(" "),
         _c("fun-com-pricing", {
           attrs: { game: _vm.game },
-          on: { pricing: _vm.pricingCheck }
+          on: { pricing: _vm.pricingCheck, noPrice: _vm.noPricing }
         }),
         _vm._v(" "),
         _c("walmart-pricing", {
           attrs: { game: _vm.game },
-          on: { pricing: _vm.pricingCheck }
+          on: { pricing: _vm.pricingCheck, noPrice: _vm.noPricing }
         })
       ],
       1
@@ -38588,6 +38652,12 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [_c("span", [_vm._v("Searching for prices.")])])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

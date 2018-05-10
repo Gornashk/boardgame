@@ -96,6 +96,7 @@ module.exports = {
     },
     savePrice () {
       if(this.entertainmentResponse.errors) {
+        this.$emit('noPrice', {noPrice: true, retailer: 'entertainment'});
         return;
       }
       if(this.entertainmentResponse) {
@@ -110,8 +111,11 @@ module.exports = {
           this.entertainmentData.entertainmentStock = this.entertainmentResponse['cj-api'][0].products[0].product[0]['in-stock'][0]._text;
           this.updateEntertainment(this.entertainmentData.entertainmentPrice, this.entertainmentData.entertainmentStock, this.entertainmentData.entertainmentLink);
           this.$emit('pricing', true)
+          this.$emit('noPrice', {noPrice: false, retailer: 'entertainment'});
+          return;
         }
       }
+      this.$emit('noPrice', {noPrice: true, retailer: 'entertainment'});
     },
     updateEntertainment (price, stock, link) {
       jQuery.ajax({
