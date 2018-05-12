@@ -34475,17 +34475,21 @@ var app = new Vue({
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(460)
+}
 var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(180)
 /* template */
-var __vue_template__ = __webpack_require__(229)
+var __vue_template__ = __webpack_require__(462)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
-var __vue_styles__ = null
+var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = null
+var __vue_scopeId__ = "data-v-69f315fd"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -34581,6 +34585,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 module.exports = {
   components: { amazonPricing: _amazonPricing2.default, walmartPricing: _walmartPricing2.default, barnesPricing: _barnesnoblePricing2.default, entertainmentPricing: _entertainmentEarthPricing2.default, neweggPricing: _neweggPricing2.default, starTrekPricing: _startrekPricing2.default, bamPricing: _bamPricing2.default, unbeatablePricing: _unbeatablePricing2.default, thinkgeekPricing: _thinkgeekPricing2.default, funComPricing: _funComPricing2.default },
   // props: ['acfs','upcs','eans','elids','codes','gameTitle'],
+  props: ['options'],
   data: function data() {
     return {
       game: singleGame,
@@ -38565,118 +38570,7 @@ if (false) {
 }
 
 /***/ }),
-/* 229 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("h4", [
-      _vm._v("Current Offers for "),
-      _c("span", { domProps: { innerHTML: _vm._s(_vm.game.post_title) } })
-    ]),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        staticClass: "priceTable",
-        attrs: {
-          itemprop: "offers",
-          itemscope: "",
-          itemtype: "http://schema.org/Offer"
-        }
-      },
-      [
-        _vm.noPricingArr.length < 10
-          ? _c("div", { staticClass: "priceRow" }, [_vm._m(0)])
-          : _vm._e(),
-        _vm._v(" "),
-        _vm.noPricesFound && _vm.noPricingArr.length == 10 && !_vm.pricingExists
-          ? _c("div", { staticClass: "priceRow" }, [_vm._m(1)])
-          : _vm._e(),
-        _vm._v(" "),
-        _c("amazon-pricing", {
-          attrs: { game: _vm.game },
-          on: { pricing: _vm.pricingCheck, noPrice: _vm.noPricing }
-        }),
-        _vm._v(" "),
-        _c("thinkgeek-pricing", {
-          attrs: { game: _vm.game },
-          on: { pricing: _vm.pricingCheck, noPrice: _vm.noPricing }
-        }),
-        _vm._v(" "),
-        _c("barnes-pricing", {
-          attrs: { game: _vm.game },
-          on: { pricing: _vm.pricingCheck, noPrice: _vm.noPricing }
-        }),
-        _vm._v(" "),
-        _c("entertainment-pricing", {
-          attrs: { game: _vm.game },
-          on: { pricing: _vm.pricingCheck, noPrice: _vm.noPricing }
-        }),
-        _vm._v(" "),
-        _c("newegg-pricing", {
-          attrs: { game: _vm.game },
-          on: { pricing: _vm.pricingCheck, noPrice: _vm.noPricing }
-        }),
-        _vm._v(" "),
-        _c("star-trek-pricing", {
-          attrs: { game: _vm.game },
-          on: { pricing: _vm.pricingCheck, noPrice: _vm.noPricing }
-        }),
-        _vm._v(" "),
-        _c("bam-pricing", {
-          attrs: { game: _vm.game },
-          on: { pricing: _vm.pricingCheck, noPrice: _vm.noPricing }
-        }),
-        _vm._v(" "),
-        _c("unbeatable-pricing", {
-          attrs: { game: _vm.game },
-          on: { pricing: _vm.pricingCheck, noPrice: _vm.noPricing }
-        }),
-        _vm._v(" "),
-        _c("fun-com-pricing", {
-          attrs: { game: _vm.game },
-          on: { pricing: _vm.pricingCheck, noPrice: _vm.noPricing }
-        }),
-        _vm._v(" "),
-        _c("walmart-pricing", {
-          attrs: { game: _vm.game },
-          on: { pricing: _vm.pricingCheck, noPrice: _vm.noPricing }
-        })
-      ],
-      1
-    )
-  ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [_c("span", [_vm._v("Searching for prices.")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("span", [_vm._v("We could not find this game for sale at this time.")])
-    ])
-  }
-]
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-69f315fd", module.exports)
-  }
-}
-
-/***/ }),
+/* 229 */,
 /* 230 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -55838,7 +55732,7 @@ module.exports = {
 
       // console.log(cats)
 
-      var queryLong = this.game.post_title + ' ' + groups + ' ' + cats + ' ' + mechanics + ' ' + content;
+      var queryLong = this.game.post_title + ' ' + groups + ' ' + cats + ' ' + mechanics;
 
       // this.query = queryLong.substr(0, 511)
       if (queryLong.length < 500) {
@@ -56661,6 +56555,165 @@ Array.prototype.flexFilter = function (info) {
   // Give us a new array containing the objects matching the filter criteria
   return matches;
 };
+
+/***/ }),
+/* 457 */,
+/* 458 */,
+/* 459 */,
+/* 460 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(461);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(19)("1f98f384", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-69f315fd\",\"scoped\":true,\"hasInlineConfig\":true}!../../node_modules/sass-loader/lib/loader.js!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./game-pricing.vue", function() {
+     var newContent = require("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-69f315fd\",\"scoped\":true,\"hasInlineConfig\":true}!../../node_modules/sass-loader/lib/loader.js!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./game-pricing.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 461 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(18)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, "\n.clearfix[data-v-69f315fd] {\n  *zoom: 1;\n}\n.clearfix[data-v-69f315fd]:before, .clearfix[data-v-69f315fd]:after {\n    display: table;\n    content: \"\";\n    line-height: 0;\n}\n.clearfix[data-v-69f315fd]:after {\n    clear: both;\n}\n.loader[data-v-69f315fd] {\n  max-width: 32px;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 462 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("h4", [
+      _vm._v("Current Offers for "),
+      _c("span", { domProps: { innerHTML: _vm._s(_vm.game.post_title) } })
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "priceTable",
+        attrs: {
+          itemprop: "offers",
+          itemscope: "",
+          itemtype: "http://schema.org/Offer"
+        }
+      },
+      [
+        _c("amazon-pricing", {
+          attrs: { game: _vm.game },
+          on: { pricing: _vm.pricingCheck, noPrice: _vm.noPricing }
+        }),
+        _vm._v(" "),
+        _c("thinkgeek-pricing", {
+          attrs: { game: _vm.game },
+          on: { pricing: _vm.pricingCheck, noPrice: _vm.noPricing }
+        }),
+        _vm._v(" "),
+        _c("barnes-pricing", {
+          attrs: { game: _vm.game },
+          on: { pricing: _vm.pricingCheck, noPrice: _vm.noPricing }
+        }),
+        _vm._v(" "),
+        _c("entertainment-pricing", {
+          attrs: { game: _vm.game },
+          on: { pricing: _vm.pricingCheck, noPrice: _vm.noPricing }
+        }),
+        _vm._v(" "),
+        _c("newegg-pricing", {
+          attrs: { game: _vm.game },
+          on: { pricing: _vm.pricingCheck, noPrice: _vm.noPricing }
+        }),
+        _vm._v(" "),
+        _c("star-trek-pricing", {
+          attrs: { game: _vm.game },
+          on: { pricing: _vm.pricingCheck, noPrice: _vm.noPricing }
+        }),
+        _vm._v(" "),
+        _c("bam-pricing", {
+          attrs: { game: _vm.game },
+          on: { pricing: _vm.pricingCheck, noPrice: _vm.noPricing }
+        }),
+        _vm._v(" "),
+        _c("unbeatable-pricing", {
+          attrs: { game: _vm.game },
+          on: { pricing: _vm.pricingCheck, noPrice: _vm.noPricing }
+        }),
+        _vm._v(" "),
+        _c("fun-com-pricing", {
+          attrs: { game: _vm.game },
+          on: { pricing: _vm.pricingCheck, noPrice: _vm.noPricing }
+        }),
+        _vm._v(" "),
+        _c("walmart-pricing", {
+          attrs: { game: _vm.game },
+          on: { pricing: _vm.pricingCheck, noPrice: _vm.noPricing }
+        }),
+        _vm._v(" "),
+        _vm.noPricingArr.length < 10
+          ? _c("div", { staticClass: "priceRow" }, [
+              _c("div", [
+                _c("span", [
+                  _c("img", {
+                    staticClass: "loader",
+                    attrs: { src: _vm.options.dir + "/img/searchLoader.gif" }
+                  }),
+                  _vm._v(" Searching for prices.")
+                ])
+              ])
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.noPricesFound && _vm.noPricingArr.length == 10 && !_vm.pricingExists
+          ? _c("div", { staticClass: "priceRow" }, [_vm._m(0)])
+          : _vm._e()
+      ],
+      1
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [
+      _c("span", [_vm._v("We could not find this game for sale at this time.")])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-69f315fd", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

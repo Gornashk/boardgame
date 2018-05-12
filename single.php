@@ -20,7 +20,7 @@ $fields = get_fields();
 			<div class="col-sm-8 gameInfoTop">
 				<div class="gameTitle"><h1><span itemprop="name"><?php the_title(); ?></span></h1></div>
 				<hr/>
-				<game-pricing></game-pricing>
+				<game-pricing :options="options"></game-pricing>
 			</div>
 		</div>
 		<div class="row">

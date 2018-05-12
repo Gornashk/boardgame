@@ -2,16 +2,6 @@
   <div>
     <h4>Current Offers for <span v-html="game.post_title"></span></h4>
     <div class="priceTable" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-      <div class="priceRow" v-if="noPricingArr.length < 10">
-        <div>
-          <span>Searching for prices.</span>
-        </div>
-      </div>
-      <div class="priceRow" v-if="noPricesFound && noPricingArr.length == 10 && !pricingExists">
-        <div>
-          <span>We could not find this game for sale at this time.</span>
-        </div>
-      </div>
       <amazon-pricing :game="game" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></amazon-pricing>
       <thinkgeek-pricing :game="game" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></thinkgeek-pricing>
       <barnes-pricing :game="game" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></barnes-pricing>
@@ -22,6 +12,16 @@
       <unbeatable-pricing :game="game" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></unbeatable-pricing>
       <fun-com-pricing :game="game" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></fun-com-pricing>
       <walmart-pricing :game="game" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></walmart-pricing>
+      <div class="priceRow" v-if="noPricingArr.length < 10">
+        <div>
+          <span><img :src="options.dir + '/img/searchLoader.gif'" class="loader"> Searching for prices.</span>
+        </div>
+      </div>
+      <div class="priceRow" v-if="noPricesFound && noPricingArr.length == 10 && !pricingExists">
+        <div>
+          <span>We could not find this game for sale at this time.</span>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -46,6 +46,7 @@ import funComPricing from './pricing/funComPricing.vue';
 module.exports = {
   components: { amazonPricing, walmartPricing, barnesPricing, entertainmentPricing, neweggPricing, starTrekPricing, bamPricing, unbeatablePricing, thinkgeekPricing, funComPricing },
   // props: ['acfs','upcs','eans','elids','codes','gameTitle'],
+  props: ['options'],
   data () { 
     return {
       game: singleGame,
@@ -251,3 +252,12 @@ module.exports = {
 }
 
 </script>
+
+<style lang="scss" scoped>
+@import "../../scss/variables.scss";
+@import "../../scss/mixins.scss";
+
+.loader {
+  max-width: 32px;
+}
+</style>

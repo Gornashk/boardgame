@@ -82,7 +82,7 @@ module.exports = {
 
       // console.log(cats)
 
-      var queryLong = this.game.post_title +' '+ groups +' '+ cats +' '+ mechanics +' '+ content
+      var queryLong = this.game.post_title +' '+ groups +' '+ cats +' '+ mechanics
 
       // this.query = queryLong.substr(0, 511)
       if (queryLong.length < 500) {
