@@ -64,7 +64,15 @@ module.exports = {
       // create blank id code vars
       var upcCode
       if( this.game.acf.upcs ) {
+        // If UPC codes, get code
         upcCode = this.game.acf.upcs[0].upc
+      } else if( this.game.acf.eans ) {
+        // If no UPC, use EAN code
+        upcCode = this.game.acf.eans[0].ean
+      } else {
+        // If no codes, return and emit no prices
+        this.$emit('noPrice', {noPrice: true, retailer: 'walmart'});
+        return;
       }
 
       // Axios function to get signed Amazon URL

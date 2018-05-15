@@ -16,6 +16,9 @@
             :searchStore="searchStore"
             :index-name="algoliaPrefix + 'posts_post'"
             :query="query"
+            :query-parameters="{
+              restrictSearchableAttributes: 'post_title'
+            }"
             v-show="query.length > 1">
               <ais-results inline-template>
                 <ul class="searchResults">
