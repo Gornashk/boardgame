@@ -43,10 +43,10 @@
               </div>
               <ul>
                 <li 
-                v-for="post in filteredBGG"
-                :key="post.id"
-                v-html="post.name[0]._attr.value._value"
-                @click="createPost(post.name[0]._attr.value._value, post._attr.id._value)">
+                v-for="game in bggResultTitles"
+                :key="game.ID"
+                v-html="game.searchTitle"
+                @click="createPost(game.name, game.ID)">
                 </li>
               </ul>
             </div>
@@ -84,6 +84,14 @@
 </style>
 
 <script>
+// <ul>
+//   <li 
+//   v-for="post in filteredBGG"
+//   :key="post.id"
+//   v-html="post.name[0]._attr.value._value"
+//   @click="createPost(post.name[0]._attr.value._value, post._attr.id._value)">
+//   </li>
+// </ul>
 import axios from 'axios';
 import axiosCancel from 'axios-cancel';
 import xmltojson from 'xmltojson';
@@ -132,7 +140,22 @@ module.exports = {
     
   },
   computed: {
-    
+    bggResultTitles () {
+      var bggListings = [];
+      for(var bggListing of this.filteredBGG) {
+        var bggTitle = bggListing.name[0]._attr.value._value;
+        if(bggListing.yearpublished) {
+          bggTitle = bggTitle + '<span>Published: ' + bggListing.yearpublished[0]._attr.value._value + '</span>';
+        }
+
+        var bggGame = {};
+        bggGame['name'] = bggListing.name[0]._attr.value._value;
+        bggGame['searchTitle'] = bggTitle;
+        bggGame['ID'] = bggListing._attr.id._value;
+        bggListings.push(bggGame);
+      }
+      return bggListings;
+    }
   },
   methods: {
     bggQuery (requestId) {

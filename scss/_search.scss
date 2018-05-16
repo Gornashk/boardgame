@@ -90,10 +90,18 @@
           padding: .5em;
           cursor: pointer;
           @include transition(all 0.15s ease-in-out);
+          border-bottom: 1px solid $grayLight;
 
           &:hover {
             background: $lightBlue;
             color: $darkBlue;
+          }
+
+          span {
+            display: block;
+            font-size: .625em;
+            line-height: 1em;
+            margin-top: .625em;
           }
         }
       }
