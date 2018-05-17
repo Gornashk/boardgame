@@ -98,6 +98,7 @@ module.exports = {
         this.amazonResponse = xmltojson.parseString(amazonResponse)
       }) 
       .catch(function (error) {
+        this.$emit('noPrice', {noPrice: true, retailer: 'amazon'});
         that.amazonData.amazonError = 'Error! Could not get Amazon prices. ' + error
       })
       .then( () => {
