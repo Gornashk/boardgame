@@ -118,7 +118,7 @@ module.exports = {
           }
           this.funData.funLink = this.funResponse['cj-api'][0].products[0].product[0]['buy-url'][0]._text;
           this.funData.funStock = this.funResponse['cj-api'][0].products[0].product[0]['in-stock'][0]._text;
-          this.updatefun(this.funData.funPrice, this.funData.funStock, this.funData.funLink);
+          this.updateFun(this.funData.funPrice, this.funData.funStock, this.funData.funLink);
           this.$emit('pricing', true)
           this.$emit('noPrice', {noPrice: false, retailer: 'fun'});
           return;
