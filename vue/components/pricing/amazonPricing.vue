@@ -114,7 +114,11 @@ module.exports = {
         }
         if( !this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].Offers[0].Offer ) {
           // If no amazon offer found, check for private seller offers
-          this.amazonData.amazonPrice = this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].OfferSummary[0].LowestNewPrice[0].FormattedPrice[0]._text;
+          if( this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].OfferSummary[0].LowestNewPrice ) {
+            this.amazonData.amazonPrice = this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].OfferSummary[0].LowestNewPrice[0].FormattedPrice[0]._text;
+          } else {
+            this.amazonData.amazonPrice = this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].OfferSummary[0].LowestCollectiblePrice[0].FormattedPrice[0]._text;
+          }
           this.amazonData.amazonStock = '';
           this.amazonData.amazonLink = this.amazonResponse.ItemLookupResponse[0].Items[0].Item[0].DetailPageURL[0]._text;  
           this.$emit('pricing', true)
