@@ -87,6 +87,10 @@ $fields = get_fields();
 							'title' => 'Designers',
 							'terms' => get_the_terms( $post->ID, 'designers' )
 						);
+						$awards = array(
+							'title' => 'Awards',
+							'terms' => get_the_terms( $post->ID, 'awards' )
+						);
 
 						$cats = array(
 							$categories,
@@ -94,7 +98,8 @@ $fields = get_fields();
 							$mechanic,
 							$publisher,
 							$artists,
-							$designers
+							$designers,
+							$awards
 						);
 
 						foreach( $cats as $cat ) : 
