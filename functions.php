@@ -235,7 +235,34 @@ function my_post_attributes( array $attributes, WP_Post $post ) {
         'with_front' => false, // Don't display the category base before "/locations/"
         'hierarchical' => true // This will allow URL's like "/locations/boston/cambridge/"
       ),
-  ));
+    ));
+
+
+    register_taxonomy('awards', 'post', array(
+      // Hierarchical taxonomy (like categories)
+      'hierarchical' => true,
+      'show_admin_column' => true,
+      // This array of options controls the labels displayed in the WordPress Admin UI
+      'labels' => array(
+        'name' => _x( 'Awards', 'taxonomy general name' ),
+        'singular_name' => _x( 'Award', 'taxonomy singular name' ),
+        'search_items' =>  __( 'Search Awards' ),
+        'all_items' => __( 'All Awards' ),
+        'parent_item' => __( 'Parent Award' ),
+        'parent_item_colon' => __( 'Parent Award:' ),
+        'edit_item' => __( 'Edit Award' ),
+        'update_item' => __( 'Update Award' ),
+        'add_new_item' => __( 'Add New Award' ),
+        'new_item_name' => __( 'New Award Name' ),
+        'menu_name' => __( 'Awards' ),
+      ),
+      // Control the slugs used for this taxonomy
+      'rewrite' => array(
+        'slug' => 'designers', // This controls the base slug that will display before each term
+        'with_front' => false, // Don't display the category base before "/locations/"
+        'hierarchical' => true // This will allow URL's like "/locations/boston/cambridge/"
+      ),
+    ));
   }
   add_action( 'init', 'add_custom_taxonomies', 0 );
   
