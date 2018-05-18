@@ -96,7 +96,7 @@ module.exports = {
           that.thinkgeekResponse = xmltojson.parseString(thinkgeekResponse);
         }) 
         .catch(function (error) {
-          this.$emit('noPrice', {noPrice: true, retailer: 'thinkgeek'});
+          that.$emit('noPrice', {noPrice: true, retailer: 'thinkgeek'});
           that.thinkgeekData.thinkgeekError = 'Error! Could not get Think Geek prices. ' + error
         })
         .then( () => {

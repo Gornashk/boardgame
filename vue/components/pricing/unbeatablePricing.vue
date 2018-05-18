@@ -96,7 +96,7 @@ module.exports = {
           that.unbeatableResponse = xmltojson.parseString(unbeatableResponse);
         }) 
         .catch(function (error) {
-          this.$emit('noPrice', {noPrice: true, retailer: 'unbeatable'});
+          that.$emit('noPrice', {noPrice: true, retailer: 'unbeatable'});
           that.unbeatableData.unbeatableError = 'Error! Could not get Unbeatable Sale prices. ' + error
         })
         .then( () => {

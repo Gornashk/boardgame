@@ -96,7 +96,7 @@ module.exports = {
           that.funResponse = xmltojson.parseString(funResponse);
         }) 
         .catch(function (error) {
-          this.$emit('noPrice', {noPrice: true, retailer: 'fun'});
+          that.$emit('noPrice', {noPrice: true, retailer: 'fun'});
           that.funData.funError = 'Error! Could not get Fun.com prices. ' + error
         })
         .then( () => {

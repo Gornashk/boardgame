@@ -96,7 +96,7 @@ module.exports = {
           that.barnesResponse = xmltojson.parseString(barnesResponse);
         }) 
         .catch(function (error) {
-          this.$emit('noPrice', {noPrice: true, retailer: 'barnes'});
+          that.$emit('noPrice', {noPrice: true, retailer: 'barnes'});
           that.barnesData.barnesError = 'Error! Could not get Barnes and Noble prices. ' + error
         })
         .then( () => {
