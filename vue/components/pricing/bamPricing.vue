@@ -97,6 +97,7 @@ module.exports = {
           that.bamResponse = xmltojson.parseString(bamResponse);
         }) 
         .catch(function (error) {
+          this.$emit('noPrice', {noPrice: true, retailer: 'bam'});
           that.bamData.bamError = 'Error! Could not get Books A Million prices. ' + error
         })
         .then( () => {

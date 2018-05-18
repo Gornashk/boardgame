@@ -93,6 +93,7 @@ module.exports = {
         that.walmartResponse = JSON.parse(walmartResponse);
       }) 
       .catch(function (error) {
+        this.$emit('noPrice', {noPrice: true, retailer: 'walmart'});
         that.walmartData.walmartError = 'Error! Could not get Walmart prices. ' + error
       })
       .then( () => {

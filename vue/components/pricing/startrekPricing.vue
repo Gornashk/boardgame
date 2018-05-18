@@ -96,6 +96,7 @@ module.exports = {
           that.startrekResponse = xmltojson.parseString(startrekResponse);
         }) 
         .catch(function (error) {
+          this.$emit('noPrice', {noPrice: true, retailer: 'startrek'});
           that.startrekData.startrekError = 'Error! Could not get star trek prices. ' + error
         })
         .then( () => {

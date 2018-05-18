@@ -96,6 +96,7 @@ module.exports = {
           that.neweggResponse = xmltojson.parseString(neweggResponse);
         }) 
         .catch(function (error) {
+          this.$emit('noPrice', {noPrice: true, retailer: 'newegg'});
           that.neweggData.neweggError = 'Error! Could not get Newegg prices. ' + error
         })
         .then( () => {
