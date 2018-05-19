@@ -258,7 +258,7 @@ function my_post_attributes( array $attributes, WP_Post $post ) {
       ),
       // Control the slugs used for this taxonomy
       'rewrite' => array(
-        'slug' => 'designers', // This controls the base slug that will display before each term
+        'slug' => 'awards', // This controls the base slug that will display before each term
         'with_front' => false, // Don't display the category base before "/locations/"
         'hierarchical' => true // This will allow URL's like "/locations/boston/cambridge/"
       ),
