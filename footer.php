@@ -24,7 +24,7 @@
 <?php wp_footer(); ?> 
 
 <script>
-// (adsbygoogle = window.adsbygoogle || []).push({});
+(adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
 </body>
