@@ -1,20 +1,20 @@
 <template>
   <div>
-    <div class="priceRow" v-if="thinkgeekData.thinkgeekPrice"
+    <div class="priceRow" v-if="indigoData.indigoPrice"
     itemprop="seller" itemscope itemtype="http://schema.org/Organization">
       <div class="rowName">
-        <a :href="thinkgeekData.thinkgeekLink" @click="linkClick" itemprop="name">ThinkGeek.com</a>
+        <a :href="indigoData.indigoLink" @click="linkClick" itemprop="name">Indigo Books & Music</a>
       </div>
       <div class="rowPrice">
-        <span v-html="'$' + thinkgeekData.thinkgeekPrice" itemprop="price"></span>
+        <span v-html="'$' + indigoData.indigoPrice" itemprop="price"></span>
       </div>
       <div class="rowStock">
         <span
-        v-if="thinkgeekData.thinkgeekStock">In Stock</span>
+        v-if="indigoData.indigoStock">In Stock</span>
         <span v-else>Out of Stock</span>
       </div>
       <div class="rowLink">
-        <a :href="thinkgeekData.thinkgeekLink" target="_blank" itemprop="url" class="storeBtn" @click="linkClick">Visit Store</a>
+        <a :href="indigoData.indigoLink" target="_blank" itemprop="url" class="storeBtn" @click="linkClick">Visit Store</a>
       </div>
     </div>
   </div>
@@ -29,13 +29,13 @@ module.exports = {
   props: ["game"],
   data () {
     return {
-      thinkgeekResponse: [],
-      thinkgeekData: {
-        thinkgeekPrice: '',
-        thinkgeekLink: '',
-        thinkgeekDate: '',
-        thinkgeekStock: '',
-        thinkgeekError: ''
+      indigoResponse: [],
+      indigoData: {
+        indigoPrice: '',
+        indigoLink: '',
+        indigoDate: '',
+        indigoStock: '',
+        indigoError: ''
       }
     }
   },
@@ -45,8 +45,8 @@ module.exports = {
   methods: {
     linkClick() {
       __gaTracker('send', 'event', {
-        eventCategory: 'ThinkGeek',
-        eventAction: this.thinkgeekData.thinkgeekLink,
+        eventCategory: 'Indigo',
+        eventAction: this.indigoData.indigoLink,
         eventLabel: this.game.title
       });
     },
@@ -55,14 +55,14 @@ module.exports = {
 
         if( this.game.acf.codes = true ) {
           // If I have ID codes, look for product prices
-          this.thinkgeekPrices()
+          this.indigoPrices()
           return;
         }
         // Don't get prices if ID codes don't exist
         return;
       }
     },
-    thinkgeekPrices () {
+    indigoPrices () {
       var that = this;
       // create blank id code vars
       var upcCode
@@ -74,7 +74,7 @@ module.exports = {
         upcCode = this.game.acf.eans[0].ean
       } else {
         // If no codes, return and emit no prices
-        this.$emit('noPrice', {noPrice: true, retailer: 'thinkgeek'});
+        this.$emit('noPrice', {noPrice: true, retailer: 'indigo'});
         return;
       }
       
@@ -86,18 +86,18 @@ module.exports = {
             action: "ks_getCjPrice",
             upc: upcCode,
             websiteId: '8512196', // BoardGamerDeal's ID through CJ
-            advertiserId: '1382555' // Think Geek's ID through CJ
+            advertiserId: '1666237' // Indigo's ID through CJ
           }
         })
         .then((response) => {
           var str = response.data
-          var thinkgeekResponse = str.substring(0, str.length - 1);
+          var indigoResponse = str.substring(0, str.length - 1);
 
-          that.thinkgeekResponse = xmltojson.parseString(thinkgeekResponse);
+          that.indigoResponse = xmltojson.parseString(indigoResponse);
         }) 
         .catch(function (error) {
-          that.$emit('noPrice', {noPrice: true, retailer: 'thinkgeek'});
-          that.thinkgeekData.thinkgeekError = 'Error! Could not get Think Geek prices. ' + error
+          that.$emit('noPrice', {noPrice: true, retailer: 'indigo'});
+          that.indigoData.indigoError = 'Error! Could not get Indigo prices. ' + error
         })
         .then( () => {
           this.savePrice()
@@ -105,29 +105,29 @@ module.exports = {
       
     },
     savePrice () {
-      if(this.thinkgeekResponse.errors) {
-        this.$emit('noPrice', {noPrice: true, retailer: 'thinkgeek'});
+      if(this.indigoResponse.errors) {
+        this.$emit('noPrice', {noPrice: true, retailer: 'indigo'});
         return;
       }
-      if(this.thinkgeekResponse) {
-        if(this.thinkgeekResponse['cj-api'][0].products[0].product) {
+      if(this.indigoResponse) {
+        if(this.indigoResponse['cj-api'][0].products[0].product) {
           // If a Sale Price exists, use that, otherwise use just the price field
-          if(this.thinkgeekResponse['cj-api'][0].products[0].product[0]['sale-price'][0]._text.length > 0) {
-            this.thinkgeekData.thinkgeekPrice = Number.parseFloat(this.thinkgeekResponse['cj-api'][0].products[0].product[0].price[0]._text).toFixed(2);
+          if(this.indigoResponse['cj-api'][0].products[0].product[0]['sale-price'][0]._text.length > 0) {
+            this.indigoData.indigoPrice = Number.parseFloat(this.indigoResponse['cj-api'][0].products[0].product[0].price[0]._text).toFixed(2);
           } else {
-            this.thinkgeekData.thinkgeekPrice = Number.parseFloat(this.thinkgeekResponse['cj-api'][0].products[0].product[0]['sale-price'][0]._text).toFixed(2);
+            this.indigoData.indigoPrice = Number.parseFloat(this.indigoResponse['cj-api'][0].products[0].product[0]['sale-price'][0]._text).toFixed(2);
           }
-          this.thinkgeekData.thinkgeekLink = this.thinkgeekResponse['cj-api'][0].products[0].product[0]['buy-url'][0]._text;
-          this.thinkgeekData.thinkgeekStock = this.thinkgeekResponse['cj-api'][0].products[0].product[0]['in-stock'][0]._text;
-          this.updateThinkgeek(this.thinkgeekData.thinkgeekPrice, this.thinkgeekData.thinkgeekStock, this.thinkgeekData.thinkgeekLink);
+          this.indigoData.indigoLink = this.indigoResponse['cj-api'][0].products[0].product[0]['buy-url'][0]._text;
+          this.indigoData.indigoStock = this.indigoResponse['cj-api'][0].products[0].product[0]['in-stock'][0]._text;
+          this.updateIndigo(this.indigoData.indigoPrice, this.indigoData.indigoStock, this.indigoData.indigoLink);
           this.$emit('pricing', true)
-          this.$emit('noPrice', {noPrice: false, retailer: 'thinkgeek'});
+          this.$emit('noPrice', {noPrice: false, retailer: 'indigo'});
           return;
         }
       }
-      this.$emit('noPrice', {noPrice: true, retailer: 'thinkgeek'});
+      this.$emit('noPrice', {noPrice: true, retailer: 'indigo'});
     },
-    updateThinkgeek (price, stock, link) {
+    updateIndigo (price, stock, link) {
       jQuery.ajax({
         type: "post",
         url: adminAjax,
@@ -137,7 +137,7 @@ module.exports = {
           action: "ks_updateGamePrice",
           nonce: nonce,
           postID: this.game.id,
-          retailer: 'Thinkgeek',
+          retailer: 'Indigo',
           price: price,
           stock: stock,
           link: link
@@ -147,7 +147,7 @@ module.exports = {
           // console.log(data);
         },
         error: function(data) {
-          console.log('error updating game price thinkgeek')
+          console.log('error updating game price indigo')
           console.log(data);
         }
       })

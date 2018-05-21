@@ -12,12 +12,13 @@
       <unbeatable-pricing :game="game" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></unbeatable-pricing>
       <fun-com-pricing :game="game" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></fun-com-pricing>
       <walmart-pricing :game="game" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></walmart-pricing>
-      <div class="priceRow" v-if="noPricingArr.length < 10">
+      <indigo-pricing :game="game" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></indigo-pricing>
+      <div class="priceRow" v-if="noPricingArr.length < 11">
         <div>
           <span><img :src="options.dir + '/img/searchLoader.gif'" class="loader"> Searching for prices.</span>
         </div>
       </div>
-      <div class="priceRow" v-if="noPricesFound && noPricingArr.length == 10 && !pricingExists">
+      <div class="priceRow" v-if="noPricesFound && noPricingArr.length == 11 && !pricingExists">
         <div>
           <span>We could not find this game for sale at this time.</span>
         </div>
@@ -42,9 +43,10 @@ import bamPricing from './pricing/bamPricing.vue';
 import unbeatablePricing from './pricing/unbeatablePricing.vue';
 import thinkgeekPricing from './pricing/thinkgeekPricing.vue';
 import funComPricing from './pricing/funComPricing.vue';
+import indigoPricing from './pricing/indigoPricing.vue';
 
 module.exports = {
-  components: { amazonPricing, walmartPricing, barnesPricing, entertainmentPricing, neweggPricing, starTrekPricing, bamPricing, unbeatablePricing, thinkgeekPricing, funComPricing },
+  components: { amazonPricing, walmartPricing, barnesPricing, entertainmentPricing, neweggPricing, starTrekPricing, bamPricing, unbeatablePricing, thinkgeekPricing, funComPricing, indigoPricing },
   // props: ['acfs','upcs','eans','elids','codes','gameTitle'],
   props: ['options'],
   data () { 
