@@ -21,6 +21,17 @@
       font-size: .925em;
       font-weight: 600;
     }
+    .priceTable {
+      margin-bottom: .5em;
+    }
+    .model {
+      font-size: .75em;
+      font-weight: 700;
+
+      span {
+        font-weight: 400;
+      }
+    }
   }
 }
 .gameStats {

@@ -21,6 +21,10 @@ $fields = get_fields();
 				<div class="gameTitle"><h1><span itemprop="name"><?php the_title(); ?></span></h1></div>
 				<hr/>
 				<game-pricing :options="options"></game-pricing>
+				<?php $mpn = $fields['mpns'][0]['mpn']; 
+				if($mpn) : ?>
+				<p class="model">Model Number: <span itemprop="mpn"><?php echo $mpn; ?></span></p>
+				<?php endif; ?>
 			</div>
 		</div>
 		<div class="row">
