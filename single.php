@@ -45,7 +45,8 @@ if($ps) {
 							<a href="<?php echo $fields['amazon_link']; ?>"><span itemprop="seller">Amazon.com</span></a>
 						</div>
 						<div class="rowPrice">
-							<span itemprop="price"><?php echo $fields['amazon_price']; ?></span>
+							<meta itemprop="priceCurrency" content="USD" />
+							<span itemprop="price"><?php echo substr($fields['amazon_price'], 1); ?></span>
 						</div>
 						<div class="rowStock">
 							<span><?php echo $fields['amazon_stock']; ?></span>
@@ -62,6 +63,7 @@ if($ps) {
 							<a href="<?php echo $fields['walmart_link']; ?>"><span itemprop="seller">Walmart.com</span></a>
 						</div>
 						<div class="rowPrice">
+							<meta itemprop="priceCurrency" content="USD" />
 							<span itemprop="price"><?php echo $fields['walmart_price']; ?></span>
 						</div>
 						<div class="rowStock">
