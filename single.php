@@ -1,7 +1,7 @@
 <?php get_header(); 
 $fields = get_fields();
 
-crafted_var_dump($fields);
+// crafted_var_dump($fields);
 ks_clearPriceRepeater($post->ID);
 
 $prices = array();
@@ -11,7 +11,7 @@ if($ps) {
 		$prices[] = floatval($p['price']);
 	}
 	sort($prices);
-	crafted_var_dump($prices);
+	// crafted_var_dump($prices);
 }
 ?>
 
