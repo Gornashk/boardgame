@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h4>Current Offers for <span v-html="game.post_title"></span></h4>
     <div class="priceTable" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
       <amazon-pricing :game="game" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></amazon-pricing>
       <thinkgeek-pricing :game="game" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></thinkgeek-pricing>
@@ -88,6 +87,7 @@ module.exports = {
     noPricing (payload) {
       if(payload) {
         this.noPricingArr.push(payload)
+        this.$emit('hide-db-price', true);
       }
     },
     getGameIDs () {

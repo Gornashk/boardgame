@@ -20,7 +20,47 @@ $fields = get_fields();
 			<div class="col-sm-8 gameInfoTop">
 				<div class="gameTitle"><h1><span itemprop="name"><?php the_title(); ?></span></h1></div>
 				<hr/>
-				<game-pricing :options="options"></game-pricing>
+				<h4>Current Offers for <span><?php the_title(); ?></span></h4>
+
+				<?php if($fields['amazon_price'] || $fields['walmart_price']) { ?>
+				<div v-if="showDbPrice == true" class="priceTable" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+					<?php if($fields['amazon_price']) { ?>
+					<div class="priceRow" itemprop="seller" itemscope itemtype="http://schema.org/Organization">
+						<div class="rowName">
+							<a href="<?php echo $fields['amazon_link']; ?>"><span itemprop="name">Amazon.com</span></a>
+						</div>
+						<div class="rowPrice">
+							<span itemprop="price"><?php echo $fields['amazon_price']; ?></span>
+						</div>
+						<div class="rowStock">
+							<span><?php echo $fields['amazon_stock']; ?></span>
+						</div>
+						<div class="rowLink">
+							<a href="<?php echo $fields['amazon_link']; ?>" target="_blank" itemprop="url" class="storeBtn">Visit Store</a>
+						</div>
+					</div>
+					<?php } ?>
+					<?php if($fields['walmart_price']) { ?>
+					<div class="priceRow" itemprop="seller" itemscope itemtype="http://schema.org/Organization">
+						<div class="rowName">
+							<a href="<?php echo $fields['walmart_link']; ?>"><span itemprop="name">Walmart.com</span></a>
+						</div>
+						<div class="rowPrice">
+							<span itemprop="price"><?php echo $fields['walmart_price']; ?></span>
+						</div>
+						<div class="rowStock">
+							<span><?php echo $fields['walmart_stock']; ?></span>
+						</div>
+						<div class="rowLink">
+							<a href="<?php echo $fields['walmart_link']; ?>" target="_blank" itemprop="url" class="storeBtn">Visit Store</a>
+						</div>
+					</div>
+					<?php } ?>
+				</div>
+				<?php } ?>
+
+				<game-pricing :options="options" v-on:hide-db-price="hideDbPrice"></game-pricing>
+
 				<?php $mpn = $fields['mpns'][0]['mpn']; 
 				if($mpn) : ?>
 				<p class="model">Model Number: <span itemprop="mpn"><?php echo $mpn; ?></span></p>

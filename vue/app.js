@@ -24,7 +24,15 @@ var app = new Vue({
   data() {
     return {
       mobileMenu: "",
-      options: options
+      options: options,
+      showDbPrice: true
     };
+  },
+  methods: {
+    hideDbPrice (payload) {
+      if(payload) {
+        this.showDbPrice = false
+      }
+    }
   }
 });
