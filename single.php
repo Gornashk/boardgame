@@ -33,13 +33,14 @@ if($ps) {
 				<hr/>
 				<div class="offersTop clearfix">
 					<h4>Current Offers for <span><?php the_title(); ?></span></h4>
-					<p class="lastLowest">Last Seen Lowest Price: <span itemprop="price">$<?php echo $prices[0]; ?></p></p>
+					<?php /*<p class="lastLowest">Last Seen Lowest Price: <span itemprop="price">$<?php echo $prices[0]; ?></span></p> */ ?>
 				</div>
 
 				<?php if($fields['amazon_price'] || $fields['walmart_price']) { ?>
 				<div v-if="showDbPrice == true" class="priceTable" itemprop="offers">
 					<?php if($fields['amazon_price']) { ?>
 					<div class="priceRow" itemscope itemtype="http://schema.org/Offer">
+						<meta itemprop="name" content="<?php the_title(); ?>" />
 						<div class="rowName">
 							<a href="<?php echo $fields['amazon_link']; ?>"><span itemprop="seller">Amazon.com</span></a>
 						</div>
@@ -56,6 +57,7 @@ if($ps) {
 					<?php } ?>
 					<?php if($fields['walmart_price']) { ?>
 					<div class="priceRow" itemscope itemtype="http://schema.org/Offer">
+						<meta itemprop="name" content="<?php the_title(); ?>" />
 						<div class="rowName">
 							<a href="<?php echo $fields['walmart_link']; ?>"><span itemprop="seller">Walmart.com</span></a>
 						</div>
