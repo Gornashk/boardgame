@@ -17,9 +17,24 @@
     hr {
       margin: 1em 0;
     }
-    h4 {
-      font-size: .925em;
-      font-weight: 600;
+    .offersTop {
+      justify-content: space-between;
+      align-items: top;
+      h4 {
+        font-size: .925em;
+        font-weight: 600;
+        margin-right: 1em;
+        float: left;
+      }
+      .lastLowest {
+        font-size: .75em;
+        text-align: right;
+        margin-bottom: 0;
+        float: right;
+        span {
+          font-weight: 600;
+        }
+      }
     }
     .priceTable {
       margin-bottom: .5em;

@@ -33,7 +33,7 @@ add_action( 'wp_head', function () {
   if ( is_singular('post') ) {
     global $post;
     single_game();
-    ks_clearPriceRepeater($post->ID);
+    // ks_clearPriceRepeater($post->ID);
   }
   ks_get_options();
 

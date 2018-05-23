@@ -1,7 +1,18 @@
 <?php get_header(); 
 $fields = get_fields();
 
-// crafted_var_dump($fields);
+crafted_var_dump($fields);
+ks_clearPriceRepeater($post->ID);
+
+$prices = array();
+$ps = $fields['prices'];
+if($ps) {
+	foreach($ps as $p) {
+		$prices[] = floatval($p['price']);
+	}
+	sort($prices);
+	crafted_var_dump($prices);
+}
 ?>
 
 	<div class="container gameInfoContainer" itemscope itemtype="http://schema.org/Product">
@@ -20,7 +31,10 @@ $fields = get_fields();
 			<div class="col-sm-8 gameInfoTop">
 				<div class="gameTitle"><h1><span itemprop="name"><?php the_title(); ?></span></h1></div>
 				<hr/>
-				<h4>Current Offers for <span><?php the_title(); ?></span></h4>
+				<div class="offersTop clearfix">
+					<h4>Current Offers for <span><?php the_title(); ?></span></h4>
+					<p class="lastLowest">Last Seen Lowest Price: <span itemprop="price">$<?php echo $prices[0]; ?></p></p>
+				</div>
 
 				<?php if($fields['amazon_price'] || $fields['walmart_price']) { ?>
 				<div v-if="showDbPrice == true" class="priceTable" itemprop="offers">
