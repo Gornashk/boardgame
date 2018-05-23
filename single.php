@@ -23,11 +23,11 @@ $fields = get_fields();
 				<h4>Current Offers for <span><?php the_title(); ?></span></h4>
 
 				<?php if($fields['amazon_price'] || $fields['walmart_price']) { ?>
-				<div v-if="showDbPrice == true" class="priceTable" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+				<div v-if="showDbPrice == true" class="priceTable" itemprop="offers">
 					<?php if($fields['amazon_price']) { ?>
-					<div class="priceRow" itemprop="seller" itemscope itemtype="http://schema.org/Organization">
+					<div class="priceRow" itemscope itemtype="http://schema.org/Offer">
 						<div class="rowName">
-							<a href="<?php echo $fields['amazon_link']; ?>"><span itemprop="name">Amazon.com</span></a>
+							<a href="<?php echo $fields['amazon_link']; ?>"><span itemprop="seller">Amazon.com</span></a>
 						</div>
 						<div class="rowPrice">
 							<span itemprop="price"><?php echo $fields['amazon_price']; ?></span>
@@ -41,9 +41,9 @@ $fields = get_fields();
 					</div>
 					<?php } ?>
 					<?php if($fields['walmart_price']) { ?>
-					<div class="priceRow" itemprop="seller" itemscope itemtype="http://schema.org/Organization">
+					<div class="priceRow" itemscope itemtype="http://schema.org/Offer">
 						<div class="rowName">
-							<a href="<?php echo $fields['walmart_link']; ?>"><span itemprop="name">Walmart.com</span></a>
+							<a href="<?php echo $fields['walmart_link']; ?>"><span itemprop="seller">Walmart.com</span></a>
 						</div>
 						<div class="rowPrice">
 							<span itemprop="price"><?php echo $fields['walmart_price']; ?></span>
