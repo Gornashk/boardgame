@@ -61,6 +61,9 @@
 					</a>
 	      </div>
 	      <div class="col-sm-6 col-md-8">
+					<div class="headerSearch">
+						<single-search :options="options"></single-search>
+					</div>
 	        <?php // wp_nav_menu( array( 'theme_location' => 'main-nav' ) ); ?>
 	        
 	        <!-- <div class="navicon-wrap">
