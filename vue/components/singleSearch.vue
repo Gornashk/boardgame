@@ -6,52 +6,45 @@
         <p>Getting the game page ready for it's first visit!</p>
       </div>
     </div>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <h2>Find the lowest prices for your favorite games.</h2>
-          <input type="text" v-model="query" placeholder="Search by game name..." />
-          <div class="resultContainer" v-show="query">
-            <ais-index
-            :searchStore="searchStore"
-            :index-name="algoliaPrefix + 'posts_post'"
-            :query="query"
-            :query-parameters="{
-              restrictSearchableAttributes: 'post_title'
-            }"
-            v-show="query.length > 1">
-              <ais-results inline-template>
-                <ul class="searchResults">
-                  <li v-for="result in results" :key="result.id">
-                    <a :href="result.permalink">
-                      <img v-if="result.images.thumbnail" :src="result.images.thumbnail.url">
-                      <span v-html="result.post_title"></span>
-                    </a>
-                  </li>
-                </ul>
-              </ais-results>
-              <ais-no-results>
-                <template slot-scope="props">
-                 
-                </template>
-              </ais-no-results>
-            </ais-index>
-            <div class="bggResults" :class="{ searching: searchingBGG, creating: creatingBGG }">
-              <div class="loadingOver" v-show="searchingBGG === true">
-                <img :src="options.dir + '/img/searchLoader.gif'">
-                <p>Finding ALL the games!</p>
-              </div>
-              <ul>
-                <li 
-                v-for="game in bggResultTitles"
-                :key="game.ID"
-                v-html="game.searchTitle"
-                @click="createPost(game.name, game.ID)">
-                </li>
-              </ul>
-            </div>
-          </div>
+    <input type="text" v-model="query" placeholder="Search by game name..." />
+    <div class="resultContainer" v-show="query">
+      <ais-index
+      :searchStore="searchStore"
+      :index-name="algoliaPrefix + 'posts_post'"
+      :query="query"
+      :query-parameters="{
+        restrictSearchableAttributes: 'post_title'
+      }"
+      v-show="query.length > 1">
+        <ais-results inline-template>
+          <ul class="searchResults">
+            <li v-for="result in results" :key="result.id">
+              <a :href="result.permalink">
+                <img v-if="result.images.thumbnail" :src="result.images.thumbnail.url">
+                <span v-html="result.post_title"></span>
+              </a>
+            </li>
+          </ul>
+        </ais-results>
+        <ais-no-results>
+          <template slot-scope="props">
+            
+          </template>
+        </ais-no-results>
+      </ais-index>
+      <div class="bggResults" :class="{ searching: searchingBGG, creating: creatingBGG }">
+        <div class="loadingOver" v-show="searchingBGG === true">
+          <img :src="options.dir + '/img/searchLoader.gif'">
+          <p>Finding ALL the games!</p>
         </div>
+        <ul>
+          <li 
+          v-for="game in bggResultTitles"
+          :key="game.ID"
+          v-html="game.searchTitle"
+          @click="createPost(game.name, game.ID)">
+          </li>
+        </ul>
       </div>
     </div>
   </div>

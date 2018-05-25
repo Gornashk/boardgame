@@ -1,6 +1,13 @@
 <template>
   <div id="heroSearchBar" :style="{ backgroundImage: 'url(' + options.search_background.sizes.large + ')' }">
-    <single-search :options="options"></single-search>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h2>Find the lowest prices for your favorite games.</h2>
+          <single-search :options="options"></single-search>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
