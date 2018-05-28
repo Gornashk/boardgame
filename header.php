@@ -60,7 +60,7 @@
 						alt="<?php echo get_bloginfo('name') .' | '. get_bloginfo('description'); ?>">
 					</a>
 	      </div>
-	      <div class="col-sm-6 col-md-8">
+	      <div class="col-sm-6 col-md-8 headMain">
 					<div class="headerSearch">
 						<single-search :options="options"></single-search>
 					</div>

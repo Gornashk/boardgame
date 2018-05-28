@@ -3960,6 +3960,48 @@ img {
   display: block;
 }
 
+.site-header .container .row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.site-header .container .row .headMain {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.site-header .container .row .headMain .headerSearch {
+  width: 100%;
+}
+
+.site-header .container .row .headMain .headerSearch input {
+  width: 100%;
+  font-size: 1em;
+}
+
+.site-header .container .row .headMain .headerSearch .resultContainer {
+  width: calc(100% - 30px);
+  left: 15px;
+}
+
+.site-header .container .row .headMain .headerSearch .resultContainer .searchResults li a:link span,
+.site-header .container .row .headMain .headerSearch .resultContainer .searchResults li a:visited span {
+  font-size: 1em;
+}
+
+.site-header .container .row .headMain .headerSearch .resultContainer .bggResults ul li {
+  font-size: 1em;
+}
+
+.site-header .container .row .headMain .headerSearch .resultContainer .bggResults ul li span {
+  font-size: .75em;
+}
+
 .site-footer {
   text-align: center;
 }

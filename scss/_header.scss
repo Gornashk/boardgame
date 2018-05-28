@@ -7,4 +7,50 @@
     padding: 1.5em 0;
     display: block;
   }
+
+  .container {
+    .row {
+      display: flex;
+
+      .headMain {
+        display:flex;
+        align-items: center;
+
+        .headerSearch {
+          width: 100%;
+
+          input {
+            width: 100%;
+            font-size: 1em;
+          }
+
+          .resultContainer {
+            width: calc(100% - 30px);
+            left: 15px;
+
+            .searchResults {
+              li {
+                a:link, a:visited {
+
+                  span {
+                    font-size: 1em;
+                  }
+                }
+              }
+            }
+            .bggResults {
+              ul {
+                li {
+                  font-size: 1em;
+                  span {
+                    font-size: .75em;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
