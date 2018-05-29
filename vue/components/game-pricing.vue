@@ -56,6 +56,9 @@ module.exports = {
       noPricingArr: []
     }
   },
+  created () {
+    this.clearPrices()
+  },
   mounted () {
     // console.log('mounted 2')
     // console.log(process.env.AWS_ID);
@@ -89,6 +92,26 @@ module.exports = {
         this.noPricingArr.push(payload)
         this.$emit('hide-db-price', true);
       }
+    },
+    clearPrices () {
+      // Clear the price repeater fields on game post
+      // Used to do this in just php, seems to fire off randomly like that.
+      // Javascript trigger may let it only fire when user does it
+      axios.get(adminAjax, {
+        responseType: 'text',
+        params: {
+          action: "ks_clearPriceRepeater",
+          postID: this.game.id
+        }
+      })
+      .then((response) => {
+        // console.log(response)
+        // console.log('prices cleared');
+      })
+      .catch(function (error) {
+        console.log(error)
+        // console.log('error clearing prices ' + error)
+      })
     },
     getGameIDs () {
       if( this.game.acf.codes ) {

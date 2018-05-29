@@ -33,11 +33,16 @@ function ks_updateGamePrice() {
   die();
 }
 
-// add_action( 'wp_ajax_nopriv_ks_clearPriceRepeater', 'ks_clearPriceRepeater' );
-// add_action( 'wp_ajax_ks_clearPriceRepeater', 'ks_clearPriceRepeater' );
-function ks_clearPriceRepeater($postID) {  
+add_action( 'wp_ajax_nopriv_ks_clearPriceRepeater', 'ks_clearPriceRepeater' );
+add_action( 'wp_ajax_ks_clearPriceRepeater', 'ks_clearPriceRepeater' );
+function ks_clearPriceRepeater($postID) {
+  if( $_GET['postID'] ) {
+    $postID = $_GET['postID'];
+  }
   if( have_rows('prices', $postID) ) {
     delete_field('prices', $postID);
   }
+  return;
+  die();
 }
 ?>
