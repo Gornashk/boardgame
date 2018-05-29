@@ -4,13 +4,36 @@
   margin-bottom: 3em;
 
   .site-logo {
-    padding: 1.5em 0;
+    padding: .75em 0;
     display: block;
+
+    @include breakpoint(phablet) {
+      padding: 1.5em 0;
+    }
+    
+    img {
+      @include breakpoint(mobileonly) {
+        max-height: 35px;
+      }
+    }
   }
 
   .container {
     .row {
       display: flex;
+      flex-wrap: wrap;
+
+      @include breakpoint(phablet) {
+        flex-wrap: nowrap;
+      }
+
+      .headFlex {
+        flex: 1 0 100%;
+
+        @include breakpoint(phablet) {
+          flex: 1 1 auto;
+        }
+      }
 
       .headMain {
         display:flex;
@@ -22,6 +45,10 @@
           input {
             width: 100%;
             font-size: 1em;
+
+            @include breakpoint(mobileonly) {
+              margin-bottom: .75em;
+            }
           }
 
           .resultContainer {
