@@ -8,6 +8,7 @@ import homeCats from "./components/homeCats";
 import changePosts from "./components/changePosts";
 import related from "./components/related";
 import socialShare from "./components/socialShare";
+import singleSearch from "./components/singleSearch";
 
 var app = new Vue({
   el: "#app",
@@ -19,7 +20,8 @@ var app = new Vue({
     homeCats,
     changePosts,
     related,
-    socialShare
+    socialShare,
+    singleSearch
   },
   data() {
     return {
