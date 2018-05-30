@@ -12,6 +12,7 @@
       <fun-com-pricing :game="game" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></fun-com-pricing>
       <walmart-pricing :game="game" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></walmart-pricing>
       <indigo-pricing :game="game" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></indigo-pricing>
+
       <div class="priceRow" v-if="noPricingArr.length < 11">
         <div>
           <span><img :src="options.dir + '/img/searchLoader.gif'" class="loader"> Searching for prices.</span>

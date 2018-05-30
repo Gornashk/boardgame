@@ -1,13 +1,25 @@
 .gameInfoContainer {
-  margin-bottom: 3em;
+  margin-bottom: 1em;
+  
+  @include breakpoint(phablet) {
+    margin-bottom: 3em;
+  }
 
   .gameImage {
-    margin-bottom: 1.5em;
+    margin-bottom: 1em;
+    
+    @include breakpoint(phablet) {
+      margin-bottom: 1.5em;
+    }
 
     img {
-      max-height: 350px;
+      max-height: 200px;
       margin: 0 auto 1em;
       display: block;
+
+      @include breakpoint(phablet) {
+        max-height: 350px;
+      }
     }
   }
 
@@ -15,7 +27,11 @@
     margin-bottom: 1.5em;
 
     hr {
-      margin: 1em 0;
+      margin: .5em 0;
+
+      @include breakpoint(phablet) {
+        margin: 1em 0;
+      }
     }
     h4 {
       font-size: .925em;
@@ -80,9 +96,13 @@
 }
 .gameTitle {
   h1 {
-    font-size: 2em;
+    font-size: 1.5em;
     margin: 0;
     font-weight: 500;
+
+    @include breakpoint(phablet) {
+      font-size: 2em;
+    }
   }
 }
 .gameDescription {
@@ -93,28 +113,46 @@
   border: 2px solid $lightBlue;
   @include border-radius(8px);
 
+  > div:last-child .priceRow {
+    border-bottom: none;
+  }
+
   .priceRow {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    padding: .5em .875em;
+    padding: .25em .5em;
     border-bottom: 2px solid $lightBlue;
 
-    &:last-child {
-      border-bottom: none;
+    @include breakpoint(phablet) {
+      flex-wrap: nowrap;
+      padding: .5em .875em;
     }
     
     div {
-      flex: 1 1 25%;
+      flex: 1 0 50%;
+      padding: .25em .5em;
       text-align: center;
 
+      @include breakpoint(phablet) {
+        flex: 1 1 25%;
+      }
+
       &.rowName {
-        text-align: left;
+        text-align: center;
+        @include breakpoint(phablet) {
+          text-align: left;
+        }
       }
       &.rowPrice {
         font-weight: 800;
       }
       &.rowLink {
-        text-align: right;
+        text-align: center;
+
+        @include breakpoint(phablet) {
+          text-align: right;
+        }
       }
       &.rowStock {
         span {
@@ -131,6 +169,10 @@
       color: $grayLighter;
       @include border-radius(4px);
       @include transition(all 0.3s ease-in-out);
+
+      @include breakpoint(mobileonly) {
+        display: block;
+      }
     }
     a.storeBtn:hover, a.storeBtn:active {
       background: $darkOrange;

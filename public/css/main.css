@@ -3952,7 +3952,13 @@ img {
 .site-header {
   background-color: #fff;
   border-bottom: 4px solid #3F5765;
-  margin-bottom: 3em;
+  margin-bottom: 1em;
+}
+
+@media (min-width: 576px) {
+  .site-header {
+    margin-bottom: 2em;
+  }
 }
 
 .site-header .site-logo {
@@ -4288,17 +4294,35 @@ img {
 }
 
 .gameInfoContainer {
-  margin-bottom: 3em;
+  margin-bottom: 1em;
+}
+
+@media (min-width: 576px) {
+  .gameInfoContainer {
+    margin-bottom: 3em;
+  }
 }
 
 .gameInfoContainer .gameImage {
-  margin-bottom: 1.5em;
+  margin-bottom: 1em;
+}
+
+@media (min-width: 576px) {
+  .gameInfoContainer .gameImage {
+    margin-bottom: 1.5em;
+  }
 }
 
 .gameInfoContainer .gameImage img {
-  max-height: 350px;
+  max-height: 200px;
   margin: 0 auto 1em;
   display: block;
+}
+
+@media (min-width: 576px) {
+  .gameInfoContainer .gameImage img {
+    max-height: 350px;
+  }
 }
 
 .gameInfoContainer .gameInfoTop {
@@ -4306,7 +4330,13 @@ img {
 }
 
 .gameInfoContainer .gameInfoTop hr {
-  margin: 1em 0;
+  margin: .5em 0;
+}
+
+@media (min-width: 576px) {
+  .gameInfoContainer .gameInfoTop hr {
+    margin: 1em 0;
+  }
 }
 
 .gameInfoContainer .gameInfoTop h4 {
@@ -4359,9 +4389,15 @@ img {
 }
 
 .gameTitle h1 {
-  font-size: 2em;
+  font-size: 1.5em;
   margin: 0;
   font-weight: 500;
+}
+
+@media (min-width: 576px) {
+  .gameTitle h1 {
+    font-size: 2em;
+  }
 }
 
 .gameDescription {
@@ -4374,30 +4410,55 @@ img {
   border-radius: 8px;
 }
 
+.priceTable > div:last-child .priceRow {
+  border-bottom: none;
+}
+
 .priceTable .priceRow {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  padding: .5em .875em;
+  padding: .25em .5em;
   border-bottom: 2px solid #BDD4DE;
 }
 
-.priceTable .priceRow:last-child {
-  border-bottom: none;
+@media (min-width: 576px) {
+  .priceTable .priceRow {
+    -ms-flex-wrap: nowrap;
+        flex-wrap: nowrap;
+    padding: .5em .875em;
+  }
 }
 
 .priceTable .priceRow div {
   -webkit-box-flex: 1;
-      -ms-flex: 1 1 25%;
-          flex: 1 1 25%;
+      -ms-flex: 1 0 50%;
+          flex: 1 0 50%;
+  padding: .25em .5em;
   text-align: center;
 }
 
+@media (min-width: 576px) {
+  .priceTable .priceRow div {
+    -webkit-box-flex: 1;
+        -ms-flex: 1 1 25%;
+            flex: 1 1 25%;
+  }
+}
+
 .priceTable .priceRow div.rowName {
-  text-align: left;
+  text-align: center;
+}
+
+@media (min-width: 576px) {
+  .priceTable .priceRow div.rowName {
+    text-align: left;
+  }
 }
 
 .priceTable .priceRow div.rowPrice {
@@ -4405,7 +4466,13 @@ img {
 }
 
 .priceTable .priceRow div.rowLink {
-  text-align: right;
+  text-align: center;
+}
+
+@media (min-width: 576px) {
+  .priceTable .priceRow div.rowLink {
+    text-align: right;
+  }
 }
 
 .priceTable .priceRow div.rowStock span {
@@ -4422,6 +4489,13 @@ img {
   border-radius: 4px;
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
+}
+
+@media (max-width: 575px) {
+  .priceTable .priceRow a.storeBtn:link,
+  .priceTable .priceRow a.storeBtn:visited {
+    display: block;
+  }
 }
 
 .priceTable .priceRow a.storeBtn:hover,
