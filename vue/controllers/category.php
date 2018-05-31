@@ -12,7 +12,8 @@ function category_games () {
       )
     ),
     'meta_key' => 'rating',
-    'orderby' => 'meta_value_num'
+    'orderby' => 'name',
+    'order' => 'ASC'
   );
   // The Query
   $the_query = new WP_Query( $args );
