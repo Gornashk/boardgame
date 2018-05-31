@@ -10,7 +10,9 @@ function category_games () {
         'field' => 'slug',
         'terms' => $queried->slug
       )
-    )
+    ),
+    'meta_key' => 'rating',
+    'orderby' => 'meta_value_num'
   );
   // The Query
   $the_query = new WP_Query( $args );
