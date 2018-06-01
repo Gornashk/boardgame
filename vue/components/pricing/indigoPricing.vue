@@ -140,7 +140,8 @@ module.exports = {
           retailer: 'Indigo',
           price: price,
           stock: stock,
-          link: link
+          link: link,
+          rowNum: 6
           },
         success: function(data){
           // console.log('success')

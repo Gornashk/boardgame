@@ -140,7 +140,8 @@ module.exports = {
           retailer: 'newegg',
           price: price,
           stock: stock,
-          link: link
+          link: link,
+          rowNum: 7
           },
         success: function(data){
           // console.log('success')

@@ -7,6 +7,7 @@ function ks_updateGamePrice() {
   $price = $_POST['price'];
   $stock = $_POST['stock'];
   $link = $_POST['link'];
+  $rowNum = $_POST['rowNum'];
 
   if($retailer == 'amazon') {
     update_field('field_5a2dad14832c6', $price, $postID);
@@ -27,7 +28,7 @@ function ks_updateGamePrice() {
       'field_5aad7c84aa607' => $retailer
     );
     // Repeater field ID
-    add_row( 'field_5aad654a79233', $priceRepeaterArr, $postID );
+    update_row( 'field_5aad654a79233', $rowNum, $priceRepeaterArr, $postID );
 
   return;
   die();

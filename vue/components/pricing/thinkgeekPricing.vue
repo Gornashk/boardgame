@@ -140,7 +140,8 @@ module.exports = {
           retailer: 'Thinkgeek',
           price: price,
           stock: stock,
-          link: link
+          link: link,
+          rowNum: 9
           },
         success: function(data){
           // console.log('success')

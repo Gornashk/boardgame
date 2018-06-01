@@ -140,7 +140,8 @@ module.exports = {
           retailer: 'starTrek',
           price: price,
           stock: stock,
-          link: link
+          link: link,
+          rowNum: 8
           },
         success: function(data){
           // console.log('success')
