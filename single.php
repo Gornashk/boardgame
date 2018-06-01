@@ -40,7 +40,7 @@ if($ps) {
 				<div v-if="showDbPrice == true" class="priceTable">
 					<?php if($fields['amazon_price']) { ?>
 					<div class="priceRow" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-						<meta itemprop="name" content="<?php the_title(); ?>" />
+						<?php /*<meta itemprop="name" content="<?php the_title(); ?>" />*/ ?>
 						<div class="rowName">
 							<a href="<?php echo $fields['amazon_link']; ?>"><span itemprop="seller">Amazon.com</span></a>
 						</div>
@@ -58,7 +58,7 @@ if($ps) {
 					<?php } ?>
 					<?php if($fields['walmart_price']) { ?>
 					<div class="priceRow" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-						<meta itemprop="name" content="<?php the_title(); ?>" />
+						<?php /* <meta itemprop="name" content="<?php the_title(); ?>" /> */ ?>
 						<div class="rowName">
 							<a href="<?php echo $fields['walmart_link']; ?>"><span itemprop="seller">Walmart.com</span></a>
 						</div>
