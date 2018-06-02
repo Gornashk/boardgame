@@ -2,7 +2,7 @@
 $fields = get_fields();
 
 // crafted_var_dump($fields);
-ks_clearPriceRepeater($post->ID);
+// ks_clearPriceRepeater($post->ID);
 
 $prices = array();
 $ps = $fields['prices'];
