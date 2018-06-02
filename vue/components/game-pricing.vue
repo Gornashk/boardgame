@@ -58,7 +58,7 @@ module.exports = {
     }
   },
   created () {
-    this.clearPrices()
+    // this.clearPrices()
   },
   mounted () {
     // console.log('mounted 2')
