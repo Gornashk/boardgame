@@ -3,7 +3,7 @@ function ks_get_options () {
 
   
   $item = get_fields('options');
-  $item[dir] = get_stylesheet_directory_uri();
+  $item['dir'] = get_stylesheet_directory_uri();
 
   // // Create new posts object
   

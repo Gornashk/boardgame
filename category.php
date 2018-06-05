@@ -8,7 +8,24 @@ get_header();
     </div>
   </div>
 </div>
-<categories></categories>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <?php $posts = ks_cat();
+      if($posts) { ?>
+        <div class="gameBoxes">
+          <?php
+          foreach($posts as $post) {
+            ks_gameBox($post);
+          } ?>
+        </div>
+      <?php } ?>
+    </div>
+  </div>
+</div>
+
+<!-- <categories></categories> -->
 
 <front-search :options="options"></front-search>
 

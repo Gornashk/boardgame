@@ -4836,6 +4836,19 @@ img {
   margin-bottom: 0;
 }
 
+.gameBoxes .gameBox a .lastPrice {
+  border-top: 2px solid #BDD4DE;
+  font-size: .625em;
+  padding: .5em .5em 0;
+  text-align: center;
+}
+
+.gameBoxes .gameBox a .lastPrice span {
+  font-size: 1.75em;
+  display: block;
+  font-weight: 700;
+}
+
 .gameBoxes .gameBox a:hover h5 {
   text-decoration: underline;
 }

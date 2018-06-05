@@ -489,4 +489,8 @@ register_post_type(
 		),
 	)
 );
+
+
+// Add php components
+require_once( __DIR__ . '/components/bootstrap.php' );
 ?>

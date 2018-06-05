@@ -74,6 +74,19 @@
         margin-bottom: 0;
       }
 
+      .lastPrice {
+        border-top: 2px solid $lightBlue;
+        font-size: .625em;
+        padding: .5em .5em 0;
+        text-align: center;
+    
+        span {
+          font-size: 1.75em;
+          display: block;
+          font-weight: 700;
+        }
+      }
+
       &:hover {
         h5 {
           text-decoration: underline;
