@@ -14,7 +14,7 @@
 		var nonce = '<?php echo $nonce; ?>';
 		var adminAjax = '<?php echo admin_url('admin-ajax.php'); ?>';
 		var siteUrl = '<?php echo get_bloginfo("url"); ?>';
-		var algoliaPrefix = '<?php echo ALGOLIA_PREFIX; ?>';
+		var algoliaPrefix = '<?php echo 'ALGOLIA_PREFIX'; ?>';
 	</script>
 	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
