@@ -19,7 +19,30 @@ get_header();
 
 <newly-added></newly-added>
 
-<home-cats></home-cats>
+<?php $cats = ks_home_cats();
+if($cats) { ?>
+  <div class="container">
+    <?php foreach($cats as $cat) {
+      // crafted_var_dump($cat); ?>
+    <div class="row homeCats">
+      <div class="col-md-12">
+        <div class="flex">
+          <h4><?php echo $cat['name'].' Games'; ?></h4>
+          <a href="<?php echo $cat['taxPage']; ?>" class="catBtn">View All</a>
+        </div>
+        <div class="gameBoxes">
+          <?php
+          foreach($cat['games'] as $post) {
+            ks_gameBox($post);
+          } ?>
+        </div>
+      </div>
+    </div>
+    <?php } ?>
+  </div>
+<?php } ?>
+
+<!-- <home-cats></home-cats> -->
 
 <?php
 if( have_posts() ) :

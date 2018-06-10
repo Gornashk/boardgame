@@ -12,6 +12,25 @@
 }
 
 .homeCats {
+  .flex {
+    display:flex;
+    justify-content: space-between;
+    padding: 0 1em;
+    align-items: center;
+  
+    .catBtn {
+      font-size: .825em;
+      background: $orange;
+      color: #fff;
+      padding: .25em .75em;
+      @include border-radius(5px);
+      @include transition(all .3s ease-in-out);
+  
+      &:hover {
+        background: $darkOrange;
+      }
+    }
+  }
   .slick-track{
     display: flex;
     align-items: stretch; 
