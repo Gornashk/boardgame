@@ -2,22 +2,7 @@
 get_header();
 ?>
 
-<div v-cloak>
-  <front-search :options="options"></front-search>
-</div>
-
-<div class="container">
-  <div class="row">
-    <div class="col-md-12">
-      <!-- Board Game Responsive -->
-			<ins class="adsbygoogle"
-					style="display:block"
-					data-ad-client="ca-pub-0438075078271065"
-					data-ad-slot="4591237891"
-          data-ad-format="auto"></ins>
-    </div>
-  </div>
-</div>
+<front-search :options="options" v-cloak></front-search>
 
 <!-- <newly-added></newly-added> -->
 <?php $new = ks_newly_added();
@@ -36,6 +21,19 @@ if($new) { ?>
     </div>
   </div>
 <?php } ?>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <!-- Board Game Responsive -->
+			<ins class="adsbygoogle"
+					style="display:block"
+					data-ad-client="ca-pub-0438075078271065"
+					data-ad-slot="4591237891"
+          data-ad-format="auto"></ins>
+    </div>
+  </div>
+</div>
 
 <?php $cats = ks_home_cats();
 if($cats) { ?>
