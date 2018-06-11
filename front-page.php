@@ -2,7 +2,7 @@
 get_header();
 ?>
 
-<front-search :options="options"></front-search>
+<front-search :options="options" v-cloak></front-search>
 
 <div class="container">
   <div class="row">
