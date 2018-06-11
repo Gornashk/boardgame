@@ -17,7 +17,23 @@ get_header();
   </div>
 </div>
 
-<newly-added></newly-added>
+<!-- <newly-added></newly-added> -->
+<?php $new = ks_newly_added();
+if($new) { ?>
+  <div class="container">
+    <div class="row recentSearch">
+      <div class="col-md-12">
+        <h4>Recently Searched Board Games</h4>
+        <div class="gameBoxes">
+          <?php
+          foreach($new as $post) {
+            ks_gameBox($post);
+          } ?>
+        </div>
+      </div>
+    </div>
+  </div>
+<?php } ?>
 
 <?php $cats = ks_home_cats();
 if($cats) { ?>
