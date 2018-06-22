@@ -2,13 +2,11 @@ $button-size : 3.5rem;
 $transition: .3s; // increase this to see the transformations in slow-motion
 
 .navicon-wrap { 
-  display:none;
+  display:block;
   text-align:right;
   float:right;
-
-  @media ( max-width: 991px ) {
-    display:block;
-  }
+  position: relative;
+  z-index: 9999;
 }
 
 .lines-button {

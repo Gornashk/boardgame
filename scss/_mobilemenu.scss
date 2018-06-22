@@ -9,13 +9,12 @@
 	display:  none;
 	position: fixed;
 	width: 100%;
-	height: 100%;
+	height: 100vh;
 	top: 0;
 	right: 0;
-	background: #333;
-	padding-left: 25%;
-	font-weight: bold;
-	text-transform: uppercase;
+	background: $blueTrans;
+	// padding-left: 25%;
+	overflow-y: scroll;
 	z-index: 0;
 	box-shadow: 0 0 10px;
 	-webkit-overflow-scrolling: touch;
@@ -34,78 +33,105 @@
 	-o-transition: -o-transform 0.2s ease-in-out;
 	-ms-transition: -ms-transform 0.2s ease-in-out;
 	transition: transform 0.2s ease-in-out;
-}
-.mobile-nav-wrap.opened {
-	display: block;
-	overflow: auto;
-	z-index: 1;
-	-webkit-transform: rotateY(0);
-	-moz-transform: rotateY(0);
-	-o-transform: rotateY(0);
-	-ms-transform: rotateY(0);
-	transform: rotateY(0);
-	-webkit-transform-style: preserve-3d;
-	-moz-transform-style: preserve-3d;
-	-o-transform-style: preserve-3d;
-	-ms-transform-style: preserve-3d;
-	transform-style: preserve-3d;
+
+	&.opened {
+		display: block;
+		overflow: auto;
+		z-index: 50;
+		width: 75%;
+		-webkit-transform: rotateY(0);
+		-moz-transform: rotateY(0);
+		-o-transform: rotateY(0);
+		-ms-transform: rotateY(0);
+		transform: rotateY(0);
+		-webkit-transform-style: preserve-3d;
+		-moz-transform-style: preserve-3d;
+		-o-transform-style: preserve-3d;
+		-ms-transform-style: preserve-3d;
+		transform-style: preserve-3d;
+	
+		@include breakpoint(tablet) {
+			width: 33%;
+		}
+	}
 }
 
-.navigation-mobile ul {
-	margin: 0;
-	padding: 0;
-	list-style: none;
+.navigation-mobile {
+	ul {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+	a {
+		display: block;
+		color: $grayLighter;
+		padding: 20px 15px;
+		border-bottom: 1px solid $orange;
+		text-decoration:none;
+		font-size: 20px;
+
+		&:hover {
+			color: $grayLighter;
+		}
+	}
+	.sub-menu, .children {
+		font-weight: 400;
+		// max-height: 0;
+		height: 0;
+		opacity: 0;
+		visibility: hidden;
+
+		&.active {
+			// max-height: auto;
+			height: auto;
+			visibility: visible;
+			opacity: 1;
+		}
+
+		li {
+			float:none;
+			font-size:.9em;
+			margin:0;
+
+			a {
+				padding:.25em 1.5em!important;
+				// background: #333;
+				color:$grayLighter!important;
+
+				&:hover {
+					padding:.25em 1.5em!important;
+					// background: #333;
+					color:$grayLighter !important;
+					background: $blue;
+				}
+			}
+		}
+	}
+	#menu-home-menu {
+		background: #00aedb;
+
+		a:hover {
+			color: #00aedb;
+			background: #fff;
+		}
+		.orange {
+			background: #f47321;
+			text-align: center;
+			font-size: 1.1em;
+
+			a:hover {
+				color: #f47321;
+				background: #fff;
+			}
+		}
+	}
 }
-.navigation-mobile a {
-	display: block;
-	color: #fff;
-	padding: 5px 15px;
-	border-top: 1px solid rgba(255,255,255,0.1);
-	border-bottom: 1px solid rgba(0,0,0,0.4);
-	text-decoration:none;	
-}
-.navigation-mobile a:hover {
-	color: $grayLighter;
-}
-.navigation-mobile .sub-menu, .navigation-mobile .children {
-	font-weight: 400;
-}
-.navigation-mobile .sub-menu li, .navigation-mobile .children li {
-	float:none;
-	font-size:.9em;
-	margin:0;
-}
-.navigation-mobile .sub-menu a, .navigation-mobile .children a {
-	padding:.25em 1.5em!important;
-	background: #333;
-	color:$grayLighter!important;
-}
-.navigation-mobile .sub-menu a:hover, .navigation-mobile .children a:hover {
-	padding:.25em 1.5em!important;
-	background: #333;
-	color:$grayLight !important;
-}
-.navigation-mobile #menu-home-menu {
-	background: #00aedb;
-}
-.navigation-mobile #menu-home-menu a:hover {
-	color: #00aedb;
-	background: #fff;
-}
-.navigation-mobile #menu-home-menu .orange {
-	background: #f47321;
-	text-align: center;
-	font-size: 1.1em;
-}
-.navigation-mobile #menu-home-menu .orange a:hover {
-	color: #f47321;
-	background: #fff;
-}
+
 #page {
 	display: block;
 	position: relative;
 	box-shadow: 0 0 10px #000;
-	z-index: 1000;
+	// z-index: 1000;
 	-webkit-transform: translate3d(0,0,0);
 	-moz-transform: translate3d(0,0,0);
 	-o-transform: translate3d(0,0,0);
@@ -116,14 +142,15 @@
 	-o-transition: all 0.2s ease;
 	-ms-transition: all 0.2s ease;
 	transition: all 0.2s ease;
-}
-#page.opened {
-	-webkit-transform: translate3d(-75%,0,0);
-	-moz-transform: translate3d(-75%,0,0);
-	-o-transform: translate3d(-75%,0,0);
-	-ms-transform: translate3d(-75%,0,0);
-	transform: translate3d(-75%,0,0);
-	position: fixed;
-	top: 0;	
-	width:100%;
+
+	&.opened {
+		// -webkit-transform: translate3d(-75%,0,0);
+		// -moz-transform: translate3d(-75%,0,0);
+		// -o-transform: translate3d(-75%,0,0);
+		// -ms-transform: translate3d(-75%,0,0);
+		// transform: translate3d(-75%,0,0);
+		position: fixed;
+		top: 0;	
+		width:100%;
+	}
 }

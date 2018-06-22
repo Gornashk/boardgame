@@ -25,9 +25,10 @@ var app = new Vue({
   },
   data() {
     return {
-      mobileMenu: "",
+      mobileMenu: false,
       options: options,
-      showDbPrice: true
+      showDbPrice: true,
+      subActive: ''
     };
   },
   methods: {
@@ -35,6 +36,13 @@ var app = new Vue({
       if(payload) {
         this.showDbPrice = false
       }
+    },
+    subActiveToggle (menu) {
+      if(this.subActive == menu) {
+        this.subActive = '';
+        return;
+      }
+      this.subActive = menu
     }
   }
 });

@@ -1,11 +1,7 @@
 .site-header {
   background-color: $white;
   border-bottom: 4px solid $blue;
-  margin-bottom: 1em;
-
-  @include breakpoint(phablet) {
-    margin-bottom: 2em;
-  }
+  margin-bottom: 0;
 
   .site-logo {
     padding: .75em 0;

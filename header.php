@@ -43,13 +43,7 @@
 
 <body <?php body_class(); ?>>
 <?php do_action( 'crafted_before' ); ?>
-<div id="mobile-nav-wrap" class="mobile-nav-wrap" :class="{ opened : mobileMenu }" v-show="mobileMenu">
-	<nav id="mobile-navigation-top" class="navigation-mobile" role="navigation">
-    <ul>
-     	<?php wp_nav_menu( array( 'theme_location' => 'mobile-menu', 'items_wrap' => '%3$s', 'container' => '' ) ); ?>
-		</ul>
-	</nav><!-- #mobile-navigation -->
-</div> <!-- #mobile-nav-wrap -->
+
 <div id="page" :class="{ opened : mobileMenu }">
 
 	<header class="site-header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -65,15 +59,13 @@
 					<div class="headerSearch">
 						<single-search :options="options"></single-search>
 					</div>
-	        <?php // wp_nav_menu( array( 'theme_location' => 'main-nav' ) ); ?>
-	        
-	        <!-- <div class="navicon-wrap">
-	        	<button class="lines-button x" :class="{ close: mobileMenu }"  @click="mobileMenu = !mobileMenu" type="button" role="button" aria-label="Toggle Navigation">
-	        		<span class="lines"></span>
-	        	</button>
-	        </div> -->
-
 	      </div>
 	    </div>
-	  </div>
+		</div>
+		<div class="navicon-wrap">
+			<button class="lines-button x" :class="{ close: mobileMenu }"  @click="mobileMenu = !mobileMenu" type="button" role="button" aria-label="Toggle Navigation">
+				<span class="lines"></span>
+			</button>
+		</div>
 	</header>
+	<?php ks_menu(); ?>
