@@ -194,11 +194,13 @@ if($ps) {
 
 					</div>
 				</div>
+				<?php /*
 					<ins class="adsbygoogle"
 								style="display:block"
 								data-ad-client="ca-pub-0438075078271065"
 								data-ad-slot="4591237891"
 								data-ad-format="auto"></ins>
+				*/ ?>
 			</div>
 		</div>
 	</div>
