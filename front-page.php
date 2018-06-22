@@ -22,6 +22,7 @@ if($new) { ?>
   </div>
 <?php } ?>
 
+<?php /*
 <div class="container">
   <div class="row">
     <div class="col-md-12">
@@ -34,6 +35,7 @@ if($new) { ?>
     </div>
   </div>
 </div>
+*/ ?>
 
 <?php $cats = ks_home_cats();
 if($cats) { ?>
