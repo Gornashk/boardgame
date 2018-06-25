@@ -1,8 +1,12 @@
 .gameInfoContainer {
+  padding-top: 1.5em;
   margin-bottom: 1em;
   
   @include breakpoint(phablet) {
     margin-bottom: 3em;
+  }
+  @include breakpoint(tablet) {
+    padding-top: 3em;
   }
 
   .gameImage {

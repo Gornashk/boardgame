@@ -1,15 +1,13 @@
 <?php 
 get_header();
 ?>
-<div class="container">
+<div class="container categoryPage">
   <div class="row">
     <div class="col-md-12">
-      <h1 style="font-size:2.5em;font-weight:400;"><?php echo single_cat_title() .' Games'; ?></h1>
+      <h1><?php echo single_cat_title() .' Games'; ?></h1>
     </div>
   </div>
-</div>
 
-<div class="container">
   <div class="row">
     <div class="col-md-12">
       <?php $posts = ks_cat();
