@@ -217,3 +217,20 @@ img {
     }
   }
 }
+
+.preloadBar {
+  background: repeating-linear-gradient(to right, #ccc 0%, #fff 50%, #ccc 100%);
+  width: 100%;
+  background-size: 200% auto;
+  background-position: 0 100%;
+  animation: gradient 2s infinite;
+  animation-fill-mode: forwards;
+  animation-timing-function: linear;
+  height: 1em;
+  @include border-radius(4px);
+}
+
+@keyframes gradient { 
+  0%   { background-position: 0 0; }
+  100% { background-position: -200% 0; }
+}

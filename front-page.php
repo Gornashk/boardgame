@@ -2,6 +2,16 @@
 get_header();
 ?>
 
+<div id="heroSearchBar" v-if="false">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h2>Find the lowest prices for your favorite games.</h2>
+        <div class="preloadBar"></div>
+      </div>
+    </div>
+  </div>
+</div>
 <front-search :options="options" v-cloak></front-search>
 
 <!-- <newly-added></newly-added> -->

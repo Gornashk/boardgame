@@ -26,10 +26,15 @@
     background: $white;
     padding: 0;
     border: 1px solid $gray;
-    width: calc(85% - 30px);
-    left: calc(7.5% + 15px);
+    width: calc(100% - 30px);
+    left: 15px;
     max-height: 60vh;
     overflow-y:scroll;
+
+    @include breakpoint(tablet) {
+      width: calc(85% - 30px);
+      left: calc(7.5% + 15px);
+    }
 
     .searchResults {
       margin: 0;
@@ -41,8 +46,12 @@
           max-width: 50px;
         }
         span {
-          font-size: 1.25em;
+          font-size: .875em;
           padding-left: 1em;
+
+          @include breakpoint(tablet) {
+            font-size: 1.25em;
+          }
         }
         a:link, a:visited {
           text-decoration: none;

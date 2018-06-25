@@ -57,6 +57,7 @@
 	      </div>
 	      <div class="col-sm-8 col-md-8 headMain headFlex">
 					<div class="headerSearch">
+						<div v-if="false" class="preloadBar"></div>
 						<single-search :options="options"></single-search>
 					</div>
 	      </div>

@@ -9,6 +9,7 @@ import changePosts from "./components/changePosts";
 import related from "./components/related";
 import socialShare from "./components/socialShare";
 import singleSearch from "./components/singleSearch";
+// import { ContentLoader } from 'vue-content-loader';
 
 var app = new Vue({
   el: "#app",
@@ -21,7 +22,8 @@ var app = new Vue({
     changePosts,
     related,
     socialShare,
-    singleSearch
+    singleSearch,
+    // ContentLoader
   },
   data() {
     return {
