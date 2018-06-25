@@ -24107,6 +24107,8 @@ var app = new Vue({
         return;
       }
       this.subActive = menu;
+      var myDiv = document.getElementById('mobile-nav-wrap');
+      myDiv.scrollTop = 0;
     }
   }
 });
@@ -28911,7 +28913,7 @@ exports = module.exports = __webpack_require__(18)(undefined);
 
 
 // module
-exports.push([module.i, "\n.clearfix[data-v-31821bba] {\n  *zoom: 1;\n}\n.clearfix[data-v-31821bba]:before, .clearfix[data-v-31821bba]:after {\n    display: table;\n    content: \"\";\n    line-height: 0;\n}\n.clearfix[data-v-31821bba]:after {\n    clear: both;\n}\n#heroSearchBar[data-v-31821bba] {\n  padding: 6.925em 0;\n  background-size: cover;\n  background-position: center;\n  margin-bottom: 3em;\n}\n#heroSearchBar h2[data-v-31821bba] {\n    text-align: center;\n    font-weight: 600;\n    color: #3F5765;\n}\n#heroSearchBar input[data-v-31821bba] {\n    display: block;\n    width: 85%;\n    margin: 0 auto;\n    color: #555;\n    font-size: 1.5em;\n    padding: .5em;\n}\n", ""]);
+exports.push([module.i, "\n.clearfix[data-v-31821bba] {\n  *zoom: 1;\n}\n.clearfix[data-v-31821bba]:before, .clearfix[data-v-31821bba]:after {\n    display: table;\n    content: \"\";\n    line-height: 0;\n}\n.clearfix[data-v-31821bba]:after {\n    clear: both;\n}\n#heroSearchBar[data-v-31821bba] {\n  padding: 2.5em 0;\n  background-size: cover;\n  background-position: center;\n  margin-bottom: 1.5em;\n}\n@media (min-width: 768px) {\n#heroSearchBar[data-v-31821bba] {\n      padding: 4em 0;\n      margin-bottom: 2em;\n}\n}\n@media (min-width: 992px) {\n#heroSearchBar[data-v-31821bba] {\n      padding: 6.925em 0;\n      margin-bottom: 3em;\n}\n}\n#heroSearchBar h2[data-v-31821bba] {\n    text-align: center;\n    font-weight: 600;\n    color: #3F5765;\n}\n#heroSearchBar input[data-v-31821bba] {\n    display: block;\n    width: 85%;\n    margin: 0 auto;\n    color: #555;\n    font-size: 1.5em;\n    padding: .5em;\n    border: 1px solid #FF530D;\n    border-radius: 4px;\n}\n", ""]);
 
 // exports
 
@@ -28981,7 +28983,7 @@ exports = module.exports = __webpack_require__(18)(undefined);
 
 
 // module
-exports.push([module.i, "\n.clearfix[data-v-1d14bea2] {\n  *zoom: 1;\n}\n.clearfix[data-v-1d14bea2]:before, .clearfix[data-v-1d14bea2]:after {\n    display: table;\n    content: \"\";\n    line-height: 0;\n}\n.clearfix[data-v-1d14bea2]:after {\n    clear: both;\n}\nh2[data-v-1d14bea2] {\n  text-align: center;\n  font-weight: 600;\n  color: #3F5765;\n}\ninput[data-v-1d14bea2] {\n  display: block;\n  width: 85%;\n  margin: 0 auto;\n  color: #555;\n  font-size: 1.5em;\n  padding: .5em;\n}\n", ""]);
+exports.push([module.i, "\n.clearfix[data-v-1d14bea2] {\n  *zoom: 1;\n}\n.clearfix[data-v-1d14bea2]:before, .clearfix[data-v-1d14bea2]:after {\n    display: table;\n    content: \"\";\n    line-height: 0;\n}\n.clearfix[data-v-1d14bea2]:after {\n    clear: both;\n}\nh2[data-v-1d14bea2] {\n  text-align: center;\n  font-weight: 600;\n  color: #3F5765;\n}\ninput[data-v-1d14bea2] {\n  display: block;\n  width: 85%;\n  margin: 0 auto;\n  color: #555;\n  font-size: 1em;\n  padding: .5em;\n  border: 1px solid #FF530D;\n  border-radius: 4px;\n}\n@media (min-width: 992px) {\ninput[data-v-1d14bea2] {\n      font-size: 1.5em;\n}\n}\n", ""]);
 
 // exports
 
@@ -29027,6 +29029,12 @@ var _flatten3 = _interopRequireDefault(_flatten2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+//
+//
+//
+//
+//
+//
 //
 //
 //

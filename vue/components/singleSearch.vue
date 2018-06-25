@@ -64,8 +64,14 @@
     width: 85%;
     margin: 0 auto;
     color: $gray;
-    font-size: 1.5em;
+    font-size: 1em;
     padding: .5em;
+    border: 1px solid $orange;
+    @include border-radius(4px);
+
+    @include breakpoint(laptop) {
+      font-size: 1.5em;
+    }
   }
 </style>
 

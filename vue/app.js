@@ -43,6 +43,8 @@ var app = new Vue({
         return;
       }
       this.subActive = menu
+      let myDiv = document.getElementById('mobile-nav-wrap');
+      myDiv.scrollTop = 0;
     }
   }
 });

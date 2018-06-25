@@ -1,7 +1,7 @@
 <?php
 function ks_menu() { ?>
 
-<div id="mobile-nav-wrap" class="mobile-nav-wrap" :class="{ opened : mobileMenu }" v-show="mobileMenu">
+<div id="mobile-nav-wrap" class="mobile-nav-wrap" :class="{ opened : mobileMenu }">
 	<nav id="mobile-navigation-top" class="navigation-mobile" role="navigation">
     <ul>
 			<li><a @click="subActiveToggle('categories')">Categories</a>

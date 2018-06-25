@@ -26,10 +26,19 @@ module.exports = {
 @import "../../scss/mixins.scss";
 
 #heroSearchBar {
-  padding: 6.925em 0;
+  padding: 2.5em 0;
   background-size: cover;
   background-position: center;
-  margin-bottom: 3em;
+  margin-bottom: 1.5em;
+
+  @include breakpoint(tablet) {
+    padding: 4em 0;
+    margin-bottom: 2em;
+  }
+  @include breakpoint(laptop) {
+    padding: 6.925em 0;
+    margin-bottom: 3em;
+  }
   
   h2 {
     text-align: center;
@@ -43,6 +52,8 @@ module.exports = {
     color: $gray;
     font-size: 1.5em;
     padding: .5em;
+    border: 1px solid $orange;
+    @include border-radius(4px);
   }
 }
 </style>

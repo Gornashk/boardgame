@@ -6,23 +6,24 @@
 }
 
 .mobile-nav-wrap {
-	display:  none;
+	// display:  none;
 	position: fixed;
-	width: 100%;
+	padding-top: 6.84375em;
+	width: 75%;
 	height: 100vh;
 	top: 0;
 	right: 0;
 	background: $blueTrans;
 	// padding-left: 25%;
 	overflow-y: scroll;
-	z-index: 0;
+	z-index: 50;
 	box-shadow: 0 0 10px;
 	-webkit-overflow-scrolling: touch;
-	-webkit-transform: rotateY(-15deg) translate3d(-100%,0,0);
-	-moz-transform: rotateY(-15deg) translate3d(-100%,0,0);
-	-o-transform: rotateY(-15deg) translate3d(-100%,0,0);
-	-ms-transform: rotateY(-15deg) translate3d(-100%,0,0);
-	transform: rotateY(-15deg) translate3d(-100%,0,0);
+	-webkit-transform: rotateY(-15deg) translate3d(150%,0,0);
+	-moz-transform: rotateY(-15deg) translate3d(150%,0,0);
+	-o-transform: rotateY(-15deg) translate3d(150%,0,0);
+	-ms-transform: rotateY(-15deg) translate3d(150%,0,0);
+	transform: rotateY(-15deg) translate3d(150%,0,0);
 	-webkit-transform-origin: right center center;
 	-moz-transform-origin: right center center;
 	-o-transform-origin: right center center;
@@ -34,9 +35,13 @@
 	-ms-transition: -ms-transform 0.2s ease-in-out;
 	transition: transform 0.2s ease-in-out;
 
+	@include breakpoint(tablet) {
+		width: 33%;
+	}
+
 	&.opened {
-		display: block;
-		overflow: auto;
+		// display: block;
+		// overflow: auto;
 		z-index: 50;
 		width: 75%;
 		-webkit-transform: rotateY(0);
@@ -57,6 +62,8 @@
 }
 
 .navigation-mobile {
+	overflow: hidden;
+	border-top: 4px solid $orange;
 	ul {
 		margin: 0;
 		padding: 0;
@@ -68,10 +75,13 @@
 		padding: 20px 15px;
 		border-bottom: 1px solid $orange;
 		text-decoration:none;
-		font-size: 20px;
+		font-size: 22px;
+		cursor: pointer;
+		@include transition(all .2s ease-in-out);
 
 		&:hover {
 			color: $grayLighter;
+			background: $darkBlue;
 		}
 	}
 	.sub-menu, .children {
@@ -80,48 +90,47 @@
 		height: 0;
 		opacity: 0;
 		visibility: hidden;
+		@include transition(all 0.15s ease-in-out);
 
 		&.active {
 			// max-height: auto;
 			height: auto;
 			visibility: visible;
 			opacity: 1;
+
+			@for $i from 1 through 40{
+				li:nth-of-type(#{$i}){
+					//animation:in $animationLength $delay + $nextItemDelay forwards;
+					
+					animation:in .15s .15s + $i/80 forwards;
+					-webkit-transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+					-moz-animation:in .15s .15s + $i/80 forwards;
+					-moz-transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+				}
+			}
+			li:nth-of-type(n+41){
+				animation:in .15s .15s + 51/80 forwards;
+				-webkit-transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+				-moz-animation:in .15s .15s + 51/80 forwards;
+				-moz-transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+			}
 		}
 
 		li {
 			float:none;
 			font-size:.9em;
 			margin:0;
+			right:-100%;
+			position: relative;
 
 			a {
-				padding:.25em 1.5em!important;
-				// background: #333;
+				padding:.5em 1.5em!important;
+				font-size: 1.325em;
 				color:$grayLighter!important;
 
 				&:hover {
-					padding:.25em 1.5em!important;
-					// background: #333;
-					color:$grayLighter !important;
-					background: $blue;
+					background: $darkBlue;
 				}
-			}
-		}
-	}
-	#menu-home-menu {
-		background: #00aedb;
-
-		a:hover {
-			color: #00aedb;
-			background: #fff;
-		}
-		.orange {
-			background: #f47321;
-			text-align: center;
-			font-size: 1.1em;
-
-			a:hover {
-				color: #f47321;
-				background: #fff;
 			}
 		}
 	}
@@ -131,7 +140,6 @@
 	display: block;
 	position: relative;
 	box-shadow: 0 0 10px #000;
-	// z-index: 1000;
 	-webkit-transform: translate3d(0,0,0);
 	-moz-transform: translate3d(0,0,0);
 	-o-transform: translate3d(0,0,0);
@@ -144,13 +152,14 @@
 	transition: all 0.2s ease;
 
 	&.opened {
-		// -webkit-transform: translate3d(-75%,0,0);
-		// -moz-transform: translate3d(-75%,0,0);
-		// -o-transform: translate3d(-75%,0,0);
-		// -ms-transform: translate3d(-75%,0,0);
-		// transform: translate3d(-75%,0,0);
 		position: fixed;
 		top: 0;	
 		width:100%;
 	}
+}
+
+
+@keyframes in{
+  from{right:-100%;opacity:0}
+  to{right:0;opacity:1}
 }

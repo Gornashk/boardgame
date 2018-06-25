@@ -57,20 +57,33 @@ h1 {
   font-weight: 800;
 }
 h2 {
-  font-size: 2.25em;
+  font-size: 1.325em;
   font-family: $sansFontFamily!important;
   font-weight: 400;
   margin-bottom: 1em;
+  @include breakpoint(tablet) {
+    font-size: 1.75em;
+  }
+  @include breakpoint(laptop) {
+    font-size: 2.25em;
+  }
 }
 h3 {
-  font-size: 1.5em;
+  font-size: 1.25em;
   font-family: $sansFontFamily;
   font-weight: 800;
+
+  @include breakpoint(laptop) {
+    font-size: 1.5em;
+  }
 }
 h4 {
-  font-size: 1.5em;
+  font-size: 1.25em;
   font-family: $sansFontFamily;
   font-weight: 400;
+  @include breakpoint(laptop) {
+    font-size: 1.5em;
+  }
 }
 h5 {
   font-size: 1.5em;

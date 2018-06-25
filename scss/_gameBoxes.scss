@@ -59,19 +59,28 @@
         
         img {
           @include border-radius(4px);
-          max-height: 196px;
+          max-height: 121px;
           margin: 0 auto;
           display: block;
+
+          @include breakpoint(tablet) {
+            max-height: 196px;
+          }
         }
       }
 
       h5 {
         font-weight: 400;
-        font-size: 1em;
+        font-size: .825em;
         text-transform: capitalize;
         text-align: center;
-        padding: 1em .75em;
+        padding: .75em .5em;
         margin-bottom: 0;
+
+        @include breakpoint(tablet) {
+          font-size: 1em;
+          padding: 1em .75em;
+        }
       }
 
       .lastPrice {
