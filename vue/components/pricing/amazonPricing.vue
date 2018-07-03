@@ -3,7 +3,7 @@
     <div class="priceRow" v-if="amazonData.amazonPrice"
     itemprop="seller" itemscope itemtype="http://schema.org/Organization">
       <div class="rowName">
-        <a :href="amazonData.amazonLink" @click="linkClick"><span itemprop="name">Amazon.com</span></a>
+        <a :href="amazonData.amazonLink" @click="linkClick"><span itemprop="name">Amazon</span></a>
       </div>
       <div class="rowPrice">
         <span v-html="amazonData.amazonPrice" itemprop="price"></span>
@@ -161,7 +161,7 @@ module.exports = {
           action: "ks_updateGamePrice",
           nonce: nonce,
           postID: this.game.id,
-          retailer: 'amazon',
+          retailer: 'Amazon',
           price: price,
           stock: stock,
           link: link,
