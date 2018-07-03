@@ -87,7 +87,7 @@ if($ps) {
 				</div>
 				<?php } */ ?>
 
-				<!-- <game-pricing :options="options" v-on:hide-db-price="hideDbPrice"></game-pricing> -->
+				<game-pricing :options="options" v-on:hide-db-price="hideDbPrice"></game-pricing>
 
 				<?php $mpn = $fields['mpns'][0]['mpn']; 
 				if($mpn) : ?>
