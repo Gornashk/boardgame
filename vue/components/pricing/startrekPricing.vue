@@ -137,7 +137,7 @@ module.exports = {
           action: "ks_updateGamePrice",
           nonce: nonce,
           postID: this.game.id,
-          retailer: 'starTrek',
+          retailer: 'StarTrek.com',
           price: price,
           stock: stock,
           link: link,

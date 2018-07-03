@@ -5,3 +5,4 @@ require_once( __DIR__ . '/gameBox.php' );
 require_once( __DIR__ . '/homeCats.php' );
 require_once( __DIR__ . '/newlyAdded.php' );
 require_once( __DIR__ . '/ksMenu.php' );
+require_once( __DIR__ . '/priceRepeater.php' );

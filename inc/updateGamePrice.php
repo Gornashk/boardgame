@@ -9,23 +9,25 @@ function ks_updateGamePrice() {
   $link = $_POST['link'];
   $rowNum = $_POST['rowNum'];
 
-  if($retailer == 'amazon') {
-    update_field('field_5a2dad14832c6', $price, $postID);
-    update_field('field_5aa01f24c949a', $stock, $postID);
-    update_field('field_5aa01f2fc949b', $link, $postID);
-  }
-  if($retailer == 'walmart' ) {
-    update_field('field_5a2dad25832c7', $price, $postID);
-    update_field('field_5aa01f5e5df73', $stock, $postID);
-    update_field('field_5aa01f685df74', $link, $postID);
-  }
+  // if($retailer == 'amazon') {
+  //   update_field('field_5a2dad14832c6', $price, $postID);
+  //   update_field('field_5aa01f24c949a', $stock, $postID);
+  //   update_field('field_5aa01f2fc949b', $link, $postID);
+  // }
+  // if($retailer == 'walmart' ) {
+  //   update_field('field_5a2dad25832c7', $price, $postID);
+  //   update_field('field_5aa01f5e5df73', $stock, $postID);
+  //   update_field('field_5aa01f685df74', $link, $postID);
+  // }
 
     // Update price repeater
     $pricePlain = str_replace('$', '', $price);
     // Repeater sub-field IDs
     $priceRepeaterArr = array(
       'field_5aad656479234' => $pricePlain,
-      'field_5aad7c84aa607' => $retailer
+      'field_5aad7c84aa607' => $retailer,
+      'field_5b3bbdb3420ec' => $stock,
+      'field_5b3bbdb7420ed' => $link
     );
     // Repeater field ID
     update_row( 'field_5aad654a79233', $rowNum, $priceRepeaterArr, $postID );

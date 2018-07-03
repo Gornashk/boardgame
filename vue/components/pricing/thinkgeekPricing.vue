@@ -3,7 +3,7 @@
     <div class="priceRow" v-if="thinkgeekData.thinkgeekPrice"
     itemprop="seller" itemscope itemtype="http://schema.org/Organization">
       <div class="rowName">
-        <a :href="thinkgeekData.thinkgeekLink" @click="linkClick" itemprop="name">ThinkGeek.com</a>
+        <a :href="thinkgeekData.thinkgeekLink" @click="linkClick" itemprop="name">ThinkGeek</a>
       </div>
       <div class="rowPrice">
         <span v-html="'$' + thinkgeekData.thinkgeekPrice" itemprop="price"></span>

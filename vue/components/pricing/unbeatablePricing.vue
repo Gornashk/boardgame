@@ -3,7 +3,7 @@
     <div class="priceRow" v-if="unbeatableData.unbeatablePrice"
     itemprop="seller" itemscope itemtype="http://schema.org/Organization">
       <div class="rowName">
-        <a :href="unbeatableData.unbeatableLink" @click="linkClick" itemprop="name">UnbeatableSale.com</a>
+        <a :href="unbeatableData.unbeatableLink" @click="linkClick" itemprop="name">Unbeatable Sale</a>
       </div>
       <div class="rowPrice">
         <span v-html="'$' + unbeatableData.unbeatablePrice" itemprop="price"></span>
@@ -137,7 +137,7 @@ module.exports = {
           action: "ks_updateGamePrice",
           nonce: nonce,
           postID: this.game.id,
-          retailer: 'unbeatable sale',
+          retailer: 'Unbeatable Sale',
           price: price,
           stock: stock,
           link: link,
