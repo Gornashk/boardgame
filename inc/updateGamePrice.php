@@ -30,7 +30,11 @@ function ks_updateGamePrice() {
       'field_5b3bbdb7420ed' => $link
     );
     // Repeater field ID
-    update_row( 'field_5aad654a79233', $rowNum, $priceRepeaterArr, $postID );
+    add_row( 'field_5aad654a79233', $priceRepeaterArr, $postID );
+
+    // https://support.advancedcustomfields.com/forums/topic/callback-for-update-succes/
+    // https://www.advancedcustomfields.com/resources/acf-save_post/
+    // Look here for help doing add_row callback on success function.
 
   return;
   die();
