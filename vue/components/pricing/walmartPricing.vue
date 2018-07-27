@@ -63,16 +63,24 @@ module.exports = {
       var that = this;
       // create blank id code vars
       var upcCode
-      if( this.game.acf.upcs ) {
-        // If UPC codes, get code
-        upcCode = this.game.acf.upcs[0].upc
-      } else if( this.game.acf.eans ) {
-        // If no UPC, use EAN code
-        upcCode = this.game.acf.eans[0].ean
+      var walmartId
+      
+      if( this.game.acf.walmart_id ) {
+        walmartId = this.game.acf.walmart_id;
       } else {
-        // If no codes, return and emit no prices
-        this.$emit('noPrice', {noPrice: true, retailer: 'walmart'});
-        return;
+
+        if( this.game.acf.upcs ) {
+          // If UPC codes, get code
+          upcCode = this.game.acf.upcs[0].upc
+        } else if( this.game.acf.eans ) {
+          // If no UPC, use EAN code
+          upcCode = this.game.acf.eans[0].ean
+        } else {
+          // If no codes, return and emit no prices
+          this.$emit('noPrice', {noPrice: true, retailer: 'walmart'});
+          return;
+        }
+
       }
 
       // Axios function to get signed Amazon URL
@@ -82,6 +90,7 @@ module.exports = {
           action: "ks_getWalmartPrice",
           apiKey: 'em5trawayxythnku8ap3dmyw',
           upc: upcCode,
+          ids: walmartId,
           lsPublisherId: 'mW/x7g5aNEg'
         }
       })
