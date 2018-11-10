@@ -67,11 +67,22 @@ function recently_viewed_posts_cache_get() {
 	return apply_filters("recently_viewed_posts_cache_get", $get);
 }
 
+function _bot_detected() {
+
+  return (
+    isset($_SERVER['HTTP_USER_AGENT'])
+    && preg_match('/bot|crawl|slurp|spider|mediapartners/i', $_SERVER['HTTP_USER_AGENT'])
+  );
+}
+
 // add [ID, IP, time] set to end of 'recently_viewed_posts' wordpress option, unless already there.
 function add_to_recently_viewed_posts() {
 	global $post;
 	$type = get_post_type();
 	if(!is_singular('post')) {
+		return;
+	}
+	if(_bot_detected()) {
 		return;
 	}
 
