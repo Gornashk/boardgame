@@ -2,6 +2,8 @@
 
 require_once('bones.php'); // if you remove this, bones will break
 
+require_once('inc/recentlyviewedposts.php');
+
 /************* THUMBNAIL SIZE OPTIONS *************/
 
 /* NOTE: Only use thumbnails if you need to, to stop digital waste */
