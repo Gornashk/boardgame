@@ -23,6 +23,7 @@
 <script>
 import axios from 'axios';
 import xmltojson from 'xmltojson';
+import _has from 'lodash/has';
 
 module.exports = {
   // props: ['acfs','upcs','eans','elids','codes'],
@@ -93,6 +94,7 @@ module.exports = {
           var str = response.data
           var entertainmentResponse = str.substring(0, str.length - 1);
 
+          console.log(entertainmentResponse);
           that.entertainmentResponse = xmltojson.parseString(entertainmentResponse);
         }) 
         .catch(function (error) {
@@ -110,9 +112,13 @@ module.exports = {
         return;
       }
       if(this.entertainmentResponse) {
-        if(this.entertainmentResponse['cj-api'][0].products[0].product) {
+        console.log('test 1');
+        console.log(this.entertainmentResponse);
+        if( _has(this.entertainmentResponse, "['cj-api'][0].products[0].product") ) {
+          console.log('test 2');
           // If a Sale Price exists, use that, otherwise use just the price field
           if(this.entertainmentResponse['cj-api'][0].products[0].product[0]['sale-price'][0]._text.length > 0) {
+            console.log('test 3');
             this.entertainmentData.entertainmentPrice = Number.parseFloat(this.entertainmentResponse['cj-api'][0].products[0].product[0].price[0]._text).toFixed(2);
           } else {
             this.entertainmentData.entertainmentPrice = Number.parseFloat(this.entertainmentResponse['cj-api'][0].products[0].product[0]['sale-price'][0]._text).toFixed(2);
@@ -123,6 +129,8 @@ module.exports = {
           this.$emit('pricing', true)
           this.$emit('noPrice', {noPrice: false, retailer: 'entertainment'});
           return;
+        } else {
+          console.log( 'test has else');
         }
       }
       this.$emit('noPrice', {noPrice: true, retailer: 'entertainment'});
