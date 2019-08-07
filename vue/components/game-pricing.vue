@@ -3,23 +3,23 @@
     <div class="priceTable" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
       <amazon-pricing :game="game" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></amazon-pricing>
       <entertainment-pricing :game="game" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></entertainment-pricing>
-      <!-- <thinkgeek-pricing :game="game" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></thinkgeek-pricing>
+      <thinkgeek-pricing :game="game" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></thinkgeek-pricing>
       <barnes-pricing :game="game" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></barnes-pricing>
       <newegg-pricing :game="game" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></newegg-pricing>
       <star-trek-pricing :game="game" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></star-trek-pricing>
       <bam-pricing :game="game" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></bam-pricing>
       <unbeatable-pricing :game="game" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></unbeatable-pricing>
       <fun-com-pricing :game="game" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></fun-com-pricing>
-      <indigo-pricing :game="game" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></indigo-pricing> -->
+      <indigo-pricing :game="game" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></indigo-pricing>
       <walmart-pricing :game="game" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></walmart-pricing>
       
 
-      <div class="priceRow" v-if="noPricingArr.length < 3">
+      <div class="priceRow" v-if="noPricingArr.length < 11">
         <div>
           <span><img :src="options.dir + '/img/searchLoader.gif'" class="loader"> Searching for prices.</span>
         </div>
       </div>
-      <div class="priceRow" v-if="noPricesFound && noPricingArr.length == 3 && !pricingExists">
+      <div class="priceRow" v-if="noPricesFound && noPricingArr.length == 11 && !pricingExists">
         <div>
           <span>We could not find this game for sale at this time.</span>
         </div>

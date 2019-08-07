@@ -26774,29 +26774,28 @@ module.exports = {
         var str = response.data;
         var entertainmentResponse = str.substring(0, str.length - 1);
 
-        console.log(entertainmentResponse);
         that.entertainmentResponse = _xmltojson2.default.parseString(entertainmentResponse);
+        _this.savePrice();
       }).catch(function (error) {
-        console.log(error);
         that.$emit('noPrice', { noPrice: true, retailer: 'entertainment' });
         that.entertainmentData.entertainmentError = 'Error! Could not get Entertainment Earth prices. ' + error;
-      }).then(function () {
-        _this.savePrice();
-      });
+        return;
+      }).then(function () {});
     },
     savePrice: function savePrice() {
+      // console.log('run save');
       if (this.entertainmentResponse.errors) {
         this.$emit('noPrice', { noPrice: true, retailer: 'entertainment' });
         return;
       }
       if (this.entertainmentResponse) {
-        console.log('test 1');
+        // console.log('test 1');
         console.log(this.entertainmentResponse);
         if ((0, _has3.default)(this.entertainmentResponse, "['cj-api'][0].products[0].product")) {
-          console.log('test 2');
+          // console.log('test 2');
           // If a Sale Price exists, use that, otherwise use just the price field
           if (this.entertainmentResponse['cj-api'][0].products[0].product[0]['sale-price'][0]._text.length > 0) {
-            console.log('test 3');
+            // console.log('test 3');
             this.entertainmentData.entertainmentPrice = Number.parseFloat(this.entertainmentResponse['cj-api'][0].products[0].product[0].price[0]._text).toFixed(2);
           } else {
             this.entertainmentData.entertainmentPrice = Number.parseFloat(this.entertainmentResponse['cj-api'][0].products[0].product[0]['sale-price'][0]._text).toFixed(2);
@@ -29038,12 +29037,52 @@ var render = function() {
           on: { pricing: _vm.pricingCheck, noPrice: _vm.noPricing }
         }),
         _vm._v(" "),
+        _c("thinkgeek-pricing", {
+          attrs: { game: _vm.game },
+          on: { pricing: _vm.pricingCheck, noPrice: _vm.noPricing }
+        }),
+        _vm._v(" "),
+        _c("barnes-pricing", {
+          attrs: { game: _vm.game },
+          on: { pricing: _vm.pricingCheck, noPrice: _vm.noPricing }
+        }),
+        _vm._v(" "),
+        _c("newegg-pricing", {
+          attrs: { game: _vm.game },
+          on: { pricing: _vm.pricingCheck, noPrice: _vm.noPricing }
+        }),
+        _vm._v(" "),
+        _c("star-trek-pricing", {
+          attrs: { game: _vm.game },
+          on: { pricing: _vm.pricingCheck, noPrice: _vm.noPricing }
+        }),
+        _vm._v(" "),
+        _c("bam-pricing", {
+          attrs: { game: _vm.game },
+          on: { pricing: _vm.pricingCheck, noPrice: _vm.noPricing }
+        }),
+        _vm._v(" "),
+        _c("unbeatable-pricing", {
+          attrs: { game: _vm.game },
+          on: { pricing: _vm.pricingCheck, noPrice: _vm.noPricing }
+        }),
+        _vm._v(" "),
+        _c("fun-com-pricing", {
+          attrs: { game: _vm.game },
+          on: { pricing: _vm.pricingCheck, noPrice: _vm.noPricing }
+        }),
+        _vm._v(" "),
+        _c("indigo-pricing", {
+          attrs: { game: _vm.game },
+          on: { pricing: _vm.pricingCheck, noPrice: _vm.noPricing }
+        }),
+        _vm._v(" "),
         _c("walmart-pricing", {
           attrs: { game: _vm.game },
           on: { pricing: _vm.pricingCheck, noPrice: _vm.noPricing }
         }),
         _vm._v(" "),
-        _vm.noPricingArr.length < 3
+        _vm.noPricingArr.length < 11
           ? _c("div", { staticClass: "priceRow" }, [
               _c("div", [
                 _c("span", [
@@ -29057,7 +29096,7 @@ var render = function() {
             ])
           : _vm._e(),
         _vm._v(" "),
-        _vm.noPricesFound && _vm.noPricingArr.length == 3 && !_vm.pricingExists
+        _vm.noPricesFound && _vm.noPricingArr.length == 11 && !_vm.pricingExists
           ? _c("div", { staticClass: "priceRow" }, [_vm._m(0)])
           : _vm._e()
       ],
