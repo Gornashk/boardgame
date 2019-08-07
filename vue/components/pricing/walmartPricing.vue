@@ -117,7 +117,7 @@ module.exports = {
       if(this.walmartResponse.items) {
         if(this.walmartResponse.items.length > 0) {
           this.walmartData.walmartPrice = Number.parseFloat(this.walmartResponse.items[0].salePrice).toFixed(2);
-          this.walmartData.walmartLink = this.walmartResponse.items[0].productTrackingUrl;
+          this.walmartData.walmartLink = this.walmartResponse.items[0].productUrl;
           this.walmartData.walmartStock = this.walmartResponse.items[0].stock;
           this.updateWalmart(this.walmartData.walmartPrice, this.walmartData.walmartStock, this.walmartData.walmartLink);
           this.$emit('pricing', true)
