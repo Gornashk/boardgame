@@ -93,6 +93,7 @@ if($ps) {
 				if($mpn) : ?>
 				<p class="model">Model Number: <span itemprop="mpn"><?php echo $mpn; ?></span></p>
 				<?php endif; ?>
+				<p class="model">Note: <span>Ad blockers can interfere with getting the latest price data. Please whitelist boardgamerdeals.com.</span></p>
 			</div>
 		</div>
 		<div class="row">
