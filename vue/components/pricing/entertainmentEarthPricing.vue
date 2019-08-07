@@ -98,6 +98,7 @@ module.exports = {
           that.entertainmentResponse = xmltojson.parseString(entertainmentResponse);
         }) 
         .catch(function (error) {
+          console.log(error);
           that.$emit('noPrice', {noPrice: true, retailer: 'entertainment'});
           that.entertainmentData.entertainmentError = 'Error! Could not get Entertainment Earth prices. ' + error
         })

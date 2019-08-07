@@ -26777,6 +26777,7 @@ module.exports = {
         console.log(entertainmentResponse);
         that.entertainmentResponse = _xmltojson2.default.parseString(entertainmentResponse);
       }).catch(function (error) {
+        console.log(error);
         that.$emit('noPrice', { noPrice: true, retailer: 'entertainment' });
         that.entertainmentData.entertainmentError = 'Error! Could not get Entertainment Earth prices. ' + error;
       }).then(function () {
@@ -29042,7 +29043,7 @@ var render = function() {
           on: { pricing: _vm.pricingCheck, noPrice: _vm.noPricing }
         }),
         _vm._v(" "),
-        _vm.noPricingArr.length < 11
+        _vm.noPricingArr.length < 3
           ? _c("div", { staticClass: "priceRow" }, [
               _c("div", [
                 _c("span", [
@@ -29056,7 +29057,7 @@ var render = function() {
             ])
           : _vm._e(),
         _vm._v(" "),
-        _vm.noPricesFound && _vm.noPricingArr.length == 11 && !_vm.pricingExists
+        _vm.noPricesFound && _vm.noPricingArr.length == 3 && !_vm.pricingExists
           ? _c("div", { staticClass: "priceRow" }, [_vm._m(0)])
           : _vm._e()
       ],

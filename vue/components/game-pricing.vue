@@ -14,12 +14,12 @@
       <walmart-pricing :game="game" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></walmart-pricing>
       
 
-      <div class="priceRow" v-if="noPricingArr.length < 11">
+      <div class="priceRow" v-if="noPricingArr.length < 3">
         <div>
           <span><img :src="options.dir + '/img/searchLoader.gif'" class="loader"> Searching for prices.</span>
         </div>
       </div>
-      <div class="priceRow" v-if="noPricesFound && noPricingArr.length == 11 && !pricingExists">
+      <div class="priceRow" v-if="noPricesFound && noPricingArr.length == 3 && !pricingExists">
         <div>
           <span>We could not find this game for sale at this time.</span>
         </div>
