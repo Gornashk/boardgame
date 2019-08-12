@@ -1,17 +1,17 @@
 <template>
   <div>
     <div class="priceTable" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-      <amazon-pricing :game="game" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></amazon-pricing>
-      <entertainment-pricing :game="game" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></entertainment-pricing>
-      <thinkgeek-pricing :game="game" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></thinkgeek-pricing>
-      <barnes-pricing :game="game" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></barnes-pricing>
-      <newegg-pricing :game="game" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></newegg-pricing>
-      <star-trek-pricing :game="game" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></star-trek-pricing>
-      <bam-pricing :game="game" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></bam-pricing>
-      <unbeatable-pricing :game="game" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></unbeatable-pricing>
-      <fun-com-pricing :game="game" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></fun-com-pricing>
-      <indigo-pricing :game="game" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></indigo-pricing>
-      <walmart-pricing :game="game" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></walmart-pricing>
+      <amazon-pricing :game="game" :mergedCodes="mergedCodes" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></amazon-pricing>
+      <entertainment-pricing :game="game" :mergedCodes="mergedCodes" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></entertainment-pricing>
+      <thinkgeek-pricing :game="game" :mergedCodes="mergedCodes" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></thinkgeek-pricing>
+      <barnes-pricing :game="game" :mergedCodes="mergedCodes" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></barnes-pricing>
+      <newegg-pricing :game="game" :mergedCodes="mergedCodes" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></newegg-pricing>
+      <star-trek-pricing :game="game" :mergedCodes="mergedCodes" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></star-trek-pricing>
+      <bam-pricing :game="game" :mergedCodes="mergedCodes" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></bam-pricing>
+      <unbeatable-pricing :game="game" :mergedCodes="mergedCodes" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></unbeatable-pricing>
+      <fun-com-pricing :game="game" :mergedCodes="mergedCodes" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></fun-com-pricing>
+      <indigo-pricing :game="game" :mergedCodes="mergedCodes" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></indigo-pricing>
+      <walmart-pricing v-if="mergedCodes.length > 0" :game="game" :merged="mergedCodes" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></walmart-pricing>
       
 
       <div class="priceRow" v-if="noPricingArr.length < 11">
@@ -33,6 +33,9 @@
 import axios from 'axios';
 import xmltojson from 'xmltojson';
 import _compact from 'lodash/compact';
+import _has from 'lodash/has';
+import _concat from 'lodash/concat';
+import _uniq from 'lodash/uniq';
 
 import amazonPricing from './pricing/amazonPricing.vue';
 import walmartPricing from './pricing/walmartPricing.vue';
@@ -55,11 +58,12 @@ module.exports = {
       game: singleGame,
       upcResponse: [],
       pricingExists: false,
-      noPricingArr: []
+      noPricingArr: [],
+      mergedCodes: []
     }
   },
   created () {
-    this.clearPrices()
+    this.clearPrices();
   },
   mounted () {
     // console.log('mounted 2')
@@ -115,10 +119,46 @@ module.exports = {
         // console.log('error clearing prices ' + error)
       })
     },
+    mergeUPCandEAN () {
+      var upcCodes = [];
+      var eanCodes = [];
+      var mergedCodes = [];
+      if( this.game.acf.upcs != false && this.game.acf.eans != false ) {
+        console.log('has both')
+        // If UPCS and EANs exist
+        for (let upc of this.game.acf.upcs) {
+          upcCodes.push(upc.upc);
+        }
+        for (let ean of this.game.acf.eans) {
+          eanCodes.push(ean.ean);
+        }
+      }
+      if( this.game.acf.upcs != false && this.game.acf.eans == false ) {
+        console.log('has upc')
+        // If only UPCs exist
+        for (let upc of this.game.acf.upcs) {
+          upcCodes.push(upc.upc);
+        }
+      }
+      if( this.game.acf.upcs == false && this.game.acf.eans != false ) {
+        console.log('has ean')
+        // If only EANs exist
+        for (let ean of this.game.acf.eans) {
+          eanCodes.push(ean.ean);
+        }
+      }
+      mergedCodes = _uniq(_concat(upcCodes, eanCodes));
+      // console.log(mergedCodes);
+      this.mergedCodes = mergedCodes;
+    },
     getGameIDs () {
       if( this.game.acf.codes ) {
 
         if( this.game.acf.codes == true ) {
+          // Cancel function if game ids already exist in post
+          // Instead run function for UPCs and EANs into one array, pass to vendor component
+
+          this.mergeUPCandEAN();
           // this.amazonPrices()
           return;
         }
