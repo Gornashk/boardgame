@@ -179,7 +179,13 @@ function get_recently_viewed_posts( $max_shown = 10 ) {
 					break;  // i've shown enough
 			}
 		if(empty($post_in)) { return; }
-    new WP_Query( array( 'post__in' => $post_in, 'posts_per_page' => 10000 ) );
+    new WP_Query( 
+			array( 
+				'post__in' => $post_in,
+				'posts_per_page' => 10000,
+				'post_status' => array( 'publish' )
+			)
+		);
 	}
   
   $count = 0;
