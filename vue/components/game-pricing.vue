@@ -123,24 +123,29 @@ module.exports = {
       var upcCodes = [];
       var eanCodes = [];
       var mergedCodes = [];
-      if( this.game.acf.upcs != false && this.game.acf.eans != false ) {
-        console.log('has both')
-        // If UPCS and EANs exist
-        for (let upc of this.game.acf.upcs) {
-          upcCodes.push(upc.upc);
-        }
-        for (let ean of this.game.acf.eans) {
-          eanCodes.push(ean.ean);
-        }
+      if( 
+        _has(this.game.acf, 'upcs') && 
+        this.game.acf.upcs != false && 
+        _has(this.game.acf, 'eans') && 
+        this.game.acf.eans != false ) {
+
+          console.log('has both')
+          // If UPCS and EANs exist
+          for (let upc of this.game.acf.upcs) {
+            upcCodes.push(upc.upc);
+          }
+          for (let ean of this.game.acf.eans) {
+            eanCodes.push(ean.ean);
+          }
       }
-      if( this.game.acf.upcs != false && this.game.acf.eans == false ) {
+      if( _has(this.game.acf, 'upcs') && this.game.acf.upcs != false && (!_has(this.game.acf, 'eans') || this.game.acf.eans == false) ) {
         console.log('has upc')
         // If only UPCs exist
         for (let upc of this.game.acf.upcs) {
           upcCodes.push(upc.upc);
         }
       }
-      if( this.game.acf.upcs == false && this.game.acf.eans != false ) {
+      if( (!_has(this.game.acf, 'upcs') || this.game.acf.upcs == false) && _has(this.game.acf, 'eans') && this.game.acf.eans != false ) {
         console.log('has ean')
         // If only EANs exist
         for (let ean of this.game.acf.eans) {
