@@ -42,6 +42,8 @@ function ks_getWalmartPrice() {
       // Get data from signed URL
       $response = get_data($request_url);
 
+      // var_dump($response);
+
       if( strpos($response, '{"errors":') !== false ) {
         // If UPC code returns an error, move on to the next one.
         continue;
