@@ -5,7 +5,7 @@ function ks_getWalmartPrice() {
   $ids = $_GET['ids'];
   $upcCodes = $_GET['upc'];
   $apiKey = $_GET['apiKey'];
-  $lsPublisherId = $_GET['lsPublisherId'];
+  $publisherId = $_GET['publisherId'];
 
   if( !isset($upcCodes) && !isset($ids) ) {
     return;
@@ -18,7 +18,7 @@ function ks_getWalmartPrice() {
     $idType = 'ids';
 
     // Generate the signed URL
-    $request_url = 'http://api.walmartlabs.com/v1/items?apiKey='.$apiKey.'&'.$idType.'='.$itemID.'&lsPublisherId='.$lsPublisherId.'&format=json';
+    $request_url = 'http://api.walmartlabs.com/v1/items?apiKey='.$apiKey.'&'.$idType.'='.$itemID.'&publisherId='.$publisherId.'&format=json';
 
     // Get data from signed URL
     $response = get_data($request_url);
@@ -37,7 +37,7 @@ function ks_getWalmartPrice() {
       // var_dump($upc);
 
       // Generate the signed URL
-      $request_url = 'http://api.walmartlabs.com/v1/items?apiKey='.$apiKey.'&upc='.$upc.'&lsPublisherId='.$lsPublisherId.'&format=json';
+      $request_url = 'http://api.walmartlabs.com/v1/items?apiKey='.$apiKey.'&upc='.$upc.'&publisherId='.$publisherId.'&format=json';
 
       // Get data from signed URL
       $response = get_data($request_url);
