@@ -14,7 +14,13 @@
 		var nonce = '<?php echo $nonce; ?>';
 		var adminAjax = '<?php echo admin_url('admin-ajax.php'); ?>';
 		var siteUrl = '<?php echo get_bloginfo("url"); ?>';
-		var algoliaPrefix = '<?php echo ALGOLIA_INDEX_NAME_PREFIX; ?>';
+    if( $_SERVER['SERVER_NAME'] == 'dev.boardgamerdeals.com' ) {
+      var algoliaPrefix = 'boardgame_dev_';
+    }
+    if( $_SERVER['SERVER_NAME'] == 'boardgamerdeals.com' || $_SERVER['SERVER_NAME'] == 'www.boardgamerdeals.com' ) {
+      var algoliaPrefix = 'boardgame_';
+    }
+		// var algoliaPrefix = '<?php echo ALGOLIA_INDEX_NAME_PREFIX; ?>';
 	</script>
 	<!-- <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> -->
 
