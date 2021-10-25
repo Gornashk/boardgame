@@ -3,3 +3,4 @@ deploy-cache
 bower_components
 node_modules
 dist/bundle.js
+public/

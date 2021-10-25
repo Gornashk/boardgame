@@ -3,14 +3,14 @@
     <div class="priceTable" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
       <amazon-pricing :game="game" :mergedCodes="mergedCodes" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></amazon-pricing>
       <entertainment-pricing :game="game" :mergedCodes="mergedCodes" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></entertainment-pricing>
-      <thinkgeek-pricing :game="game" :mergedCodes="mergedCodes" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></thinkgeek-pricing>
-      <barnes-pricing :game="game" :mergedCodes="mergedCodes" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></barnes-pricing>
-      <newegg-pricing :game="game" :mergedCodes="mergedCodes" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></newegg-pricing>
+      <!-- <thinkgeek-pricing :game="game" :mergedCodes="mergedCodes" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></thinkgeek-pricing>
+      <barnes-pricing :game="game" :mergedCodes="mergedCodes" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></barnes-pricing> -->
+      <!-- <newegg-pricing :game="game" :mergedCodes="mergedCodes" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></newegg-pricing> -->
       <!-- <star-trek-pricing :game="game" :mergedCodes="mergedCodes" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></star-trek-pricing> -->
-      <bam-pricing :game="game" :mergedCodes="mergedCodes" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></bam-pricing>
-      <unbeatable-pricing :game="game" :mergedCodes="mergedCodes" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></unbeatable-pricing>
-      <fun-com-pricing :game="game" :mergedCodes="mergedCodes" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></fun-com-pricing>
-      <indigo-pricing :game="game" :mergedCodes="mergedCodes" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></indigo-pricing>
+      <!-- <bam-pricing :game="game" :mergedCodes="mergedCodes" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></bam-pricing> -->
+      <!-- <unbeatable-pricing :game="game" :mergedCodes="mergedCodes" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></unbeatable-pricing> -->
+      <!-- <fun-com-pricing :game="game" :mergedCodes="mergedCodes" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></fun-com-pricing> -->
+      <!-- <indigo-pricing :game="game" :mergedCodes="mergedCodes" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></indigo-pricing> -->
       <walmart-pricing v-if="mergedCodes.length > 0" :game="game" :merged="mergedCodes" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></walmart-pricing>
       
 
