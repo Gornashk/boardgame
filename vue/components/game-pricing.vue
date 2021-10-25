@@ -6,7 +6,7 @@
       <thinkgeek-pricing :game="game" :mergedCodes="mergedCodes" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></thinkgeek-pricing>
       <barnes-pricing :game="game" :mergedCodes="mergedCodes" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></barnes-pricing>
       <newegg-pricing :game="game" :mergedCodes="mergedCodes" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></newegg-pricing>
-      <star-trek-pricing :game="game" :mergedCodes="mergedCodes" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></star-trek-pricing>
+      <!-- <star-trek-pricing :game="game" :mergedCodes="mergedCodes" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></star-trek-pricing> -->
       <bam-pricing :game="game" :mergedCodes="mergedCodes" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></bam-pricing>
       <unbeatable-pricing :game="game" :mergedCodes="mergedCodes" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></unbeatable-pricing>
       <fun-com-pricing :game="game" :mergedCodes="mergedCodes" v-on:pricing="pricingCheck" v-on:noPrice="noPricing"></fun-com-pricing>
