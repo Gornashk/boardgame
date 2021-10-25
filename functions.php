@@ -2,6 +2,8 @@
 
 require_once('bones.php'); // if you remove this, bones will break
 
+require_once('inc/recentlyviewedposts.php');
+
 /************* THUMBNAIL SIZE OPTIONS *************/
 
 /* NOTE: Only use thumbnails if you need to, to stop digital waste */
@@ -109,6 +111,7 @@ function my_post_attributes( array $attributes, WP_Post $post ) {
         // Hierarchical taxonomy (like categories)
         'hierarchical' => true,
         'show_admin_column' => true,
+        'show_in_rest' => true,
         // This array of options controls the labels displayed in the WordPress Admin UI
         'labels' => array(
           'name' => _x( 'Mechanics', 'taxonomy general name' ),
@@ -136,6 +139,7 @@ function my_post_attributes( array $attributes, WP_Post $post ) {
           // Hierarchical taxonomy (like categories)
           'hierarchical' => true,
           'show_admin_column' => true,
+          'show_in_rest' => true,
           // This array of options controls the labels displayed in the WordPress Admin UI
           'labels' => array(
             'name' => _x( 'Families', 'taxonomy general name' ),
@@ -163,6 +167,7 @@ function my_post_attributes( array $attributes, WP_Post $post ) {
           // Hierarchical taxonomy (like categories)
           'hierarchical' => true,
           'show_admin_column' => true,
+          'show_in_rest' => true,
           // This array of options controls the labels displayed in the WordPress Admin UI
           'labels' => array(
             'name' => _x( 'Publishers', 'taxonomy general name' ),
@@ -189,6 +194,7 @@ function my_post_attributes( array $attributes, WP_Post $post ) {
         // Hierarchical taxonomy (like categories)
         'hierarchical' => true,
         'show_admin_column' => true,
+        'show_in_rest' => true,
         // This array of options controls the labels displayed in the WordPress Admin UI
         'labels' => array(
           'name' => _x( 'Artists', 'taxonomy general name' ),
@@ -215,6 +221,7 @@ function my_post_attributes( array $attributes, WP_Post $post ) {
       // Hierarchical taxonomy (like categories)
       'hierarchical' => true,
       'show_admin_column' => true,
+      'show_in_rest' => true,
       // This array of options controls the labels displayed in the WordPress Admin UI
       'labels' => array(
         'name' => _x( 'Designers', 'taxonomy general name' ),
@@ -242,6 +249,7 @@ function my_post_attributes( array $attributes, WP_Post $post ) {
       // Hierarchical taxonomy (like categories)
       'hierarchical' => true,
       'show_admin_column' => true,
+      'show_in_rest' => true,
       // This array of options controls the labels displayed in the WordPress Admin UI
       'labels' => array(
         'name' => _x( 'Awards', 'taxonomy general name' ),

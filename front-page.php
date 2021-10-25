@@ -15,12 +15,27 @@ get_header();
 <front-search :options="options" v-cloak></front-search>
 
 <!-- <newly-added></newly-added> -->
+<?php $recently_viewed_posts = recently_viewed_posts_cache_get(); 
+if($recently_viewed_posts) { ?>
+<div class="container">
+  <div class="row recentSearch">
+    <div class="col-md-12">
+      <h4>Recently Viewed Board Games</h4>
+      <div class="gameBoxes">
+        <?php get_recently_viewed_posts(); ?>
+      </div>
+    </div>
+  </div>
+</div>
+<?php } ?>
+
+
 <?php $new = ks_newly_added();
 if($new) { ?>
   <div class="container">
     <div class="row recentSearch">
       <div class="col-md-12">
-        <h4>Recently Searched Board Games</h4>
+        <h4>Newly Added Board Games</h4>
         <div class="gameBoxes">
           <?php
           foreach($new as $post) {

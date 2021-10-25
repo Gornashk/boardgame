@@ -24,7 +24,7 @@ import xmltojson from 'xmltojson';
 
 module.exports = {
   // props: ['acfs','upcs','eans','elids','codes'],
-  props: ["game"],
+  props: ["game", "merged"],
   data () {
     return {
       walmartResponse: [],
@@ -37,8 +37,13 @@ module.exports = {
       }
     }
   },
-  mounted () {
+  mounted () {    
     this.checkCodes();
+  },
+  computed: {
+    watchCodes () {
+      return this.merged;
+    }
   },
   methods: {
     linkClick() {
@@ -63,30 +68,52 @@ module.exports = {
       var that = this;
       // create blank id code vars
       var upcCode
-      if( this.game.acf.upcs ) {
-        // If UPC codes, get code
-        upcCode = this.game.acf.upcs[0].upc
-      } else if( this.game.acf.eans ) {
-        // If no UPC, use EAN code
-        upcCode = this.game.acf.eans[0].ean
+      var walmartId
+      
+      if( this.game.acf.walmart_id ) {
+        walmartId = this.game.acf.walmart_id;
+        this.getPrices(walmartId);
       } else {
-        // If no codes, return and emit no prices
-        this.$emit('noPrice', {noPrice: true, retailer: 'walmart'});
-        return;
-      }
 
+        if( !this.game.acf.upcs && !this.game.acf.eans) {
+          // If no upcs or eans present, return no price
+          this.$emit('noPrice', {noPrice: true, retailer: 'walmart'});
+          return;
+        }
+        if( this.merged ) {
+          this.getPrices();
+        }
+
+        // if( this.game.acf.upcs ) {
+        //   // If UPC codes, get code
+        //   upcCode = this.game.acf.upcs[0].upc
+        //   this.getPrices(upcCode, null);
+        // } else if( this.game.acf.eans ) {
+        //   // If no UPC, use EAN code
+        //   upcCode = this.game.acf.eans[0].ean
+        //   this.getPrices(upcCode, null);
+        // } else {
+        //   // If no codes, return and emit no prices
+        //   this.$emit('noPrice', {noPrice: true, retailer: 'walmart'});
+        //   return;
+        // }
+
+      }
+    },
+    getPrices(walmartId) {
+      var that = this;
       // Axios function to get signed Amazon URL
       axios.get(adminAjax, {
         responseType: 'text',
         params: {
           action: "ks_getWalmartPrice",
           apiKey: 'em5trawayxythnku8ap3dmyw',
-          upc: upcCode,
-          lsPublisherId: 'mW/x7g5aNEg'
+          upc: that.merged,
+          ids: walmartId,
+          publisherId: '1813912'
         }
       })
       .then((response) => {
-        
         var str = response.data
         var walmartResponse = str.substring(0, str.length - 1);
 
