@@ -9,18 +9,18 @@
 	<title><?php wp_title();?></title>
 	<?php wp_head();
 	$nonce = wp_create_nonce("ks_postNewGame");
+  if( $_SERVER['SERVER_NAME'] == 'dev.boardgamerdeals.com' ) {
+    $algoliaPrefix = 'boardgame_dev_';
+  }
+  if( $_SERVER['SERVER_NAME'] == 'boardgamerdeals.com' || $_SERVER['SERVER_NAME'] == 'www.boardgamerdeals.com' ) {
+    $algoliaPrefix = 'boardgame_';
+  }
 	?>
 	<script type="text/javascript">
 		var nonce = '<?php echo $nonce; ?>';
 		var adminAjax = '<?php echo admin_url('admin-ajax.php'); ?>';
 		var siteUrl = '<?php echo get_bloginfo("url"); ?>';
-    if( $_SERVER['SERVER_NAME'] == 'dev.boardgamerdeals.com' ) {
-      var algoliaPrefix = 'boardgame_dev_';
-    }
-    if( $_SERVER['SERVER_NAME'] == 'boardgamerdeals.com' || $_SERVER['SERVER_NAME'] == 'www.boardgamerdeals.com' ) {
-      var algoliaPrefix = 'boardgame_';
-    }
-		// var algoliaPrefix = '<?php echo ALGOLIA_INDEX_NAME_PREFIX; ?>';
+		var algoliaPrefix = '<?= $algoliaPrefix; ?>';
 	</script>
 	<!-- <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> -->
 
